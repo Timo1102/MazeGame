@@ -17,6 +17,7 @@ namespace GameHelper
         public scene(Game game)
             : base(game)
         {
+            
         }
 
        public string name;

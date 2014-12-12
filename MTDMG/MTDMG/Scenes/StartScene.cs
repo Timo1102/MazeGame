@@ -13,11 +13,17 @@ using GameHelper;
 
 namespace MTDMG.Scenes
 {
-    class StartScene : scene
+   public class StartScene : scene
     {
+       public GameObjects.background bg;
+
+
         public StartScene(Game game) : base(game)
         {
             name = "StartScene";
+            bg = new GameObjects.background(game);
+
+            gameobjects.Add(bg);
         }
 
         public override void SceneObjects()
