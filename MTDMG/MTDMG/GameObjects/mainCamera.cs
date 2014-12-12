@@ -25,8 +25,29 @@ namespace MTDMG.GameObjects
 
         public override void Update(GameTime gameTime)
         {
-            i++;
-            position = new Vector3(0, 0 + i , -5000.0f +i);
+            KeyboardState newState = Keyboard.GetState();
+            Vector3 movedirection = Vector3.Zero;
+            if(newState.IsKeyDown(Keys.W))
+            {
+                movedirection = new Vector3(0, 0, 1);
+            }
+
+            if (newState.IsKeyDown(Keys.A))
+            {
+                movedirection = new Vector3(-1, 0, 0);
+            }
+
+            if (newState.IsKeyDown(Keys.S))
+            {
+                movedirection = new Vector3(0, 0, -1);
+            }
+
+            if (newState.IsKeyDown(Keys.D))
+            {
+                movedirection = new Vector3(1, 0, 0);
+            }
+
+            position += movedirection * 2.0f;
             rotation = new Vector3(0, 0, 0);
             Console.WriteLine("CameraUpdate" + position.ToString());
             base.Update(gameTime);

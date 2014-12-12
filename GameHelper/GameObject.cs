@@ -62,7 +62,10 @@ namespace GameHelper
                     effect.PreferPerPixelLighting = true;
                     effect.Projection = camera.projectionMatrix;
                     effect.View = camera.viewMatrix;
-                    effect.World = Matrix.CreateTranslation(position);
+                    effect.World = 
+                        Matrix.CreateFromYawPitchRoll(rotation.Y, rotation.X, rotation.Z) *
+                        Matrix.CreateScale(scale) * 
+                        Matrix.CreateTranslation(position);
                 }
             }
         }

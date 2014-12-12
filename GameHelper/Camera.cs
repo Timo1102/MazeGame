@@ -27,7 +27,7 @@ namespace GameHelper
         {
             
             position = new Vector3(0.0f, 0.0f, -2000.0f);
-            rotation = new Vector3(0, 50.0f, 0);
+            rotation = new Vector3(0, 0, 0);
             SetMatrix();
         }
 
