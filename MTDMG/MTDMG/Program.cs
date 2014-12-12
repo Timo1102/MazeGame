@@ -11,7 +11,7 @@ namespace MTDMG
     {
         // Hold on to the game window.
         static GameWindow Window;
-
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

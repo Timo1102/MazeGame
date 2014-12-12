@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using GameHelper;
 
 namespace MTDMG
 {
@@ -21,7 +22,7 @@ namespace MTDMG
     {
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-
+        
         private TouchTarget touchTarget;
         private Color backgroundColor = new Color(81, 81, 81);
         private bool applicationLoadCompleteSignalled;
@@ -29,6 +30,7 @@ namespace MTDMG
         private UserOrientation currentOrientation = UserOrientation.Bottom;
         private Matrix screenTransform = Matrix.Identity;
 
+     
         /// <summary>
         /// The target receiving all surface input for the application.
         /// </summary>
@@ -101,6 +103,7 @@ namespace MTDMG
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            GameObject neues = new GameObject(this);
 
             IsMouseVisible = true; // easier for debugging not to "lose" mouse
             SetWindowOnSurface();
@@ -166,7 +169,7 @@ namespace MTDMG
                     // use the following code to get the state of all current touch points.
                     // ReadOnlyTouchPointCollection touches = touchTarget.GetState();
                 }
-
+   
                 // TODO: Add your update logic here
             }
 
