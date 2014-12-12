@@ -22,7 +22,7 @@ namespace MTDMG
     {
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        
+        private Camera mainCamera;
         private TouchTarget touchTarget;
         private Color backgroundColor = new Color(81, 81, 81);
         private bool applicationLoadCompleteSignalled;
@@ -30,6 +30,7 @@ namespace MTDMG
         private UserOrientation currentOrientation = UserOrientation.Bottom;
         private Matrix screenTransform = Matrix.Identity;
 
+        public Scenes.StartScene startscene;
      
         /// <summary>
         /// The target receiving all surface input for the application.
@@ -103,7 +104,11 @@ namespace MTDMG
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            GameObject neues = new GameObject(this);
+
+            //init Camera
+            mainCamera = new Camera(this);
+
+            startscene = new Scenes.StartScene(this);
 
             IsMouseVisible = true; // easier for debugging not to "lose" mouse
             SetWindowOnSurface();
@@ -190,8 +195,22 @@ namespace MTDMG
             }
 
             //TODO: Rotate the UI based on the value of screenTransform here if desired
-
-            GraphicsDevice.Clear(backgroundColor);
+            
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            Console.WriteLine("DrawMesh");
+            foreach (GameObject obj in startscene.gameobjects)
+            {
+                
+                if (obj.isActive)
+                {
+                    obj.SetEffects(mainCamera);
+                    foreach (ModelMesh mesh in obj.model.Meshes)
+                    {
+                        mesh.Draw();
+                        Console.WriteLine("DrawMesh" + obj.model.ToString());
+                    }
+                }
+            }
 
             //TODO: Add your drawing code here
             //TODO: Avoid any expensive logic if application is neither active nor previewed
