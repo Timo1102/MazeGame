@@ -22,7 +22,7 @@ namespace MTDMG
     {
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private Camera mainCamera;
+        private GameObjects.mainCamera mainCamera;
         private TouchTarget touchTarget;
         private Color backgroundColor = new Color(81, 81, 81);
         private bool applicationLoadCompleteSignalled;
@@ -106,7 +106,7 @@ namespace MTDMG
             // TODO: Add your initialization logic here
 
             //init Camera
-            mainCamera = new Camera(this);
+            mainCamera = new GameObjects.mainCamera(this);
 
             startscene = new Scenes.StartScene(this);
 

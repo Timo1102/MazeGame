@@ -59,8 +59,10 @@ namespace GameHelper
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
+                    effect.PreferPerPixelLighting = true;
                     effect.Projection = camera.projectionMatrix;
                     effect.View = camera.viewMatrix;
+                    effect.World = Matrix.CreateTranslation(position);
                 }
             }
         }

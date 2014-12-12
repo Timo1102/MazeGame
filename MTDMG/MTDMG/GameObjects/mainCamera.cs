@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -12,24 +13,22 @@ using GameHelper;
 
 namespace MTDMG.GameObjects
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
-    public class background : GameObject
+    class mainCamera : Camera
     {
-
         int i = 0;
-        public background(Game game) : base(game)
+
+        public mainCamera(Game game)
+            : base(game)
         {
-            position = new Vector3(10, 10, 0);
-            LoadModel("Cube");
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            
-            Console.WriteLine("Background wird gemalt");
-       
+            i++;
+            position = new Vector3(0, 0 + i , -5000.0f +i);
+            rotation = new Vector3(0, 0, 0);
+            Console.WriteLine("CameraUpdate" + position.ToString());
             base.Update(gameTime);
         }
 

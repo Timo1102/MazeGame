@@ -21,17 +21,31 @@ namespace GameHelper
         
        public Matrix projectionMatrix;
        public Matrix viewMatrix;
-
+       public int i = 0;
         public Camera(Game game)
             : base(game)
         {
+            
             position = new Vector3(0.0f, 0.0f, -2000.0f);
+            rotation = new Vector3(0, 50.0f, 0);
+            SetMatrix();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+
+            base.Update(gameTime);
+            SetMatrix();
+        }
+
+
+        public void SetMatrix()
+        {
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
             MathHelper.ToRadians(45.0f),
             Game.GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 10000.0f);
-            viewMatrix = Matrix.CreateLookAt(position, Vector3.Zero, Vector3.Up);
+            viewMatrix = Matrix.CreateLookAt(position, rotation, Vector3.Up);
         }
-
 
     }
 }
