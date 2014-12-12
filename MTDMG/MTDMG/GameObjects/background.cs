@@ -17,9 +17,19 @@ namespace MTDMG.GameObjects
     /// </summary>
     public class background : GameObject
     {
+        
+
         public background(Game game) : base(game)
         {
-            
+            position = new Vector3(10, 10, 0);
+            LoadModel("Cube");
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            Console.WriteLine("Background wird gemalt");
+            base.Update(gameTime);
+        }
+
     }
 }
