@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using GameHelper;
 
+
 namespace MTDMG
 {
     /// <summary>
@@ -27,6 +28,7 @@ namespace MTDMG
         private Color backgroundColor = new Color(81, 81, 81);
         private bool applicationLoadCompleteSignalled;
 
+        
         private UserOrientation currentOrientation = UserOrientation.Bottom;
         private Matrix screenTransform = Matrix.Identity;
 
@@ -104,12 +106,14 @@ namespace MTDMG
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 10.0f);
             //init Camera
             mainCamera = new GameObjects.mainCamera(this);
 
             startscene = new Scenes.StartScene(this);
-
+            RasterizerState stat = new RasterizerState();
+            stat.CullMode = CullMode.CullCounterClockwiseFace;
+            GraphicsDevice.RasterizerState = stat;
             IsMouseVisible = true; // easier for debugging not to "lose" mouse
             SetWindowOnSurface();
             InitializeSurfaceInput();

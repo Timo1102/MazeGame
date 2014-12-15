@@ -21,16 +21,20 @@ namespace MTDMG.GameObjects
         float i = 0;
         public background(Game game) : base(game)
         {
-            position = new Vector3(0, 0, 0);
-            scale = new Vector3(2.5f, 2.5f, 2.5f);
+            Position = new Vector3(0, 0, 100);
+            Scale = new Vector3(1f,1f, 1f);
             LoadModel("Cube");
+            
+
         }
 
         public override void Update(GameTime gameTime)
         {
-
-          
-            Console.WriteLine("Background wird gemalt");
+             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
+            Rotation = new Vector3(0, i, -0);
+            //Position = Forward * i ;
+            i+=0.1f;
             
             base.Update(gameTime);
         }

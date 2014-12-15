@@ -15,45 +15,77 @@ namespace GameHelper
 {
    public class Camera : GameObject
     {
-        
+
+       public float near;
+       public float far;
+
+
+        //Attributes
+        private Vector3 cameraLookAt;     //look at vector
+        private Matrix rotationMatrix;
+
+
+
+       
+
+
+
+        public Matrix Projection
+        {
+            get;
+            protected set;
+        }
+
+        public Matrix View
+        {
+            get
+            {
+                return Matrix.CreateLookAt(Position, cameraLookAt, Vector3.Up);
+            }
+        }
 
 
 
 
-       public Matrix projectionMatrix;
-       public Matrix viewMatrix;
-       public int i = 0;
+        //Constructor
         public Camera(Game game)
             : base(game)
         {
+            near = 0.01f;
+            far = 10000f;
+
+            UpdateProjectionMatrix();
+          
+        }
+
+       private  void UpdateProjectionMatrix()
+       {
+            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, game.GraphicsDevice.Viewport.AspectRatio, near, far);
+       }
+
+
+        private void UpdateLookAt()
+        {
+
+             rotationMatrix = Matrix.CreateRotationX(Rotation.X) *
+                                    Matrix.CreateRotationY(Rotation.Y) *
+                                    Matrix.CreateRotationZ(Rotation.Z);
+
+            Vector3 lookAtOffset = Vector3.Transform(
+                                   Vector3.UnitZ, rotationMatrix);
+
             
-            position = new Vector3(0.0f, 0.0f, -2000.0f);
-            rotation = new Vector3(0, 0, 0);
-            SetMatrix();
+            cameraLookAt = Position + lookAtOffset;
         }
 
         public override void Update(GameTime gameTime)
         {
 
+            UpdateLookAt();
             base.Update(gameTime);
-            SetMatrix();
         }
 
 
-        public void SetMatrix()
-        {
-            Vector3 cameraReference = new Vector3(0, 0, 1);
-            Matrix rotationMatrix = Matrix.CreateFromYawPitchRoll(rotation.X, rotation.Y, rotation.Z);
-            Vector3 transformedReference = Vector3.Transform(cameraReference, rotationMatrix);
-            Vector3 cameraLookat = position + transformedReference;
-
-
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(
-            MathHelper.ToRadians(45.0f),
-            Game.GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 10000.0f);
-           // viewMatrix = Matrix.CreateLookAt(position, rotation, Vector3.Up);
-           viewMatrix = Matrix.CreateLookAt(position, cameraLookat, new Vector3(0.0f, 1.0f, 0.0f));
-        }
 
     }
 }

@@ -14,10 +14,12 @@ namespace GameHelper
 {
     public class scene : Microsoft.Xna.Framework.GameComponent
     {
+
+        public Game game;
         public scene(Game game)
             : base(game)
         {
-            
+            this.game = game;
         }
 
        public string name;
