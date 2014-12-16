@@ -28,8 +28,8 @@ namespace MTDMG.Scenes
             name = "StartScene";
 
             bg = new GameObjects.background(game);
-            bg.Position = new Vector3(0, 0, 100);
-            bg.Scale = new Vector3(2, 2, 2);
+            bg.transform.Position = new Vector3(0, 0, 100);
+            bg.transform.Scale = new Vector3(2, 2, 2);
             
             gameobjects.Add(bg);
 

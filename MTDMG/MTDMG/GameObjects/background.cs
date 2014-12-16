@@ -21,18 +21,18 @@ namespace MTDMG.GameObjects
         float i = 0;
         public background(Game game) : base(game)
         {
-            Position = new Vector3(0, 0, 100);
-            Scale = new Vector3(1f,1f, 1f);
-            LoadModel("Cube");
-            
+           transform.Position = new Vector3(0, 0, 100);
+           transform.Scale = new Vector3(1f, 1f, 1f);
+           renderer = new Render3D(this, "Cube");
+           
 
         }
 
         public override void Update(GameTime gameTime)
         {
              float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
-            Rotation = new Vector3(0, i, -0);
+
+             transform.Rotation = new Vector3(0, i, -0);
             //Position = Forward * i ;
             i+=0.1f;
             

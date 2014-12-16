@@ -19,7 +19,7 @@ namespace MTDMG
     /// <summary>
     /// This is the main type for your application.
     /// </summary>
-    public class App1 : Microsoft.Xna.Framework.Game
+    public class Game : Microsoft.Xna.Framework.Game
     {
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -28,6 +28,7 @@ namespace MTDMG
         private Color backgroundColor = new Color(81, 81, 81);
         private bool applicationLoadCompleteSignalled;
 
+        public static Game Instance;
         
         private UserOrientation currentOrientation = UserOrientation.Bottom;
         private Matrix screenTransform = Matrix.Identity;
@@ -45,8 +46,12 @@ namespace MTDMG
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public App1()
+        public Game()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -207,11 +212,14 @@ namespace MTDMG
                 
                 if (obj.isActive)
                 {
-                    obj.SetEffects(mainCamera);
-                    foreach (ModelMesh mesh in obj.model.Meshes)
+                    if (obj.renderer != null && obj.renderer.model != null)
                     {
-                        mesh.Draw();
-                        Console.WriteLine("DrawMesh" + obj.model.ToString());
+                        obj.renderer.SetEffects(mainCamera);
+                        foreach (ModelMesh mesh in obj.renderer.model.Meshes)
+                        {
+                            mesh.Draw();
+                            Console.WriteLine("DrawMesh" + obj.renderer.model.ToString());
+                        }
                     }
                 }
             }

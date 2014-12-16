@@ -49,24 +49,24 @@ namespace MTDMG.GameObjects
 
                 //Handle basic key movement
                 if (Keyboard.GetState().IsKeyDown(Keys.W))
-                    moveVector = -Forward; 
+                    moveVector = -transform.Forward; 
                 if (Keyboard.GetState().IsKeyDown(Keys.S))
-                    moveVector = Forward; 
+                    moveVector = transform.Forward; 
                 if (Keyboard.GetState().IsKeyDown(Keys.A))
-                    moveVector = -Left;
+                    moveVector = -transform.Left;
                 if (Keyboard.GetState().IsKeyDown(Keys.D))
-                    moveVector = Left;
+                    moveVector = transform.Left;
                 if (Keyboard.GetState().IsKeyDown(Keys.Q))
-                    moveVector = Up;
+                    moveVector = -transform.Up;
                 if (Keyboard.GetState().IsKeyDown(Keys.E))
-                    moveVector = -Up;
+                    moveVector = transform.Up;
 
                 //Set Camera Position
                 if (moveVector != Vector3.Zero)
                 {
                     moveVector.Normalize();
                     moveVector *= cameraSpeed * dt;
-                    Position += moveVector;
+                    transform.Position += moveVector;
                 }
 
                 //Change in mouse position
@@ -91,7 +91,7 @@ namespace MTDMG.GameObjects
                         mouseRotationBuffer.Y = mouseRotationBuffer.Y - (mouseRotationBuffer.Y - MathHelper.ToRadians(90.0f));
 
 
-                    Rotation = new Vector3(-MathHelper.Clamp(mouseRotationBuffer.Y, MathHelper.ToRadians(-75.0f),
+                    transform.Rotation = new Vector3(-MathHelper.Clamp(mouseRotationBuffer.Y, MathHelper.ToRadians(-75.0f),
                                  MathHelper.ToRadians(90.0f)), MathHelper.WrapAngle(mouseRotationBuffer.X), 0);
 
                     deltaX = 0;

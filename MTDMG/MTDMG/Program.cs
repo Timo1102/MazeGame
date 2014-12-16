@@ -25,7 +25,7 @@ namespace MTDMG
             // Apply Surface globalization settings
             GlobalizationSettings.ApplyToCurrentThread();
 
-            using (App1 app = new App1())
+            using (Game app = new Game())
             {
                 app.Run();
             }

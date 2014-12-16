@@ -40,7 +40,7 @@ namespace GameHelper
         {
             get
             {
-                return Matrix.CreateLookAt(Position, cameraLookAt, Vector3.Up);
+                return Matrix.CreateLookAt(transform.Position, cameraLookAt, Vector3.Up);
             }
         }
 
@@ -60,22 +60,22 @@ namespace GameHelper
 
        private  void UpdateProjectionMatrix()
        {
-            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, game.GraphicsDevice.Viewport.AspectRatio, near, far);
+            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, Game.GraphicsDevice.Viewport.AspectRatio, near, far);
        }
 
 
         private void UpdateLookAt()
         {
 
-             rotationMatrix = Matrix.CreateRotationX(Rotation.X) *
-                                    Matrix.CreateRotationY(Rotation.Y) *
-                                    Matrix.CreateRotationZ(Rotation.Z);
+             rotationMatrix = Matrix.CreateRotationX(transform.Rotation.X) *
+                                    Matrix.CreateRotationY(transform.Rotation.Y) *
+                                    Matrix.CreateRotationZ(transform.Rotation.Z);
 
             Vector3 lookAtOffset = Vector3.Transform(
                                    Vector3.UnitZ, rotationMatrix);
 
-            
-            cameraLookAt = Position + lookAtOffset;
+
+            cameraLookAt = transform.Position + lookAtOffset;
         }
 
         public override void Update(GameTime gameTime)
