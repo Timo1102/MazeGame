@@ -33,7 +33,7 @@ namespace MTDMG.GameObjects
              float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
              transform.Rotation = new Vector3(0, i, -0);
-            //Position = Forward * i ;
+      
             i+=0.1f;
             
             base.Update(gameTime);

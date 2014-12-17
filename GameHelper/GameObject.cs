@@ -14,12 +14,8 @@ namespace GameHelper
     public class GameObject : Microsoft.Xna.Framework.GameComponent
     {
         public bool isActive;
-        
-
-
         public Transform transform;
         public Render3D renderer = null;
-
         public Model model;
 
         public Game game;
@@ -31,8 +27,6 @@ namespace GameHelper
             this.game = game;
             game.Components.Add(this);
             isActive = true;
-
-           
         }
 
         public void SetActive(bool active)
@@ -46,9 +40,6 @@ namespace GameHelper
             
             base.Update(gameTime);
         }
-
-     
-
 
         
     }
