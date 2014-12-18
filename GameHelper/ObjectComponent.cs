@@ -6,12 +6,12 @@ using Microsoft.Xna.Framework;
 
 namespace GameHelper
 {
-    public class ObjectComponent
+    public class ObjectComponent : DrawableGameComponent
     {
       public  GameObject gameObj;
 
         
-        public ObjectComponent(GameObject gameObj)
+        public ObjectComponent(GameObject gameObj) : base(gameObj.game)
         {
             this.gameObj = gameObj;
         }

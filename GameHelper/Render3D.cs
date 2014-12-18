@@ -9,8 +9,15 @@ namespace GameHelper
 {
     public class Render3D : ObjectComponent
     {
+        public List<ModelMesh> myMeshes = new List<ModelMesh>();
+
         public Model model;
+        public ModelMesh mesh;
         private Color _color;
+
+        
+
+
         public Vector3 color
         {
             get
@@ -35,39 +42,46 @@ namespace GameHelper
 
             }
         }
-        
+        Matrix[] transforms;
 
 
         public Render3D(GameObject gameobj, string name) : base(gameobj)
         {
             LoadModel(name);
             colorRGB = Color.Red;
+            gameobj.game.Components.Add(this);
+           
+          
         }
        
+           
 
         public void LoadModel(string name)
         {
             model = gameObj.game.Content.Load<Model>(name);
+            Console.WriteLine("MeshCount" + model.Meshes.Count);
+            Console.WriteLine("MeshesName: " + model.Meshes[0].Name);
+           transforms = new Matrix[model.Bones.Count];
+            model.CopyAbsoluteBoneTransformsTo(transforms);
             
         }
 
-        public void SetEffects(Camera camera)
+        public void SetEffects(Camera camera, ModelMesh _mesh)
         {
-            
-            foreach (ModelMesh mesh in model.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
+
+
+                foreach (BasicEffect effect in _mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
                     effect.PreferPerPixelLighting = true;
                     effect.Projection = camera.Projection;
                     effect.View = camera.View;
-                    effect.World = gameObj.transform.GetWorldMatrix();
-                    effect.DiffuseColor = color;
-
+                    effect.World = transforms[_mesh.ParentBone.Index] * gameObj.transform.GetWorldMatrix();
                 }
-            }
+            
         }
+
+        
 
     }
 }

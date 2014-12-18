@@ -11,7 +11,7 @@ namespace MTDMG
     {
         // Hold on to the game window.
         static GameWindow Window;
-        
+        static MyGame myGame;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -25,9 +25,9 @@ namespace MTDMG
             // Apply Surface globalization settings
             GlobalizationSettings.ApplyToCurrentThread();
 
-            using (Game app = new Game())
+            using (myGame = new MyGame())
             {
-                app.Run();
+                myGame.Run();
             }
         }
 

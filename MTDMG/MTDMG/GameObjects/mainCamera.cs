@@ -13,14 +13,14 @@ using GameHelper;
 
 namespace MTDMG.GameObjects
 {
-    class mainCamera : Camera
+   public class mainCamera : Camera
     {
         private MouseState prevMouseState;
         private MouseState currentMouseState;
         private float cameraSpeed;
         private Vector3 mouseRotationBuffer;   
-        public mainCamera(Game game)
-            : base(game)
+        public mainCamera(MyGame game, Camera mainCamera)
+            : base(game, mainCamera)
         {
             prevMouseState = Mouse.GetState();
             this.cameraSpeed = 50.0f;

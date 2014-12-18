@@ -19,16 +19,16 @@ namespace MTDMG
     /// <summary>
     /// This is the main type for your application.
     /// </summary>
-    public class Game : Microsoft.Xna.Framework.Game
+    public class MyGame : Microsoft.Xna.Framework.Game
     {
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private GameObjects.mainCamera mainCamera;
+        public GameObjects.mainCamera mainCamera;
         private TouchTarget touchTarget;
         private Color backgroundColor = new Color(81, 81, 81);
         private bool applicationLoadCompleteSignalled;
 
-        public static Game Instance;
+        public static MyGame Instance;
         
         private UserOrientation currentOrientation = UserOrientation.Bottom;
         private Matrix screenTransform = Matrix.Identity;
@@ -46,7 +46,7 @@ namespace MTDMG
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public Game()
+        public MyGame()
         {
             if (Instance == null)
             {
@@ -113,11 +113,11 @@ namespace MTDMG
             // TODO: Add your initialization logic here
             this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 10.0f);
             //init Camera
-            mainCamera = new GameObjects.mainCamera(this);
+            mainCamera = new GameObjects.mainCamera(this, mainCamera);
 
             startscene = new Scenes.StartScene(this);
             RasterizerState stat = new RasterizerState();
-            stat.CullMode = CullMode.CullCounterClockwiseFace;
+            stat.CullMode = CullMode.None;
             GraphicsDevice.RasterizerState = stat;
             IsMouseVisible = true; // easier for debugging not to "lose" mouse
             SetWindowOnSurface();
@@ -206,7 +206,7 @@ namespace MTDMG
             //TODO: Rotate the UI based on the value of screenTransform here if desired
             
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            Console.WriteLine("DrawMesh");
+            
             foreach (GameObject obj in startscene.gameobjects)
             {
                 
@@ -214,12 +214,33 @@ namespace MTDMG
                 {
                     if (obj.renderer != null && obj.renderer.model != null)
                     {
-                        obj.renderer.SetEffects(mainCamera);
-                        foreach (ModelMesh mesh in obj.renderer.model.Meshes)
+                      
+                        //Matrix[] transforms = new Matrix[obj.renderer.model.Bones.Count];
+                        //obj.renderer.model.CopyAbsoluteBoneTransformsTo(transforms);
+                        //foreach (ModelMesh mesh in obj.renderer.model.Meshes)
+                        //{
+                        //    foreach (BasicEffect effect in mesh.Effects)
+                        //    {
+
+                        //        effect.EnableDefaultLighting();
+                        //        effect.PreferPerPixelLighting = true;
+                        //        effect.Projection = mainCamera.Projection;
+                        //        effect.View = mainCamera.View;
+                        //        effect.World = transforms[mesh.ParentBone.Index] * obj.transform.GetWorldMatrix();
+                        //        //effect.DiffuseColor = color;
+
+                            //}
+                            
+
+                       // }
+               
+                        foreach (ModelMesh _mesh in obj.renderer.myMeshes)
                         {
-                            mesh.Draw();
-                            Console.WriteLine("DrawMesh" + obj.renderer.model.ToString());
+                            obj.renderer.SetEffects(mainCamera, _mesh);
+                            _mesh.Draw();
+
                         }
+
                     }
                 }
             }
@@ -229,6 +250,8 @@ namespace MTDMG
 
             base.Draw(gameTime);
         }
+
+
 
         #endregion
 

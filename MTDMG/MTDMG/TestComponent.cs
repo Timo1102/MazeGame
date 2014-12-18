@@ -17,7 +17,7 @@ namespace MTDMG
     /// </summary>
     public class TestComponent : Microsoft.Xna.Framework.GameComponent
     {
-        public TestComponent(Game game)
+        public TestComponent(MyGame game)
             : base(game)
         {
             // TODO: Construct any child components here

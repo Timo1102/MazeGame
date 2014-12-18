@@ -13,16 +13,18 @@ namespace GameHelper
 {
     public class GameObject : Microsoft.Xna.Framework.GameComponent
     {
+        public List<GameObject> children = new List<GameObject>();
         public bool isActive;
         public Transform transform;
         public Render3D renderer = null;
-        public Model model;
+
 
         public Game game;
-
-        public GameObject(Game game)
+        public Camera mainCamera;
+        public GameObject(Game game, Camera mainCamera)
             : base(game)
         {
+            this.mainCamera = mainCamera;
             transform = new Transform();
             this.game = game;
             game.Components.Add(this);
@@ -39,6 +41,11 @@ namespace GameHelper
         {
             
             base.Update(gameTime);
+        }
+
+        public void AddAsChild(GameObject child)
+        {
+            children.Add(child);
         }
 
         
