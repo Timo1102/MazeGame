@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="GameObjects\Cell.cs" />
     <Compile Include="GameObjects\mainCamera.cs" />
+    <Compile Include="GameObjects\Slot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MyGame.cs" />

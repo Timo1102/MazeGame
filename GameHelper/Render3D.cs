@@ -50,8 +50,12 @@ namespace GameHelper
             LoadModel(name);
             colorRGB = Color.Red;
             gameobj.game.Components.Add(this);
-           
-          
+            foreach (ModelMesh _mesh in model.Meshes)
+            {
+               
+                myMeshes.Add(_mesh);
+            }
+         
         }
        
            
@@ -80,7 +84,16 @@ namespace GameHelper
             
         }
 
-        
+
+        public void ChangeColor(Color _color, ModelMesh _mesh)
+        {
+            foreach (BasicEffect _effect in _mesh.Effects)
+            {
+                _effect.DiffuseColor = _color.ToVector3();
+                
+            }
+
+        }
 
     }
 }

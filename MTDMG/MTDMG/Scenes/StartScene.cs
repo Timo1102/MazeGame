@@ -19,8 +19,10 @@ namespace MTDMG.Scenes
     {
        public GameObjects.Cell bg;
        GameObjects.Cell prefab;
+       GameObjects.Slot slot;
        public Maze myMaze;
-
+       int x = 35;
+       int y = 21;
        MyGame _game;
 
         public StartScene(MyGame game) : base(game)
@@ -32,30 +34,62 @@ namespace MTDMG.Scenes
             bg.transform.Scale = new Vector3(1, 1, 1);
 
 
-            int x = 35;
-            int y = 21;
+        
 
             myMaze = new Maze(x, y);
 
-            game.mainCamera.transform.Position = new Vector3(x-2,y-1, -2);
-            
+            game.mainCamera.transform.Position = new Vector3(x - 2, 52, y - 1);
+            game.mainCamera.transform.Rotation = new Vector3(1.57f, 0, 0);
             
             GenerateMaze();
         }
 
         public void GenerateMaze()
         {
-            foreach(Cell _cell in myMaze.GetMaze())
+            for (int i = 1; i <= (this.x -2) * 2; i += 2)
+            {
+                for (int j = 1; j <= (y-1) * 2; j +=2)
+                {
+                    slot = new GameObjects.Slot(_game);
+                    slot.transform.Position = new Vector3(i, 1.3f, j);
+                    slot.transform.Scale = new Vector3(0.5f, 0.5f, 0.5f);
+                    gameobjects.Add(slot);
+                   // Console.WriteLine("asd" + i + " asd  " + j);
+                }
+            }
+
+
+            foreach (Cell _cell in myMaze.GetMaze())
             {
                 prefab = new GameObjects.Cell(_game);
-                prefab.transform.Position = new Vector3(2 * _cell.x, 2 * _cell.y, 50 );
-                prefab.transform.Rotation = new Vector3(-1.57f, 0, 0);
+                prefab.transform.Position = new Vector3(2 * _cell.x, 0, 2 * _cell.y);
+                // prefab.transform.Position = new Vector3(2 * _cell.x, 2 * _cell.y, 50);
+                //prefab.transform.Rotation = new Vector3(-1.57f, 0, 0);
 
                 prefab.SetWalls(_cell.GetWallStat(2), _cell.GetWallStat(1), _cell.GetWallStat(3), _cell.GetWallStat(0));
                 //              Top, Left,
                 //prefab.SetWalls(false,true, false,false);
+                if (_cell.GetWallStat(2) && _cell.y != y - 1)
+                {
+                    slot = new GameObjects.Slot(_game);
+                    slot.transform.Position = new Vector3(2 * _cell.x, 1.3f, 2 * _cell.y + 1);
+                    slot.transform.Scale = new Vector3(0.5f, 0.5f, 0.5f);
+                    gameobjects.Add(slot);
+                }
+                if (_cell.GetWallStat(1) && _cell.x != x-2)
+                {
+                    slot = new GameObjects.Slot(_game);
+                    slot.transform.Position = new Vector3(2 * _cell.x +1, 1.3f, 2 * _cell.y);
+                    slot.transform.Scale = new Vector3(0.5f, 0.5f, 0.5f);
+                    gameobjects.Add(slot);
+                }
+
+
                 gameobjects.Add(prefab);
             }
+
+
+            
 
            
         }

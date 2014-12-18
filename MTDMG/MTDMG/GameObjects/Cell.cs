@@ -15,12 +15,14 @@ namespace MTDMG.GameObjects
     public class Cell : GameObject
     {
 
-        
-        
+
+        Color BaseColor = Color.Red;
 
         public Cell(MyGame game) : base(game, game.mainCamera)
         {
            renderer = new Render3D(this, "Model/Cell");
+           renderer.myMeshes.Clear();
+           renderer.ChangeColor(BaseColor, renderer.model.Meshes[0]); 
         }
 
         public void SetWalls(bool top, bool bottom, bool left, bool right)
@@ -52,6 +54,7 @@ namespace MTDMG.GameObjects
         {
             renderer.myMeshes.Add(renderer.model.Meshes[_number]);
         }
+
 
         public override void Update(GameTime gameTime)
         {
