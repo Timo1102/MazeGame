@@ -32,7 +32,7 @@ namespace MTDMG
         
         private UserOrientation currentOrientation = UserOrientation.Bottom;
         private Matrix screenTransform = Matrix.Identity;
-
+        float i = 0;
         public Scenes.StartScene startscene;
      
         /// <summary>
@@ -183,7 +183,10 @@ namespace MTDMG
                     // use the following code to get the state of all current touch points.
                     // ReadOnlyTouchPointCollection touches = touchTarget.GetState();
                 }
-   
+
+  
+                
+       
                 // TODO: Add your update logic here
             }
 

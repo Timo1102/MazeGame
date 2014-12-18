@@ -45,7 +45,7 @@ namespace MTDMG.GameObjects
                 AddMesh(4);
 
 
-            Console.WriteLine("NumberofMeshes: " + renderer.myMeshes.Count);
+           
         }
 
         void AddMesh(int _number)

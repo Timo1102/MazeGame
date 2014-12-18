@@ -32,7 +32,8 @@ namespace MTDMG
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            Console.WriteLine("A Component");
+      
+
             base.Initialize();
         }
 
@@ -44,7 +45,7 @@ namespace MTDMG
         {
             // TODO: Add your update code here
             i++;
-            Console.WriteLine("test" + i.ToString());
+           
             base.Update(gameTime);
         }
 

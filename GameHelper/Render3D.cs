@@ -59,8 +59,7 @@ namespace GameHelper
         public void LoadModel(string name)
         {
             model = gameObj.game.Content.Load<Model>(name);
-            Console.WriteLine("MeshCount" + model.Meshes.Count);
-            Console.WriteLine("MeshesName: " + model.Meshes[0].Name);
+  
            transforms = new Matrix[model.Bones.Count];
             model.CopyAbsoluteBoneTransformsTo(transforms);
             

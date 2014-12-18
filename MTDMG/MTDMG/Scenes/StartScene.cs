@@ -31,13 +31,14 @@ namespace MTDMG.Scenes
             bg.transform.Position = new Vector3(0, 0, 100);
             bg.transform.Scale = new Vector3(1, 1, 1);
 
-            
-            
 
-            myMaze = new Maze(10, 11);
+            int x = 35;
+            int y = 21;
 
-            game.mainCamera.transform.Position = new Vector3(5, 10, 5);
-            game.mainCamera.transform.Rotation = new Vector3(1.3f, 0, 0);
+            myMaze = new Maze(x, y);
+
+            game.mainCamera.transform.Position = new Vector3(x-2,y-1, -2);
+            
             
             GenerateMaze();
         }
@@ -47,8 +48,8 @@ namespace MTDMG.Scenes
             foreach(Cell _cell in myMaze.GetMaze())
             {
                 prefab = new GameObjects.Cell(_game);
-                prefab.transform.Position = new Vector3(2 * _cell.x, 0, 2 * _cell.y);
-
+                prefab.transform.Position = new Vector3(2 * _cell.x, 2 * _cell.y, 50 );
+                prefab.transform.Rotation = new Vector3(-1.57f, 0, 0);
 
                 prefab.SetWalls(_cell.GetWallStat(2), _cell.GetWallStat(1), _cell.GetWallStat(3), _cell.GetWallStat(0));
                 //              Top, Left,
