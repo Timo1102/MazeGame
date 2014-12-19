@@ -29,7 +29,7 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
-           
+            transform.Position = new Vector3(transform.Position.X, 100, transform.Position.Z);
             
             base.MouseClick();
         }
