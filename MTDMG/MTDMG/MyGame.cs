@@ -183,8 +183,52 @@ namespace MTDMG
                     // use the following code to get the state of all current touch points.
                     // ReadOnlyTouchPointCollection touches = touchTarget.GetState();
                 }
+                Ray testRay = new Ray(mainCamera.transform.Position, mainCamera.transform.Forward);
+               
 
-  
+
+                if (Mouse.GetState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
+                {
+                    
+                    Vector3 nearsource = new Vector3((float)Mouse.GetState().X, (float)Mouse.GetState().Y, 0f);
+                    Vector3 farsource = new Vector3((float)Mouse.GetState().X, (float)Mouse.GetState().Y, 1f);
+                    Matrix world = Matrix.CreateTranslation(0, 0, 0);
+
+                    
+
+                    Vector3 nearPoint = GraphicsDevice.Viewport.Unproject(nearsource,
+                            mainCamera.Projection, mainCamera.View, world);
+
+                    Vector3 farPoint = GraphicsDevice.Viewport.Unproject(farsource,
+                            mainCamera.Projection, mainCamera.View, world);
+
+                    
+
+                    Vector3 direction = farPoint - nearPoint;
+                            direction.Normalize();
+
+                    Console.WriteLine("asd" + nearPoint + " / " + farPoint +" direction "+ direction);
+
+                            Ray ray = new Ray(nearPoint, direction * 50);
+                   // Console.WriteLine("Click" + direction);
+                    foreach (GameObject gobj in startscene.gameobjects)
+                    {
+                        if (gobj.CanClick && gobj.Name != "1/1")
+                        {
+                       
+                            foreach (ModelMesh _mesh in gobj.renderer.myMeshes)
+                            {
+                               
+                                if (ray.Intersects(gobj.collider) != null)
+                                {
+                                    Console.WriteLine("asd" + gobj.Name);
+                                    gobj.MouseClick();
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
                 
        
                 // TODO: Add your update logic here

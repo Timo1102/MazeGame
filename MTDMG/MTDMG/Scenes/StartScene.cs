@@ -50,11 +50,7 @@ namespace MTDMG.Scenes
             {
                 for (int j = 1; j <= (y-1) * 2; j +=2)
                 {
-                    slot = new GameObjects.Slot(_game);
-                    slot.transform.Position = new Vector3(i, 1.3f, j);
-                    slot.transform.Scale = new Vector3(0.5f, 0.5f, 0.5f);
-                    gameobjects.Add(slot);
-                   // Console.WriteLine("asd" + i + " asd  " + j);
+                    SetSlot(i, j);
                 }
             }
 
@@ -71,17 +67,13 @@ namespace MTDMG.Scenes
                 //prefab.SetWalls(false,true, false,false);
                 if (_cell.GetWallStat(2) && _cell.y != y - 1)
                 {
-                    slot = new GameObjects.Slot(_game);
-                    slot.transform.Position = new Vector3(2 * _cell.x, 1.3f, 2 * _cell.y + 1);
-                    slot.transform.Scale = new Vector3(0.5f, 0.5f, 0.5f);
-                    gameobjects.Add(slot);
+                    SetSlot(2 * _cell.x, 2 * _cell.y + 1);
+          
                 }
                 if (_cell.GetWallStat(1) && _cell.x != x-2)
                 {
-                    slot = new GameObjects.Slot(_game);
-                    slot.transform.Position = new Vector3(2 * _cell.x +1, 1.3f, 2 * _cell.y);
-                    slot.transform.Scale = new Vector3(0.5f, 0.5f, 0.5f);
-                    gameobjects.Add(slot);
+                    SetSlot(2 * _cell.x + 1, 2 * _cell.y);
+
                 }
 
 
@@ -92,6 +84,15 @@ namespace MTDMG.Scenes
             
 
            
+        }
+
+        void SetSlot(float X, float Y)
+        {
+            slot = new GameObjects.Slot(_game);
+            slot.transform.Position = new Vector3(X, 1.03f, Y);
+            slot.transform.Scale = new Vector3(0.9f, 0.9f, 0.9f);
+            slot.Name = X.ToString() + "/" + Y.ToString();
+            gameobjects.Add(slot);
         }
 
 

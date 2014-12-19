@@ -15,15 +15,26 @@ namespace MTDMG.GameObjects
 {
     class Slot : GameObject
     {
+        
+
+
         public Slot(MyGame game)
             : base(game, game.mainCamera)
         {
-           renderer = new Render3D(this, "Model/Cell");
+           renderer = new Render3D(this, "Model/Slot");
            renderer.myMeshes.Clear();
            renderer.myMeshes.Add(renderer.model.Meshes[0]);
-           renderer.ChangeColor(Color.Blue, renderer.model.Meshes[0]); 
+           CanClick = true;
+        }
+
+        public override void MouseClick()
+        {
+           
+            
+            base.MouseClick();
         }
 
 
+      
     }
 }
