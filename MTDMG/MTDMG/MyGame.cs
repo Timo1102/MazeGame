@@ -182,21 +182,21 @@ namespace MTDMG
                     // TODO: Process touches, 
                     // use the following code to get the state of all current touch points.
                      ReadOnlyTouchPointCollection touches = touchTarget.GetState();
-                     if (touches.Count > 0)
-                     {
-                         foreach (TouchPoint _touchpoint in touches)
-                         {
-                             CheckTouch(_touchpoint.X, _touchpoint.Y);
-                         }
-                     }
+                     //if (touches.Count > 0)
+                     //{
+                     //    foreach (TouchPoint _touchpoint in touches)
+                     //    {
+                     //        CheckTouch(_touchpoint.X, _touchpoint.Y);
+                     //    }
+                     //}
 
 
                 }
 
-                //if (Mouse.GetState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
-                //{
-                //    CheckTouch(Mouse.GetState().X, Mouse.GetState().Y);
-                //}
+                if (Mouse.GetState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
+                {
+                    CheckTouch(Mouse.GetState().X, Mouse.GetState().Y);
+                }
 
 
                 

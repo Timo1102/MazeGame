@@ -15,12 +15,13 @@ namespace MTDMG.GameObjects
 {
     class Slot : GameObject
     {
-        
 
-
+        MyGame _game;
+        GameObjects.Tower tower;
         public Slot(MyGame game)
             : base(game, game.mainCamera)
         {
+            _game = game;
            renderer = new Render3D(this, "Model/Slot");
            renderer.myMeshes.Clear();
            renderer.myMeshes.Add(renderer.model.Meshes[0]);
@@ -29,8 +30,11 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
-            transform.Position = new Vector3(transform.Position.X, 100, transform.Position.Z);
-            
+            tower = new GameObjects.Tower(_game);
+            tower.transform.Position = this.transform.Position;
+
+            _game.startscene.Instatiate(tower);
+
             base.MouseClick();
         }
 

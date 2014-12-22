@@ -29,6 +29,12 @@ namespace GameHelper
         {
 
         }
+
+        public void Instatiate(GameObject prefab)
+        {
+
+            gameobjects.Add(prefab);
+        }
     }
 
 

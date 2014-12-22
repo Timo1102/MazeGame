@@ -20,6 +20,7 @@ namespace MTDMG.Scenes
        public GameObjects.Cell bg;
        GameObjects.Cell prefab;
        GameObjects.Slot slot;
+       GameObjects.Tower tower;
        public Maze myMaze;
        int x = 35;
        int y = 21;
@@ -32,9 +33,8 @@ namespace MTDMG.Scenes
             bg = new GameObjects.Cell(game);
             bg.transform.Position = new Vector3(0, 0, 100);
             bg.transform.Scale = new Vector3(1, 1, 1);
-
-
-        
+            
+     
 
             myMaze = new Maze(x, y);
 
