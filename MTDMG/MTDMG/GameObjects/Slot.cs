@@ -18,6 +18,8 @@ namespace MTDMG.GameObjects
 
         MyGame _game;
         GameObjects.Tower tower;
+        bool isUsed = false;
+
         public Slot(MyGame game)
             : base(game, game.mainCamera)
         {
@@ -30,11 +32,14 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
-            tower = new GameObjects.Tower(_game);
-            tower.transform.Position = this.transform.Position;
+            if (!isUsed)
+            {
+                tower = new GameObjects.Tower(_game);
+                tower.transform.Position = this.transform.Position;
 
-            _game.startscene.Instatiate(tower);
-
+                _game.startscene.Instatiate(tower);
+                isUsed = true;
+            }
             base.MouseClick();
         }
 

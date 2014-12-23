@@ -272,43 +272,43 @@ namespace MTDMG
             
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
-            foreach (GameObject obj in startscene.gameobjects)
-            {
+            //foreach (GameObject obj in startscene.gameobjects)
+            //{
                 
-                if (obj.isActive)
-                {
-                    if (obj.renderer != null && obj.renderer.model != null)
-                    {
+            //    if (obj.isActive)
+            //    {
+            //        if (obj.renderer != null && obj.renderer.model != null)
+            //        {
                       
-                        //Matrix[] transforms = new Matrix[obj.renderer.model.Bones.Count];
-                        //obj.renderer.model.CopyAbsoluteBoneTransformsTo(transforms);
-                        //foreach (ModelMesh mesh in obj.renderer.model.Meshes)
-                        //{
-                        //    foreach (BasicEffect effect in mesh.Effects)
-                        //    {
+            //            //Matrix[] transforms = new Matrix[obj.renderer.model.Bones.Count];
+            //            //obj.renderer.model.CopyAbsoluteBoneTransformsTo(transforms);
+            //            //foreach (ModelMesh mesh in obj.renderer.model.Meshes)
+            //            //{
+            //            //    foreach (BasicEffect effect in mesh.Effects)
+            //            //    {
 
-                        //        effect.EnableDefaultLighting();
-                        //        effect.PreferPerPixelLighting = true;
-                        //        effect.Projection = mainCamera.Projection;
-                        //        effect.View = mainCamera.View;
-                        //        effect.World = transforms[mesh.ParentBone.Index] * obj.transform.GetWorldMatrix();
-                        //        //effect.DiffuseColor = color;
+            //            //        effect.EnableDefaultLighting();
+            //            //        effect.PreferPerPixelLighting = true;
+            //            //        effect.Projection = mainCamera.Projection;
+            //            //        effect.View = mainCamera.View;
+            //            //        effect.World = transforms[mesh.ParentBone.Index] * obj.transform.GetWorldMatrix();
+            //            //        //effect.DiffuseColor = color;
 
-                            //}
+            //                //}
                             
 
-                       // }
+            //           // }
                
-                        foreach (ModelMesh _mesh in obj.renderer.myMeshes)
-                        {
-                            obj.renderer.SetEffects(mainCamera, _mesh);
-                            _mesh.Draw();
+            //            foreach (ModelMesh _mesh in obj.renderer.myMeshes)
+            //            {
+            //                obj.renderer.SetEffects(mainCamera, _mesh);
+            //                _mesh.Draw();
 
-                        }
+            //            }
 
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
 
             //TODO: Add your drawing code here
             //TODO: Avoid any expensive logic if application is neither active nor previewed
@@ -316,7 +316,7 @@ namespace MTDMG
             base.Draw(gameTime);
         }
 
-
+        
 
         #endregion
 

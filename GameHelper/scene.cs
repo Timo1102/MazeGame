@@ -23,7 +23,7 @@ namespace GameHelper
         }
 
        public string name;
-        public List<GameObject> gameobjects = new List<GameObject>();
+        public Stack<GameObject> gameobjects = new Stack<GameObject>();
 
         public virtual void SceneObjects()
         {
@@ -33,7 +33,7 @@ namespace GameHelper
         public void Instatiate(GameObject prefab)
         {
 
-            gameobjects.Add(prefab);
+            gameobjects.Push(prefab);
         }
     }
 

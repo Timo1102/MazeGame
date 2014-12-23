@@ -95,5 +95,15 @@ namespace GameHelper
 
         }
 
+        public override void Draw(GameTime gameTime)
+        {
+            foreach(ModelMesh _mesh in myMeshes)
+            {
+            SetEffects(gameObj.mainCamera, _mesh);
+                  _mesh.Draw();
+            }
+            base.Draw(gameTime);
+        }
+
     }
 }

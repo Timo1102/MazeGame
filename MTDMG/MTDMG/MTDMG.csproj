@@ -99,7 +99,9 @@
     <Reference Include="Microsoft.Surface.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjects\Base.cs" />
     <Compile Include="GameObjects\Cell.cs" />
+    <Compile Include="GameObjects\Guard.cs" />
     <Compile Include="GameObjects\mainCamera.cs" />
     <Compile Include="GameObjects\Slot.cs" />
     <Compile Include="GameObjects\Tower.cs" />

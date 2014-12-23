@@ -20,29 +20,38 @@ namespace MTDMG.Scenes
        public GameObjects.Cell bg;
        GameObjects.Cell prefab;
        GameObjects.Slot slot;
-       GameObjects.Tower tower;
+      GameObjects.Base myBase;
+
+
+       public List<MazeGenerator.Cell> solutionWay;
        public Maze myMaze;
        int x = 35;
        int y = 21;
        MyGame _game;
 
         public StartScene(MyGame game) : base(game)
-        {
+       {
+           this._game = game;
+           myMaze = new Maze(x, y);
+           game.mainCamera.transform.Position = new Vector3(x - 2, 52, y - 1);
+           game.mainCamera.transform.Rotation = new Vector3(1.57f, 0, 0);
+           GenerateMaze();
             name = "StartScene";
-            this._game = game;
-            bg = new GameObjects.Cell(game);
-            bg.transform.Position = new Vector3(0, 0, 100);
-            bg.transform.Scale = new Vector3(1, 1, 1);
-            
+
+
+
+
+
+
+            solutionWay = myMaze.solutionWay;
+
+
+            Instatiate(myBase = new GameObjects.Base(game));
+            myBase.InitTimer();
+        }
+
      
 
-            myMaze = new Maze(x, y);
-
-            game.mainCamera.transform.Position = new Vector3(x - 2, 52, y - 1);
-            game.mainCamera.transform.Rotation = new Vector3(1.57f, 0, 0);
-            
-            GenerateMaze();
-        }
 
         public void GenerateMaze()
         {
@@ -77,7 +86,7 @@ namespace MTDMG.Scenes
                 }
 
 
-                gameobjects.Add(prefab);
+                gameobjects.Push(prefab);
             }
 
 
@@ -92,7 +101,8 @@ namespace MTDMG.Scenes
             slot.transform.Position = new Vector3(X, 1.03f, Y);
             slot.transform.Scale = new Vector3(0.9f, 0.9f, 0.9f);
             slot.Name = X.ToString() + "/" + Y.ToString();
-            gameobjects.Add(slot);
+            gameobjects.Push(slot);
+            
         }
 
 
