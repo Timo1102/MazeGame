@@ -87,7 +87,7 @@ namespace MTDMG.GameObjects
                 }
                 int h = k;
 
-                return new Vector3(2 * game.startscene.solutionWay[h].x-1, 0, 2 * game.startscene.solutionWay[h].y-1);
+                return new Vector3(2 * game.startscene.solutionWay[h].x, 0, 2 * game.startscene.solutionWay[h].y);
             }
             return new Vector3(0,0,0);
         }

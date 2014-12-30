@@ -22,7 +22,10 @@ namespace MTDMG.Scenes
        GameObjects.Slot slot;
        GameObjects.CellSlot cellSlot;
       GameObjects.Base myBase;
-      Graph.graph myGraph;
+
+
+      bool dev_show_cells = false;
+
 
        public List<MazeGenerator.Cell> solutionWay;
        public Maze myMaze;
@@ -32,7 +35,7 @@ namespace MTDMG.Scenes
 
         public StartScene(MyGame game) : base(game)
        {
-           myGraph = new Graph.graph();
+          
            this._game = game;
            myMaze = new Maze(x, y);
            game.mainCamera.transform.Position = new Vector3(x - 2, 52, y - 1);
@@ -70,7 +73,10 @@ namespace MTDMG.Scenes
             {
                 prefab = new GameObjects.Cell(_game);
                 prefab.transform.Position = new Vector3(2 * _cell.x, 0, 2 * _cell.y);
-                SetSlotCell(2 * _cell.x, 2 * _cell.y);
+                if (dev_show_cells)
+                {
+                    SetSlotCell(2 * _cell.x, 2 * _cell.y);
+                }
                 // prefab.transform.Position = new Vector3(2 * _cell.x, 2 * _cell.y, 50);
                 //prefab.transform.Rotation = new Vector3(-1.57f, 0, 0);
 
@@ -89,12 +95,12 @@ namespace MTDMG.Scenes
 
                 }
                 //Cells slots
-                if (!_cell.GetWallStat(2) && _cell.y != y - 1)
+                if (!_cell.GetWallStat(2) && _cell.y != y - 1 && dev_show_cells)
                 {
                     SetSlotCell(2 * _cell.x, 2 * _cell.y + 1);
 
                 }
-                if (!_cell.GetWallStat(1) && _cell.x != x - 2)
+                if (!_cell.GetWallStat(1) && _cell.x != x - 2 && dev_show_cells)
                 {
                     SetSlotCell(2 * _cell.x + 1, 2 * _cell.y);
 
