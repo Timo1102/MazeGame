@@ -101,10 +101,14 @@
   <ItemGroup>
     <Compile Include="GameObjects\Base.cs" />
     <Compile Include="GameObjects\Cell.cs" />
+    <Compile Include="GameObjects\CellSlot.cs" />
     <Compile Include="GameObjects\Guard.cs" />
     <Compile Include="GameObjects\mainCamera.cs" />
     <Compile Include="GameObjects\Slot.cs" />
     <Compile Include="GameObjects\Tower.cs" />
+    <Compile Include="Graph\edge.cs" />
+    <Compile Include="Graph\graph.cs" />
+    <Compile Include="Graph\vertex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MyGame.cs" />

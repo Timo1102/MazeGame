@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using GameHelper;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.GamerServices;
@@ -82,13 +81,13 @@ namespace MTDMG.GameObjects
             if (game.startscene.solutionWay.Count > 0)
             {
                 int k = game.startscene.solutionWay.Count - i;
-                if (k > game.startscene.solutionWay.Count)
+                if (i >= game.startscene.solutionWay.Count)
                 {
-                    k = game.startscene.solutionWay.Count - k;
+                    this.Dispose();
                 }
                 int h = k;
 
-                return new Vector3(2 * game.startscene.solutionWay[h].x, 0, 2 * game.startscene.solutionWay[h].y);
+                return new Vector3(2 * game.startscene.solutionWay[h].x-1, 0, 2 * game.startscene.solutionWay[h].y-1);
             }
             return new Vector3(0,0,0);
         }

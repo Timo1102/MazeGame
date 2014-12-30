@@ -63,6 +63,8 @@ namespace GameHelper
 
         }
 
+
+
         protected BoundingBox UpdateBoundingBox(Model model, Matrix worldTransform)
         {
             // Initialize minimum and maximum corners of the bounding box to max and min values

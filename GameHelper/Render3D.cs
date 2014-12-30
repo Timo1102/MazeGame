@@ -48,7 +48,7 @@ namespace GameHelper
         public Render3D(GameObject gameobj, string name) : base(gameobj)
         {
             LoadModel(name);
-            colorRGB = Color.Red;
+           
             gameobj.game.Components.Add(this);
             foreach (ModelMesh _mesh in model.Meshes)
             {
@@ -63,14 +63,16 @@ namespace GameHelper
         public void LoadModel(string name)
         {
             model = gameObj.game.Content.Load<Model>(name);
-  
+            color = Color.White.ToVector3();
            transforms = new Matrix[model.Bones.Count];
             model.CopyAbsoluteBoneTransformsTo(transforms);
             
         }
 
-        public void SetEffects(Camera camera, ModelMesh _mesh)
+        public virtual void SetEffects(Camera camera, ModelMesh _mesh)
         {
+  
+
 
 
                 foreach (BasicEffect effect in _mesh.Effects)
@@ -80,6 +82,9 @@ namespace GameHelper
                     effect.Projection = camera.Projection;
                     effect.View = camera.View;
                     effect.World = transforms[_mesh.ParentBone.Index] * gameObj.transform.GetWorldMatrix();
+                   
+                    //effect.DiffuseColor = color;
+                   
                 }
             
         }
