@@ -13,7 +13,7 @@ using GameHelper;
 
 namespace MTDMG.GameObjects
 {
-    class CellSlot : GameObject
+   public class CellSlot : GameObject
     {
 
         
