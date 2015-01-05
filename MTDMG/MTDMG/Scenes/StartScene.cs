@@ -23,12 +23,12 @@ namespace MTDMG.Scenes
        GameObjects.CellSlot cellSlot;
       GameObjects.Base myBase;
 
-      GameHelper.Graph.Graph<GameObjects.CellSlot> myGraph;
+     public GameHelper.Graph.Graph<GameObjects.CellSlot> myGraph;
 
       bool dev_show_cells = true;
 
 
-       public List<MazeGenerator.Cell> solutionWay;
+       public List<GameObjects.CellSlot> solutionWay;
        public Maze myMaze;
        int x = 35;
        int y = 21;
@@ -45,18 +45,40 @@ namespace MTDMG.Scenes
             name = "StartScene";
 
 
-            
 
 
 
-            solutionWay = myMaze.solutionWay;
 
+
+            solutionWay = new List<GameObjects.CellSlot>();
 
             Instatiate(myBase = new GameObjects.Base(game));
+           List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad =  myGraph.GetWay(GetVertex(new Vector2(myBase.transform.Position.X, myBase.transform.Position.Z)));
+
+
+
+           foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in sad)
+           {
+               solutionWay.Add(_vertex.data);
+           }
+
+
             myBase.InitTimer();
         }
 
-     
+
+        //public GameHelper.Graph.Vertex<GameObjects.CellSlot> GetVertex(Vector2 pos)
+        //{
+        //    foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in myGraph.vertices)
+        //    {
+        //        if (_vertex.data.transform.Position == new Vector3(pos.X, _vertex.data.transform.Position.Y, pos.Y))
+        //        {
+        //            return _vertex;
+        //        }
+        //    }
+        //    return null;
+        //}
+
 
 
         public void GenerateMaze()

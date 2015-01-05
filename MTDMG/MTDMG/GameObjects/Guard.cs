@@ -80,14 +80,15 @@ namespace MTDMG.GameObjects
         {
             if (game.startscene.solutionWay.Count > 0)
             {
-                int k = game.startscene.solutionWay.Count - i;
+                
                 if (i >= game.startscene.solutionWay.Count)
                 {
                     this.Dispose();
+                    return new Vector3(0, 0, 0);
                 }
-                int h = k;
+                
 
-                return new Vector3(2 * game.startscene.solutionWay[h].x, 0, 2 * game.startscene.solutionWay[h].y);
+                return new Vector3( game.startscene.solutionWay[i].transform.Position.X, 0,  game.startscene.solutionWay[i].transform.Position.Z);
             }
             return new Vector3(0,0,0);
         }

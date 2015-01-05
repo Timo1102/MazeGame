@@ -237,7 +237,7 @@ namespace MTDMG
                 // Console.WriteLine("Click" + direction);
                 foreach (GameObject gobj in startscene.gameobjects)
                 {
-                    if (gobj.CanClick && gobj.Name != "1/1")
+                    if (gobj.CanClick)
                     {
 
                         foreach (ModelMesh _mesh in gobj.renderer.myMeshes)
