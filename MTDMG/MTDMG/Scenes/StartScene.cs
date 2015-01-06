@@ -53,17 +53,9 @@ namespace MTDMG.Scenes
             solutionWay = new List<GameObjects.CellSlot>();
 
             Instatiate(myBase = new GameObjects.Base(game));
-           List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad =  myGraph.GetWay(GetVertex(new Vector2(myBase.transform.Position.X, myBase.transform.Position.Z)));
+           //List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad =  myGraph.GetWay(GetVertex(new Vector2(myBase.transform.Position.X, myBase.transform.Position.Z)));
+           
 
-
-
-           foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in sad)
-           {
-               solutionWay.Add(_vertex.data);
-           }
-
-
-            myBase.InitTimer();
         }
 
 
@@ -78,6 +70,28 @@ namespace MTDMG.Scenes
         //    }
         //    return null;
         //}
+
+        public void GeneratePath(Vector2 endPos)
+        {
+          // List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad =
+
+            GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexStart = GetVertex(new Vector2(myBase.transform.Position.X, myBase.transform.Position.Z));
+            GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexEnd = GetVertex(endPos);
+
+
+
+           
+            List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad = myGraph.Astern(VertexStart, VertexEnd);
+
+
+           foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in sad)
+           {
+               solutionWay.Add(_vertex.data);
+           }
+
+
+            myBase.InitTimer();
+        }
 
 
 
@@ -196,7 +210,7 @@ namespace MTDMG.Scenes
 
             cellSlot.transform.Scale = new Vector3(0.9f, 0.9f, 0.9f);
             cellSlot.Name = X.ToString() + "/" + Y.ToString();
-            myGraph.CreateVertex(cellSlot);
+            myGraph.CreateVertex(cellSlot).SetPosition(cellSlot.transform.Position);
 
             gameobjects.Push(cellSlot);
 

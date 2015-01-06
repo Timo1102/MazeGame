@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace GameHelper.Graph
 {
@@ -10,6 +11,34 @@ namespace GameHelper.Graph
         public List<Vertex<T>> connectedVertices = new List<Vertex<T>>();
 
         public int ID;
+        public Vector2 position;
+
+        public float g = 1;
+        public float h = 0;
+
+         Vertex<T> _parent;
+
+         public Vertex<T> parent
+         {
+             get
+             {
+                 return _parent;
+             }
+             set
+             {
+                 _parent = value;
+                 g += value.g;
+             }
+         }
+
+        public float F
+        {
+            get
+            {
+                return g + h;
+            }
+        }
+
 
         public Vertex(int ID)
         {
@@ -41,6 +70,20 @@ namespace GameHelper.Graph
             
 
         }
+
+        public void SetPosition(Vector3 _pos)
+        {
+            position = new Vector2(_pos.X, _pos.Z);
+        }
+
+        public void GetDistanceTo(Vertex<T> EndVertex)
+        {
+            float x = this.position.X - EndVertex.position.X;
+            float y = this.position.Y - EndVertex.position.Y;
+            h = x + y;
+        }
+
+        
 
     }
 }

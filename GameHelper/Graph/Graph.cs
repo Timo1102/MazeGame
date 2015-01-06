@@ -11,6 +11,10 @@ namespace GameHelper.Graph
         List<Edge<T>> edges = new List<Edge<T>>();
         int id = 0;
 
+
+        public List<Vertex<T>> openList = new List<Vertex<T>>();
+        public List<Vertex<T>> closedList = new List<Vertex<T>>();
+
         public int Count
         {
             get
@@ -26,15 +30,18 @@ namespace GameHelper.Graph
                 return edges.Count;
             }
         }
-
-        public void CreateVertex(T data)
+        public Vertex<T> CreateVertex(T data)
         {
             Vertex<T> myVertex = new Vertex<T>(id);
             id++;
             myVertex.data = data;
             vertices.Add(myVertex);
-            
+
+            return myVertex;
         }
+
+
+
 
         public void AddEdge(Vertex<T> v1, Vertex<T> v2)
         {
@@ -101,19 +108,81 @@ namespace GameHelper.Graph
                 Console.WriteLine("vertex: " +  next.ID + "out: " + next.outDegree);
             } 
 
-
-
-
-
-
-
-
-
-
-
             Console.WriteLine("anzahl" + myWay.Count);
             return myWay;
         }
 
+
+        public List<Vertex<T>> Astern(Vertex<T> start, Vertex<T> end)
+        {
+            openList.Add(start);
+            start.GetDistanceTo(end);
+            while (!closedList.Contains(end) || openList.Count > 0)
+            {
+                Vertex<T> activeVertex = LowestFinOpenList();
+                openList.Remove(activeVertex);
+                closedList.Add(activeVertex);
+
+                foreach (Vertex<T> _vertex in activeVertex.connectedVertices)
+                {
+                    if (!closedList.Contains(_vertex))
+                    {
+                        if (!openList.Contains(_vertex))
+                        {
+                            openList.Add(_vertex);
+                            _vertex.GetDistanceTo(end);
+                            _vertex.parent = activeVertex;
+                        }
+                        else
+                        {
+                            if (_vertex.parent.g < activeVertex.g)
+                            {
+                                _vertex.parent = activeVertex;
+                            }
+                        }
+
+                    }
+                }
+
+
+            }
+
+           
+            List<Vertex<T>> pathList = new List<Vertex<T>>();
+            pathList.Add(end);
+            Vertex<T> pathVertex = end.parent;
+            pathList.Add(pathVertex);
+            while (pathVertex != start)
+            {
+                pathList.Add(pathVertex.parent);
+                pathVertex = pathVertex.parent;
+            }
+
+            pathList.Add(start);
+            return pathList;
+        }
+
+        Vertex<T> LowestFinOpenList()
+        {
+            Vertex<T> lowestF = null;
+            foreach (Vertex<T> _vertex in openList)
+            {
+                
+                if (lowestF == null)
+                {
+                    lowestF = _vertex;
+                }
+                if (lowestF.F > _vertex.F)
+                {
+                    lowestF = _vertex;
+                }
+
+            }
+            openList.Remove(lowestF);
+            return lowestF;
+        }
+
     }
+
+   
 }
