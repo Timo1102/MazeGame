@@ -13,7 +13,7 @@ namespace MTDMG.GameObjects
         Timer lTimer = new Timer();
         int lTicks = 0;
         static uint MAX_TICKS = 50;
-
+        bool dev_colo = false;
 
         public int guardCount = 20;
         GameObjects.Guard guard;
@@ -29,7 +29,7 @@ namespace MTDMG.GameObjects
         {
 
             lTimer = new Timer();
-            lTimer.Interval = 500;
+            lTimer.Interval = 250;
             lTimer.Elapsed += new ElapsedEventHandler(Timer_Tick);
             lTimer.Start();
         }
@@ -41,11 +41,22 @@ namespace MTDMG.GameObjects
 
         public void SpawnTarget(List<CellSlot> _way)
         {
-
+            
             guard = new GameObjects.Guard(game);
             guard.transform.Position = new Vector3(0, 0, 0);
             game.startscene.Instatiate(guard);
             guard.SetWay(_way);
+            if (dev_colo)
+            {
+                guard.renderer.color = Color.White.ToVector3();
+                dev_colo = false;
+            }
+            else
+            {
+                guard.renderer.color = Color.Black.ToVector3();
+                dev_colo = true;
+            }
+
             guard.InitTimer();
             
 

@@ -13,9 +13,10 @@ namespace GameHelper
 
         public Model model;
         public ModelMesh mesh;
+        public Effect meshEffect;
         private Color _color;
         Texture2D t2D;
-        
+        BasicEffect effect;
 
 
         public Vector3 color
@@ -48,14 +49,24 @@ namespace GameHelper
         public Render3D(GameObject gameobj, string name) : base(gameobj)
         {
             LoadModel(name);
-           
+            //t2D = new Texture2D(gameObj.game.GraphicsDevice, 1, 1);
+
+            //t2D.SetData<Color>(new Color[] {
+            //    Color.Red
+            //});
+        
+
             gameobj.game.Components.Add(this);
             foreach (ModelMesh _mesh in model.Meshes)
             {
                
                 myMeshes.Add(_mesh);
+               
+
+
             }
          
+            
         }
        
            
@@ -63,14 +74,13 @@ namespace GameHelper
         public void LoadModel(string name)
         {
             model = gameObj.game.Content.Load<Model>(name);
-            color = Color.White.ToVector3();
+
+            color = ((BasicEffect)model.Meshes[0].Effects[0]).DiffuseColor;
            transforms = new Matrix[model.Bones.Count];
             model.CopyAbsoluteBoneTransformsTo(transforms);
-           t2D = new Texture2D(gameObj.game.GraphicsDevice, 1, 1);
 
-            t2D.SetData<Color>(new Color[] {
-                Color.Red
-            });
+
+           
 
         }
 
@@ -87,8 +97,9 @@ namespace GameHelper
                 effect.Projection = camera.Projection;
                 effect.View = camera.View;
                 effect.World = transforms[_mesh.ParentBone.Index] * gameObj.transform.GetWorldMatrix();
-                effect.Texture = t2D;
-           
+                effect.DiffuseColor = color;
+                
+                
 
             }
             

@@ -78,10 +78,20 @@ namespace MTDMG.Scenes
             GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexStart = GetVertex(new Vector2(myBase.transform.Position.X, myBase.transform.Position.Z));
             GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexEnd = GetVertex(endPos);
 
+           
 
+            foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in myGraph.vertices)
+            {
+                _vertex.data.ChangeColor( Color.OrangeRed);
+            }
 
            
             List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad = myGraph.Astern(VertexStart, VertexEnd);
+
+            foreach(GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in sad)
+            {
+                _vertex.data.ChangeColor(Color.YellowGreen);
+            }
 
 
            foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in sad)

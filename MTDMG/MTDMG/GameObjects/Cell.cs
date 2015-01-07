@@ -22,7 +22,7 @@ namespace MTDMG.GameObjects
         {
            renderer = new Render3D(this, "Model/Cell");
            renderer.myMeshes.Clear();
-           renderer.ChangeColor(BaseColor, renderer.model.Meshes[0]); 
+           //renderer.ChangeColor(BaseColor, renderer.model.Meshes[0]); 
         }
 
         public void SetWalls(bool top, bool bottom, bool left, bool right)

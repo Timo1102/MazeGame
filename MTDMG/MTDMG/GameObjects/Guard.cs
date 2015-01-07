@@ -42,7 +42,7 @@ namespace MTDMG.GameObjects
         {
            
             lTimer = new Timer();
-            lTimer.Interval = 500;
+            lTimer.Interval = 250;
             lTimer.Elapsed += new ElapsedEventHandler(Timer_Tick);
             lTimer.Start();
         }
@@ -70,7 +70,7 @@ namespace MTDMG.GameObjects
 
             
 
-            this.transform.Position = Vector3.Lerp(transform.Position, GetPosition(lTicks), 0.5f);
+            this.transform.Position = Vector3.Lerp(transform.Position, GetPosition(lTicks), 0.25f);
             //}
 
         

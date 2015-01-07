@@ -28,14 +28,7 @@ namespace MTDMG.GameObjects
            renderer = new Render3D(this, "Model/CellSlot");
            renderer.myMeshes.Clear();
            renderer.myMeshes.Add(renderer.model.Meshes[0]);
-           foreach (ModelMesh _mesh in renderer.myMeshes)
-           {
-               foreach (BasicEffect _effect in _mesh.Effects)
-               {
-                   _effect.DiffuseColor = Color.Red.ToVector3();
-               }
-           }
-
+           renderer.color = Color.OrangeRed.ToVector3();
 
            CanClick = true;
         }
@@ -44,6 +37,14 @@ namespace MTDMG.GameObjects
         {
             MyGame.Instance.startscene.GeneratePath(new Vector2(this.transform.Position.X, this.transform.Position.Z));
         }
+
+
+
+        public void ChangeColor(Color _color)
+        {
+            this.renderer.color = _color.ToVector3();
+        }
+
 
     }
 }
