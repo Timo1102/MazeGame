@@ -81,7 +81,7 @@ namespace GameHelper
 
             foreach (BasicEffect effect in _mesh.Effects)
             {
-                effect.DiffuseColor = Color.White.ToVector3();
+                
                 effect.EnableDefaultLighting();
                 effect.PreferPerPixelLighting = true;
                 effect.Projection = camera.Projection;
