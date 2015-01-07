@@ -14,7 +14,7 @@ namespace GameHelper
         public Model model;
         public ModelMesh mesh;
         private Color _color;
-
+        Texture2D t2D;
         
 
 
@@ -66,26 +66,31 @@ namespace GameHelper
             color = Color.White.ToVector3();
            transforms = new Matrix[model.Bones.Count];
             model.CopyAbsoluteBoneTransformsTo(transforms);
-            
+           t2D = new Texture2D(gameObj.game.GraphicsDevice, 1, 1);
+
+            t2D.SetData<Color>(new Color[] {
+                Color.Red
+            });
+
         }
 
         public virtual void SetEffects(Camera camera, ModelMesh _mesh)
         {
-  
+            
 
 
+            foreach (BasicEffect effect in _mesh.Effects)
+            {
+                effect.DiffuseColor = Color.White.ToVector3();
+                effect.EnableDefaultLighting();
+                effect.PreferPerPixelLighting = true;
+                effect.Projection = camera.Projection;
+                effect.View = camera.View;
+                effect.World = transforms[_mesh.ParentBone.Index] * gameObj.transform.GetWorldMatrix();
+                effect.Texture = t2D;
+           
 
-                foreach (BasicEffect effect in _mesh.Effects)
-                {
-                    effect.EnableDefaultLighting();
-                    effect.PreferPerPixelLighting = true;
-                    effect.Projection = camera.Projection;
-                    effect.View = camera.View;
-                    effect.World = transforms[_mesh.ParentBone.Index] * gameObj.transform.GetWorldMatrix();
-                   
-                    //effect.DiffuseColor = color;
-                   
-                }
+            }
             
         }
 

@@ -74,7 +74,7 @@ namespace MTDMG.Scenes
         public void GeneratePath(Vector2 endPos)
         {
           // List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad =
-
+            solutionWay.Clear();
             GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexStart = GetVertex(new Vector2(myBase.transform.Position.X, myBase.transform.Position.Z));
             GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexEnd = GetVertex(endPos);
 
@@ -88,15 +88,20 @@ namespace MTDMG.Scenes
            {
                solutionWay.Add(_vertex.data);
            }
+           List<GameObjects.CellSlot> myWay = new List<GameObjects.CellSlot>();
+            myWay.Clear();
+            for(int i = solutionWay.Count -1; i >=0; i--)
+           {
+               myWay.Add(solutionWay[i]);
+           }
 
 
-            myBase.InitTimer();
-        }
+               myBase.SpawnTarget(myWay);
 
-
+         }
 
         public void GenerateMaze()
-        {
+{
             for (int i = 1; i <= (this.x -2) * 2; i += 2)
             {
                 for (int j = 1; j <= (y-1) * 2; j +=2)

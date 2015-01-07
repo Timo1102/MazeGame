@@ -36,22 +36,18 @@ namespace MTDMG.GameObjects
 
         void Timer_Tick(object sender, EventArgs e)
         {
-            lTicks++;
-            if (lTicks <= guardCount)
-            {
-
-                SpawnTarget();
-                //do whatever you want to do
-            }
+   
         }
 
-        public void SpawnTarget()
+        public void SpawnTarget(List<CellSlot> _way)
         {
 
             guard = new GameObjects.Guard(game);
             guard.transform.Position = new Vector3(0, 0, 0);
-            guard.InitTimer();
             game.startscene.Instatiate(guard);
+            guard.SetWay(_way);
+            guard.InitTimer();
+            
 
         }
     }

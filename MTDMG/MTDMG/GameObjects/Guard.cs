@@ -18,13 +18,16 @@ namespace MTDMG.GameObjects
     {
         Timer lTimer = new Timer();
         int lTicks = 1;
-        static uint MAX_TICKS = 50;
+        static uint MAX_TICKS = 500;
 
+
+        List<CellSlot> myWay = new List<CellSlot>();
 
         public float speed = 50;
 
         MyGame game;
         public List<MazeGenerator.Cell> way;
+        
         int i = 0;
         public Guard(MyGame game)
             : base(game, game.mainCamera)
@@ -47,6 +50,7 @@ namespace MTDMG.GameObjects
         void Timer_Tick(object sender, EventArgs e)
         {
             lTicks++;
+            
             if (lTicks <= MAX_TICKS)
             {
                
@@ -63,6 +67,9 @@ namespace MTDMG.GameObjects
             //}
             //else
             //{
+
+            
+
             this.transform.Position = Vector3.Lerp(transform.Position, GetPosition(lTicks), 0.5f);
             //}
 
@@ -74,23 +81,28 @@ namespace MTDMG.GameObjects
             base.Update(gameTime);
         }
 
+        public void SetWay(List<CellSlot> _list)
+        {
+            myWay = _list;
+        }
+
            
 
         Vector3 GetPosition(int i)
         {
-            if (game.startscene.solutionWay.Count > 0)
+            if (myWay.Count > 0)
             {
-                int k = game.startscene.solutionWay.Count - i;
+                
 
 
-                if (i >= game.startscene.solutionWay.Count)
+                if (i >= myWay.Count -1)
                 {
                     this.Dispose();
                     return new Vector3(0, 0, 0);
                 }
 
 
-                return new Vector3(game.startscene.solutionWay[k].transform.Position.X, 0, game.startscene.solutionWay[k].transform.Position.Z);
+                return new Vector3(myWay[i].transform.Position.X, 0, myWay[i].transform.Position.Z);
             }
             return new Vector3(0,0,0);
         }
