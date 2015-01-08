@@ -145,7 +145,14 @@ namespace MTDMG.Scenes
                 _vertex.data.ChangeColor(Color.OrangeRed);
             }
         }
-   
+
+        public void SpwanTower(Vector3 pos)
+        {
+            if(GetPlayerController() != null)
+            GetPlayerController().SpwanTower(pos);
+            
+        }
+
 
 
         public void GenerateMaze()
@@ -239,7 +246,7 @@ namespace MTDMG.Scenes
             Console.WriteLine("Edges: " + myGraph.EdgeCount);
         }
 
-        GameHelper.Graph.Vertex<GameObjects.CellSlot> GetVertex(Vector2 pos)
+       public GameHelper.Graph.Vertex<GameObjects.CellSlot> GetVertex(Vector2 pos)
         {
             foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in myGraph.vertices)
             {

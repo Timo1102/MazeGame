@@ -32,14 +32,7 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
-            if (!isUsed)
-            {
-                tower = new GameObjects.Tower(_game);
-                tower.transform.Position = this.transform.Position;
-
-                _game.startscene.Instatiate(tower);
-                isUsed = true;
-            }
+            ((MyGame)game).startscene.SpwanTower(this.transform.Position);
             base.MouseClick();
         }
 

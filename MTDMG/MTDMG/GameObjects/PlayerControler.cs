@@ -46,7 +46,15 @@ namespace MTDMG.GameObjects
             ((MyGame)game).startscene.Instatiate(myBase);
         }
 
-        
+        public void SpwanTower(Vector3 pos)
+        {
+            GameObjects.Tower tower;
+            tower = new GameObjects.Tower((MyGame)game, this);
+            tower.transform.Position = pos;
+            tower.renderer.color = guardColor.ToVector3();
+            tower.FindSlots();
+            ((MyGame)game).startscene.Instatiate(tower);
+        }
 
 
     }

@@ -154,8 +154,15 @@ namespace GameHelper.Graph
             pathList.Add(pathVertex);
             while (pathVertex != start)
             {
-                pathList.Add(pathVertex.parent);
-                pathVertex = pathVertex.parent;
+                if (pathVertex.parent != null)
+                {
+                    pathList.Add(pathVertex.parent);
+                    pathVertex = pathVertex.parent;
+                }
+                else
+                {
+                    break;
+                }
             }
 
             pathList.Add(start);
