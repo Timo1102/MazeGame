@@ -33,6 +33,9 @@ namespace MTDMG.Scenes
        int x = 35;
        int y = 21;
        MyGame _game;
+       public GameObjects.PlayerControler player1;
+       public GameObjects.PlayerControler player2;
+
 
         public StartScene(MyGame game) : base(game)
        {
@@ -46,9 +49,11 @@ namespace MTDMG.Scenes
 
 
 
+            player1 = new GameObjects.PlayerControler(game, Keys.G);
+            player2 = new GameObjects.PlayerControler(game, Keys.H);
 
-
-
+            player1.guardColor = Color.OliveDrab;
+            player2.guardColor = Color.Black;
 
             solutionWay = new List<GameObjects.CellSlot>();
 
@@ -70,48 +75,68 @@ namespace MTDMG.Scenes
         //    return null;
         //}
 
+
+        public GameObjects.PlayerControler GetPlayerController()
+        {
+            if (Keyboard.GetState().IsKeyDown(player1.myKey) )
+            {
+                return player1;
+            }
+            if (Keyboard.GetState().IsKeyDown(player2.myKey))
+            {
+                return player2;
+            }
+
+            return null;
+        }
+
         public void GeneratePath(Vector2 endPos)
         {
-            if (myBase == null)
-            {
-                myBase = new GameObjects.Base(_game);
-                myBase.transform.Position = new Vector3(endPos.X, 0, endPos.Y);
-                Instatiate(myBase);
-           
-            }else
+            GameObjects.PlayerControler activePlayerControler = GetPlayerController();
+            if (activePlayerControler != null)
             {
 
-
-          // List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad =
-            solutionWay.Clear();
-            GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexStart = GetVertex(new Vector2(myBase.transform.Position.X, myBase.transform.Position.Z));
-            GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexEnd = GetVertex(endPos);
-
-           
-
-      
-
-           
-            List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad = myGraph.Astern(VertexStart, VertexEnd);
-
-         
+                if (activePlayerControler.myBase == null)
+                {
+                    activePlayerControler.SpwanBase(endPos);
+                }
+                else
+                {
+                    myBase = activePlayerControler.myBase;
 
 
-           foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in sad)
-           {
-               solutionWay.Add(_vertex.data);
-           }
-           List<GameObjects.CellSlot> myWay = new List<GameObjects.CellSlot>();
-            myWay.Clear();
-            for(int i = solutionWay.Count -1; i >=0; i--)
-           {
-               myWay.Add(solutionWay[i]);
-           }
+
+                    // List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad =
+                    solutionWay.Clear();
+                    GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexStart = GetVertex(new Vector2(myBase.transform.Position.X, myBase.transform.Position.Z));
+                    GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexEnd = GetVertex(endPos);
 
 
-               myBase.SpawnTarget(myWay);
 
-         }
+
+
+
+                    List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad = myGraph.Astern(VertexStart, VertexEnd);
+
+
+
+
+                    foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in sad)
+                    {
+                        solutionWay.Add(_vertex.data);
+                    }
+                    List<GameObjects.CellSlot> myWay = new List<GameObjects.CellSlot>();
+                    myWay.Clear();
+                    for (int i = solutionWay.Count - 1; i >= 0; i--)
+                    {
+                        myWay.Add(solutionWay[i]);
+                    }
+
+
+                    myBase.SpawnTarget(myWay);
+
+                }
+            }
         }
         public void ResetCellSlotColor()
         {

@@ -109,6 +109,7 @@
     <Compile Include="GameObjects\CellSlot.cs" />
     <Compile Include="GameObjects\Guard.cs" />
     <Compile Include="GameObjects\mainCamera.cs" />
+    <Compile Include="GameObjects\PlayerControler.cs" />
     <Compile Include="GameObjects\Slot.cs" />
     <Compile Include="GameObjects\Tower.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

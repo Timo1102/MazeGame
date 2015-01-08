@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using System.Timers;
 namespace MTDMG.GameObjects
 {
-    class Base : GameObject
+   public class Base : GameObject
     {
 
         Timer lTimer = new Timer();
@@ -17,7 +17,7 @@ namespace MTDMG.GameObjects
 
         public int guardCount = 20;
         GameObjects.Guard guard;
-
+        public Color guardColor;
         MyGame game;
         public Base(MyGame game) : base(game, game.mainCamera)
         {
@@ -45,20 +45,9 @@ namespace MTDMG.GameObjects
             guard = new GameObjects.Guard(game);
             guard.transform.Position = new Vector3(this.transform.Position.X, 0, this.transform.Position.Z);
             game.startscene.Instatiate(guard);
+            guard.renderer.color = guardColor.ToVector3();
             guard.SetWay(_way);
-            if (dev_colo)
-            {
-                guard.renderer.color = Color.White.ToVector3();
-                dev_colo = false;
-            }
-            else
-            {
-                guard.renderer.color = Color.Black.ToVector3();
-                dev_colo = true;
-            }
-
             guard.InitTimer();
-            
 
         }
     }
