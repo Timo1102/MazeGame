@@ -35,7 +35,7 @@ namespace MTDMG.GameObjects
             this.game = game;
             renderer = new Render3D(this, "Model/Guard");
             transform.Scale = new Vector3(0.4f, 0.4f, 0.4f);
-            
+            CanClick = true;
         }
 
         public  void InitTimer()
@@ -70,7 +70,7 @@ namespace MTDMG.GameObjects
 
             
 
-            this.transform.Position = Vector3.Lerp(transform.Position, GetPosition(lTicks), 0.25f);
+            this.transform.Position = Vector3.Lerp(transform.Position, GetPosition(lTicks), 0.8f);
             //}
 
         
@@ -84,6 +84,17 @@ namespace MTDMG.GameObjects
         public void SetWay(List<CellSlot> _list)
         {
             myWay = _list;
+        }
+
+        public override void MouseClick()
+        {
+            game.startscene.ResetCellSlotColor();
+
+            foreach (CellSlot _slot in myWay)
+            {
+                _slot.ChangeColor(Color.YellowGreen);
+            }
+            base.MouseClick();
         }
 
            

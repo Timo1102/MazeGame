@@ -35,6 +35,7 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
+
             MyGame.Instance.startscene.GeneratePath(new Vector2(this.transform.Position.X, this.transform.Position.Z));
         }
 

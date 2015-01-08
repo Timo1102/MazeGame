@@ -43,7 +43,7 @@ namespace MTDMG.GameObjects
         {
             
             guard = new GameObjects.Guard(game);
-            guard.transform.Position = new Vector3(0, 0, 0);
+            guard.transform.Position = new Vector3(this.transform.Position.X, 0, this.transform.Position.Z);
             game.startscene.Instatiate(guard);
             guard.SetWay(_way);
             if (dev_colo)

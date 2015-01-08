@@ -21,7 +21,7 @@ namespace MTDMG.Scenes
        GameObjects.Cell prefab;
        GameObjects.Slot slot;
        GameObjects.CellSlot cellSlot;
-      GameObjects.Base myBase;
+      GameObjects.Base myBase = null;
 
      public GameHelper.Graph.Graph<GameObjects.CellSlot> myGraph;
 
@@ -52,8 +52,7 @@ namespace MTDMG.Scenes
 
             solutionWay = new List<GameObjects.CellSlot>();
 
-            Instatiate(myBase = new GameObjects.Base(game));
-           //List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad =  myGraph.GetWay(GetVertex(new Vector2(myBase.transform.Position.X, myBase.transform.Position.Z)));
+          //List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad =  myGraph.GetWay(GetVertex(new Vector2(myBase.transform.Position.X, myBase.transform.Position.Z)));
            
 
         }
@@ -73,6 +72,16 @@ namespace MTDMG.Scenes
 
         public void GeneratePath(Vector2 endPos)
         {
+            if (myBase == null)
+            {
+                myBase = new GameObjects.Base(_game);
+                myBase.transform.Position = new Vector3(endPos.X, 0, endPos.Y);
+                Instatiate(myBase);
+           
+            }else
+            {
+
+
           // List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad =
             solutionWay.Clear();
             GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexStart = GetVertex(new Vector2(myBase.transform.Position.X, myBase.transform.Position.Z));
@@ -80,18 +89,12 @@ namespace MTDMG.Scenes
 
            
 
-            foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in myGraph.vertices)
-            {
-                _vertex.data.ChangeColor( Color.OrangeRed);
-            }
+      
 
            
             List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad = myGraph.Astern(VertexStart, VertexEnd);
 
-            foreach(GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in sad)
-            {
-                _vertex.data.ChangeColor(Color.YellowGreen);
-            }
+         
 
 
            foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in sad)
@@ -109,6 +112,16 @@ namespace MTDMG.Scenes
                myBase.SpawnTarget(myWay);
 
          }
+        }
+        public void ResetCellSlotColor()
+        {
+            foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in myGraph.vertices)
+            {
+                _vertex.data.ChangeColor(Color.OrangeRed);
+            }
+        }
+   
+
 
         public void GenerateMaze()
 {
