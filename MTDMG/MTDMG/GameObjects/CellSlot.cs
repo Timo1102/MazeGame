@@ -46,6 +46,15 @@ namespace MTDMG.GameObjects
             this.renderer.color = _color.ToVector3();
         }
 
+        public void EnterSlot(Guard _guard)
+        {
+
+        }
+
+        public void LeaveSlot(Guard _guard)
+        {
+
+        }
 
     }
 }

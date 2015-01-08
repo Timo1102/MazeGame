@@ -111,6 +111,11 @@ namespace MTDMG.GameObjects
                     this.Dispose();
                     return new Vector3(0, 0, 0);
                 }
+                myWay[i].EnterSlot(this);
+                if (i >= 1)
+                {
+                    myWay[i - 1].LeaveSlot(this);
+                }
 
 
                 return new Vector3(myWay[i].transform.Position.X, 0, myWay[i].transform.Position.Z);

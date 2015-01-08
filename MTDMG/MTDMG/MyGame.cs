@@ -207,6 +207,10 @@ namespace MTDMG
             base.Update(gameTime);
         }
 
+
+
+
+
         public void CheckTouch(float x, float y)
         {
 

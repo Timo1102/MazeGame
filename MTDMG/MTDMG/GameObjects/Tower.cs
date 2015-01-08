@@ -44,7 +44,7 @@ namespace MTDMG.GameObjects
             {
                 _cell.renderer.color = Color.Beige.ToVector3();
             }
-            Console.WriteLine("Click on Tower");
+           
             base.MouseClick();
         }
 
@@ -59,8 +59,6 @@ namespace MTDMG.GameObjects
                 }
             }
 
-                   
-      
         }
 
         void FindCellSlots(Vector2 spos)
@@ -72,10 +70,6 @@ namespace MTDMG.GameObjects
             {
                 allSlots.Add(((MyGame)game).startscene.GetVertex(new Vector2(npos.X + spos.X, npos.Y + spos.Y)).data);
             }
-
-            
-              
-
         }
 
 
