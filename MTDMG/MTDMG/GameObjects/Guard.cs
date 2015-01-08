@@ -14,7 +14,7 @@ using System.Timers;
 
 namespace MTDMG.GameObjects
 {
-    class Guard : GameObject
+    public class Guard : GameObject
     {
         Timer lTimer = new Timer();
         int lTicks = 1;

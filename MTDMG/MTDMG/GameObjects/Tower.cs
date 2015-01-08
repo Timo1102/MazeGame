@@ -9,7 +9,7 @@ namespace MTDMG.GameObjects
 {
     class Tower : GameObject
     {
-        public int Radius = 1;
+        public int Radius = 2;
         List<GameObjects.CellSlot> allSlots = new List<GameObjects.CellSlot>();
         PlayerControler player;
 
