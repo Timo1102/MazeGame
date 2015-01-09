@@ -21,6 +21,8 @@ namespace MTDMG.GameObjects
     
         bool isUsed = false;
 
+        public Guard target;
+
         public CellSlot(MyGame game)
             : base(game, game.mainCamera)
         {
@@ -48,12 +50,12 @@ namespace MTDMG.GameObjects
 
         public void EnterSlot(Guard _guard)
         {
-
+            target = _guard;
         }
 
         public void LeaveSlot(Guard _guard)
         {
-
+            target = null;
         }
 
     }

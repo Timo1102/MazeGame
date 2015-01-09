@@ -14,16 +14,16 @@ namespace MTDMG.GameObjects
         int lTicks = 0;
         static uint MAX_TICKS = 50;
         bool dev_colo = false;
-
+        public PlayerControler player;
         public int guardCount = 20;
         GameObjects.Guard guard;
         public Color guardColor;
         MyGame game;
-        public Base(MyGame game) : base(game, game.mainCamera)
+        public Base(MyGame game, PlayerControler player) : base(game, game.mainCamera)
         {
             this.game = game;
             transform.Position = new Vector3(0, 0, 0);
-
+            this.player = player;
         }
         public void InitTimer()
         {
@@ -42,7 +42,7 @@ namespace MTDMG.GameObjects
         public void SpawnTarget(List<CellSlot> _way)
         {
             
-            guard = new GameObjects.Guard(game);
+            guard = new GameObjects.Guard(game, player);
             guard.transform.Position = new Vector3(this.transform.Position.X, 0, this.transform.Position.Z);
             game.startscene.Instatiate(guard);
             guard.renderer.color = guardColor.ToVector3();

@@ -19,8 +19,8 @@ namespace MTDMG.GameObjects
         Timer lTimer = new Timer();
         int lTicks = 1;
         static uint MAX_TICKS = 500;
-
-
+        public int live = 10;
+        public PlayerControler player;
         List<CellSlot> myWay = new List<CellSlot>();
 
         public float speed = 50;
@@ -29,14 +29,33 @@ namespace MTDMG.GameObjects
         public List<MazeGenerator.Cell> way;
         
         int i = 0;
-        public Guard(MyGame game)
+        public Guard(MyGame game, PlayerControler _player)
             : base(game, game.mainCamera)
         {
             this.game = game;
             renderer = new Render3D(this, "Model/Guard");
             transform.Scale = new Vector3(0.4f, 0.4f, 0.4f);
             CanClick = true;
+            this.player = _player;
         }
+
+        public void GetDamage(int damage)
+        {
+            live -= damage;
+            Console.WriteLine("restschaden: " + live);
+            if (live <= 0)
+            {
+                Dead();
+            }
+        }
+
+        public void Dead()
+        {
+            Console.WriteLine("Dead");
+            
+            Dispose();
+        }
+
 
         public  void InitTimer()
         {

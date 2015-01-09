@@ -12,7 +12,8 @@ namespace MTDMG.GameObjects
         public int Radius = 2;
         List<GameObjects.CellSlot> allSlots = new List<GameObjects.CellSlot>();
         PlayerControler player;
-
+        Guard target;
+        public int damage = 2;
 
         public Tower(MyGame game, PlayerControler player)
             : base(game, game.mainCamera)
@@ -22,14 +23,7 @@ namespace MTDMG.GameObjects
             CanClick = true;
             this.player = player;
 
-
-            //for (int i = 0; i < Radius+1; i++)
-            //{
-            //    for (int j = 0; j < Radius+1; j++)
-            //    {
-            //        FindCellSlots(new Vector2(i-1, j-1));
-            //    }
-            //}
+    
             
 
         }
@@ -46,6 +40,34 @@ namespace MTDMG.GameObjects
             }
            
             base.MouseClick();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            if (target == null)
+            {
+                FindTarget();
+            }
+
+            base.Update(gameTime);
+        }
+        void FindTarget()
+        {
+            foreach (var _guard in allSlots)
+            {
+                if (_guard.target != null && _guard.target.player != player)
+                {
+                    target = _guard.target;
+                    ShootTarget();
+                    target = null;
+                }
+            }
+        }
+
+        void ShootTarget()
+        {
+            target.renderer.color = Color.Red.ToVector3();
+            target.GetDamage(damage);
         }
 
         public void FindSlots()

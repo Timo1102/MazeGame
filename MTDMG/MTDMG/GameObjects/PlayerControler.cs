@@ -40,7 +40,7 @@ namespace MTDMG.GameObjects
         {
             
 
-            myBase = new GameObjects.Base((MyGame)game);
+            myBase = new GameObjects.Base((MyGame)game, this);
             myBase.transform.Position = new Vector3(pos.X, 0, pos.Y);
             myBase.guardColor = this.guardColor;
             ((MyGame)game).startscene.Instatiate(myBase);
