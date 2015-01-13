@@ -33,12 +33,20 @@ namespace GameHelper
          public static int GuardDamageDestroyer = 50;
 
 //###########Towwer Config#####################
-        public static int TowerCost = 500;
-        public static int TowerLive = 1000;
+        public static int TowerCost1 = 500;
+        public static int TowerCost2 = 500;
+        public static int TowerCost3 = 500;
+
+        public static int TowerLife1 = 1000;
+        public static int TowerLife2 = 1000;
+        public static int TowerLife3 = 1000;
+
 
         public static int TowerDamage1 = 50;
         public static int TowerDamage2 = 100;
         public static int TowerDamage3 = 150;
+
+        public static int TowerMaxLevel = 3;
 
     }
 }

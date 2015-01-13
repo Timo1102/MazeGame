@@ -14,7 +14,26 @@ namespace MTDMG.GameObjects
         List<GameObjects.CellSlot> allSlots = new List<GameObjects.CellSlot>();
         PlayerControler player;
         Guard target;
-        public int damage = 2;
+        public int damage;
+        public int Cost;
+        public int NextCost;
+        public int Life;
+
+        int level;
+        public int Level
+        {
+            get
+            {
+                return level;
+            }
+            set
+            {
+                level = value;
+                SetValue(value);
+            }
+        }
+
+
 
         public Tower(MazeGame game, PlayerControler player)
             : base(game, game.mainCamera)
@@ -23,14 +42,43 @@ namespace MTDMG.GameObjects
             transform.Scale = new Vector3(0.3f, 0.6f, 0.3f);
             CanClick = true;
             this.player = player;
-          
+            Level = 1;
            
             
 
         }
 
 
+        void SetValue(int i)
+        {
+            switch (i)
+            {
+                case 1:
+                    damage = Config.TowerDamage1;
+                    Cost = Config.TowerCost1;
+                    NextCost = Config.TowerCost2;
+                    Life = Config.TowerLife1;
+                    break;
+                case 2:
+                    damage = Config.TowerDamage2;
+                    Cost = Config.TowerCost2;
+                    NextCost = Config.TowerCost3;
+                    Life = Config.TowerLife2;
+                    break;
+                case 3:
+                    damage = Config.TowerDamage3;
+                    Cost = Config.TowerCost3;
+                    Life = Config.TowerLife3;
+                    break;
+            }
 
+        }
+
+        public void Upgrade()
+        {
+            if(Level<Config.TowerMaxLevel)
+            Level++;
+        }
 
         public override void MouseClick()
         {
