@@ -16,9 +16,10 @@ namespace MTDMG.GameObjects
 {
     public class Guard : GameObject
     {
-        Timer lTimer = new Timer();
-        int lTicks = 1;
-        static uint MAX_TICKS = 500;
+        //Timer lTimer = new Timer();
+
+        int lTicks = 0;
+       
         public int live = 10;
         public PlayerControler player;
         List<CellSlot> myWay = new List<CellSlot>();
@@ -27,7 +28,7 @@ namespace MTDMG.GameObjects
 
         MazeGame game;
         public List<MazeGenerator.Cell> way;
-        
+        Vector3 LerpPosition;
         int i = 0;
         public Guard(MazeGame game, PlayerControler _player)
             : base(game, game.mainCamera)
@@ -54,27 +55,18 @@ namespace MTDMG.GameObjects
             GameObject.Destroy(this);
         }
 
+ 
 
-        public  void InitTimer()
-        {
-           
-            lTimer = new Timer();
-            lTimer.Interval = 250;
-            lTimer.Elapsed += new ElapsedEventHandler(Timer_Tick);
-            lTimer.Start();
-        }
 
-        void Timer_Tick(object sender, EventArgs e)
+        public override void Tick(object sender, EventArgs e)
         {
             lTicks++;
-            
-            if (lTicks <= MAX_TICKS)
-            {
-               
-                
-                //do whatever you want to do
-            }
+            LerpPosition = GetPosition(lTicks);
+            //this.transform.Position = GetPosition(lTicks);
+            //Console.WriteLine("lticks: " + lTicks);
+            base.Tick(sender, e);
         }
+
 
         public override void Update(GameTime gameTime)
         {
@@ -85,9 +77,10 @@ namespace MTDMG.GameObjects
             //else
             //{
 
-            
 
-            this.transform.Position = Vector3.Lerp(transform.Position, GetPosition(lTicks), 0.8f);
+
+            this.transform.Position = Vector3.Lerp(transform.Position, LerpPosition, 0.8f);
+            
             //}
 
         
@@ -117,6 +110,8 @@ namespace MTDMG.GameObjects
 
         Vector3 GetPosition(int i)
         {
+           
+
             if (myWay.Count > 0)
             {
                 
@@ -126,12 +121,12 @@ namespace MTDMG.GameObjects
                 {
                     GameObject.Destroy(this);
                 }
-                myWay[i].EnterSlot(this);
-                if (i >= 1)
-                {
-                    myWay[i - 1].LeaveSlot(this);
-                }
-
+                //myWay[i].EnterSlot(this);
+                //if (i >= 1)
+                //{
+                //    myWay[i - 1].LeaveSlot(this);
+                //}
+               
 
                 return new Vector3(myWay[i].transform.Position.X, 0, myWay[i].transform.Position.Z);
             }

@@ -15,6 +15,7 @@ namespace MTDMG.GameObjects
             : base(game, game.mainCamera)
         {
             myKey = key;
+            RessourceCoins = Config.StartGold;
         }
 
         private int _id;
@@ -51,6 +52,11 @@ namespace MTDMG.GameObjects
            }
        }
 
+       public override void Tick(object sender, EventArgs e)
+       {
+           RessourceCoins += Config.GoldPerTick;
+           base.Tick(sender, e);
+       }
 
         public void SpwanBase(Vector2 pos)
         {

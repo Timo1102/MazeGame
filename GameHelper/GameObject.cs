@@ -8,10 +8,12 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Timers;
 
 namespace GameHelper
 {
     public class GameObject : Microsoft.Xna.Framework.GameComponent
+    
     {
         public string Name;
         public List<GameObject> children = new List<GameObject>();
@@ -19,6 +21,10 @@ namespace GameHelper
         public Transform transform;
         public Render3D renderer = null;
         public bool CanClick = false;
+
+        Timer lTimer = new Timer();
+
+
 
         public BoundingBox collider
         {
@@ -39,6 +45,7 @@ namespace GameHelper
             this.game = game;
             game.Components.Add(this);
             isActive = true;
+            InitTimer();
         }
 
         public void SetActive(bool active)
@@ -50,8 +57,35 @@ namespace GameHelper
         public override void Update(GameTime gameTime)
         {
             
+
+
             base.Update(gameTime);
         }
+
+        public void InitTimer()
+        {
+
+            lTimer = new Timer();
+            lTimer.Interval = Config.TickIntervall;
+            lTimer.Elapsed += new ElapsedEventHandler(Tick);
+            StartTimer();
+            lTimer.Start();
+        }
+
+        public virtual void StartTimer()
+        {
+
+            
+        }
+
+        public virtual void Tick(object sender, EventArgs e)
+        {
+           
+
+           
+        }
+
+
 
         public void AddAsChild(GameObject child)
         {

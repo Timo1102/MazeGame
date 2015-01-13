@@ -4,15 +4,13 @@ using System.Linq;
 using System.Text;
 using GameHelper;
 using Microsoft.Xna.Framework;
-using System.Timers;
+
 namespace MTDMG.GameObjects
 {
    public class Base : GameObject
     {
 
-        Timer lTimer = new Timer();
-        int lTicks = 0;
-        static uint MAX_TICKS = 50;
+       List<CellSlot> solutionWay;
         bool dev_colo = false;
         public PlayerControler player;
         public int guardCount = 20;
@@ -28,33 +26,68 @@ namespace MTDMG.GameObjects
             transform.Scale = new Vector3(0.1f, 0.1f, 0.1f);
             renderer.color = player.myColor.ToVector3();
         }
-        public void InitTimer()
-        {
 
-            lTimer = new Timer();
-            lTimer.Interval = 250;
-            lTimer.Elapsed += new ElapsedEventHandler(Timer_Tick);
-            lTimer.Start();
+        public override void Tick(object sender, EventArgs e)
+        {
+            //if (((Scenes.StartScene)game.myScene).GetOpposit(player).myBase != null)
+           // {
+                //SpawnTarget(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.X, ((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.Z)).data);
+                SpawnTarget(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(0, 0)).data);
+                    
+
+           // }
+
+
+            base.Tick(sender, e);
         }
 
-        void Timer_Tick(object sender, EventArgs e)
+
+        public void SpawnTarget(CellSlot Goal)
         {
-   
+            if (player.RessourceCoins > Config.GuardCostRunner)
+            {
+                player.RessourceCoins -= Config.GuardCostRunner;
+                guard = new GameObjects.Guard(game, player);
+                guard.transform.Position = new Vector3(this.transform.Position.X, 0, this.transform.Position.Z);
+
+                game.myScene.Instatiate(guard);
+
+
+                guard.renderer.color = guardColor.ToVector3();
+                guard.SetWay(GetWay(Goal));
+            }
+
         }
 
-        public void SpawnTarget(List<CellSlot> _way)
+        public List<CellSlot> GetWay(CellSlot Goal)
         {
+           solutionWay = new List<CellSlot>();
+
+            GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexStart = ((Scenes.StartScene)game.myScene).GetVertex(new Vector2(this.transform.Position.X, this.transform.Position.Z));
+            GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexEnd = ((Scenes.StartScene)game.myScene).GetVertex(new Vector2(Goal.transform.Position.X, Goal.transform.Position.Z));
+
+
+             List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad = ((Scenes.StartScene)game.myScene).myGraph.Astern(VertexStart, VertexEnd);
+
+
+
+
+                    foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in sad)
+                    {
+                        solutionWay.Add(_vertex.data);
+                    }
+                    List<GameObjects.CellSlot> myWay = new List<GameObjects.CellSlot>();
+                    myWay.Clear();
+                    for (int i = solutionWay.Count - 1; i >= 0; i--)
+                    {
+                        myWay.Add(solutionWay[i]);
+                    }
+
+            return myWay;
+        }
+
             
-            guard = new GameObjects.Guard(game, player);
-            guard.transform.Position = new Vector3(this.transform.Position.X, 0, this.transform.Position.Z);
-           
-            game.myScene.Instatiate(guard);
 
-          
-            guard.renderer.color = guardColor.ToVector3();
-            guard.SetWay(_way);
-            guard.InitTimer();
 
-        }
     }
 }

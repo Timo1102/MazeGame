@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="GameManager.cs" />
     <Compile Include="Graph\Edge.cs" />
     <Compile Include="Graph\Graph.cs" />
     <Compile Include="Graph\Vertex.cs" />

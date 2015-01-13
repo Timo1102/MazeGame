@@ -69,7 +69,18 @@ namespace MTDMG.Scenes
           
         }
 
+        public GameObjects.PlayerControler GetOpposit(GameObjects.PlayerControler myPlayer)
+        {
+            if (myPlayer == player1)
+            {
+                return player2;
+            }
+            else
+            {
+                return player1;
+            }
 
+        }
 
 
         public GameObjects.PlayerControler GetPlayerController()
@@ -134,7 +145,7 @@ namespace MTDMG.Scenes
                     }
 
 
-                    myBase.SpawnTarget(myWay);
+                 
 
                 }
             }
