@@ -18,12 +18,15 @@ namespace MTDMG.GameObjects
         public int guardCount = 20;
         GameObjects.Guard guard;
         public Color guardColor;
-        MyGame game;
-        public Base(MyGame game, PlayerControler player) : base(game, game.mainCamera)
+        MazeGame game;
+        public Base(MazeGame game, PlayerControler player) : base(game, game.mainCamera)
         {
             this.game = game;
-            transform.Position = new Vector3(0, 0, 0);
+            
             this.player = player;
+            renderer = new Render3D(this, "Cube");
+            transform.Scale = new Vector3(0.1f, 0.1f, 0.1f);
+            renderer.color = player.myColor.ToVector3();
         }
         public void InitTimer()
         {
@@ -44,7 +47,10 @@ namespace MTDMG.GameObjects
             
             guard = new GameObjects.Guard(game, player);
             guard.transform.Position = new Vector3(this.transform.Position.X, 0, this.transform.Position.Z);
-            game.startscene.Instatiate(guard);
+           
+            game.myScene.Instatiate(guard);
+
+          
             guard.renderer.color = guardColor.ToVector3();
             guard.SetWay(_way);
             guard.InitTimer();

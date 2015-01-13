@@ -13,18 +13,19 @@ using GameHelper;
 
 namespace MTDMG.GameObjects 
 {
-    class Slot : GameObject
+   public class Slot : GameObject
     {
 
-        MyGame _game;
+        MazeGame _game;
         GameObjects.Tower tower;
         bool isUsed = false;
 
-        public Slot(MyGame game)
+        public Slot(MazeGame game)
             : base(game, game.mainCamera)
         {
             _game = game;
            renderer = new Render3D(this, "Model/Slot");
+           renderer.color = Color.Gray.ToVector3();
            renderer.myMeshes.Clear();
            renderer.myMeshes.Add(renderer.model.Meshes[0]);
            CanClick = true;
@@ -32,7 +33,13 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
-            ((MyGame)game).startscene.SpwanTower(this.transform.Position);
+
+            ((Scenes.StartScene)game.myScene).SpwanTower(this.transform.Position);
+            if (Keyboard.GetState().IsKeyDown(Keys.B))
+            {
+                ((Scenes.StartScene)game.myScene).DestroyWall(this);
+            }
+
             base.MouseClick();
         }
 

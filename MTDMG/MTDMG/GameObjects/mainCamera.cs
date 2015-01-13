@@ -19,7 +19,7 @@ namespace MTDMG.GameObjects
         private MouseState currentMouseState;
         private float cameraSpeed;
         private Vector3 mouseRotationBuffer;   
-        public mainCamera(MyGame game, Camera mainCamera)
+        public mainCamera(MazeGame game, Camera mainCamera)
             : base(game, mainCamera)
         {
             prevMouseState = Mouse.GetState();

@@ -11,7 +11,7 @@ namespace MTDMG.GameObjects
 {
    public class PlayerControler : GameObject
     {
-        public PlayerControler(MyGame game, Keys key)
+        public PlayerControler(MazeGame game, Keys key)
             : base(game, game.mainCamera)
         {
             myKey = key;
@@ -33,27 +33,45 @@ namespace MTDMG.GameObjects
 
         public Keys myKey;
         public GameObjects.Base myBase;
-       public Color guardColor;
+       public Color myColor;
+
+      
+
+
+       private int ressourceCoins;
+       public int RessourceCoins
+       {
+           get
+           {
+               return ressourceCoins;
+           }
+           set
+           {
+               ressourceCoins = value;
+           }
+       }
 
 
         public void SpwanBase(Vector2 pos)
         {
             
 
-            myBase = new GameObjects.Base((MyGame)game, this);
+            myBase = new GameObjects.Base((MazeGame)game, this);
             myBase.transform.Position = new Vector3(pos.X, 0, pos.Y);
-            myBase.guardColor = this.guardColor;
-            ((MyGame)game).startscene.Instatiate(myBase);
+            myBase.guardColor = this.myColor;
+            ((Scenes.StartScene)game.myScene).Instatiate(myBase);
         }
 
         public void SpwanTower(Vector3 pos)
         {
             GameObjects.Tower tower;
-            tower = new GameObjects.Tower((MyGame)game, this);
+            tower = new GameObjects.Tower((MazeGame)game, this);
             tower.transform.Position = pos;
-            tower.renderer.color = guardColor.ToVector3();
+            tower.renderer.color = myColor.ToVector3();
             tower.FindSlots();
-            ((MyGame)game).startscene.Instatiate(tower);
+            //((Scenes.StartScene)game.myScene).InstatiateTower(new Vector2(pos.X, pos.Z), this);
+            ((Scenes.StartScene)game.myScene).Instatiate(tower);
+            //game.myScene.Instatiate(tower);
         }
 
 

@@ -48,7 +48,7 @@ namespace GameHelper
 
 
         //Constructor
-        public Camera(Game game, Camera mainCamera)
+        public Camera(myGame game, Camera mainCamera)
             : base(game, mainCamera)
         {
             near = 0.01f;

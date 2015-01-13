@@ -29,9 +29,9 @@ namespace GameHelper
         }
 
 
-        public Game game;
+        public myGame game;
         public Camera mainCamera;
-        public GameObject(Game game, Camera mainCamera)
+        public GameObject(myGame game, Camera mainCamera)
             : base(game)
         {
             this.mainCamera = mainCamera;
@@ -63,7 +63,21 @@ namespace GameHelper
 
         }
 
+        public static void Destroy(GameObject gameobject)
+        {
+            gameobject.game.Components.Remove(gameobject);
+            gameobject.game.Components.Remove(gameobject.renderer);
+            gameobject.renderer.Dispose();
+            gameobject.game.myScene.gameobjects.Remove(gameobject);
+            gameobject.Dispose();
 
+            GC.SuppressFinalize(gameobject);
+            GC.SuppressFinalize(gameobject.renderer);
+            
+            
+            //gameobject = null;
+
+        }
 
         protected BoundingBox UpdateBoundingBox(Model model, Matrix worldTransform)
         {
@@ -72,7 +86,7 @@ namespace GameHelper
             Vector3 max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
 
             // For each mesh of the model
-            foreach (ModelMesh mesh in model.Meshes)
+            foreach (ModelMesh mesh in renderer.myMeshes)
             {
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
                 {
@@ -98,6 +112,8 @@ namespace GameHelper
             // Create and return bounding box
             return new BoundingBox(min, max);
         }
+
+
 
     }
 }

@@ -17,20 +17,20 @@ namespace MTDMG.GameObjects
     {
 
         
-        MyGame _game;
+        MazeGame _game;
     
         bool isUsed = false;
 
         public Guard target;
 
-        public CellSlot(MyGame game)
+        public CellSlot(MazeGame game)
             : base(game, game.mainCamera)
         {
             _game = game;
            renderer = new Render3D(this, "Model/CellSlot");
            renderer.myMeshes.Clear();
            renderer.myMeshes.Add(renderer.model.Meshes[0]);
-           renderer.color = Color.OrangeRed.ToVector3();
+           renderer.color = Color.DarkBlue.ToVector3();
 
            CanClick = true;
         }
@@ -38,7 +38,7 @@ namespace MTDMG.GameObjects
         public override void MouseClick()
         {
 
-            MyGame.Instance.startscene.GeneratePath(new Vector2(this.transform.Position.X, this.transform.Position.Z));
+            ((Scenes.StartScene)game.myScene).GeneratePath(new Vector2(this.transform.Position.X, this.transform.Position.Z));
         }
 
 

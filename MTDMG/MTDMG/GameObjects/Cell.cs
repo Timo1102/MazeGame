@@ -18,7 +18,7 @@ namespace MTDMG.GameObjects
 
         Color BaseColor = Color.Red;
 
-        public Cell(MyGame game) : base(game, game.mainCamera)
+        public Cell(MazeGame game) : base(game, game.mainCamera)
         {
            renderer = new Render3D(this, "Model/Cell");
            renderer.myMeshes.Clear();

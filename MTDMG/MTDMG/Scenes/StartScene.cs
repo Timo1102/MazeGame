@@ -30,30 +30,30 @@ namespace MTDMG.Scenes
 
        public List<GameObjects.CellSlot> solutionWay;
        public Maze myMaze;
-       int x = 35;
-       int y = 21;
-       MyGame _game;
+       int x = 19;
+       int y = 11;
+       MazeGame _game;
        public GameObjects.PlayerControler player1;
        public GameObjects.PlayerControler player2;
 
 
-        public StartScene(MyGame game) : base(game)
+        public StartScene(MazeGame game) : base((Game)game)
        {
            myGraph = new GameHelper.Graph.Graph<GameObjects.CellSlot>();
            this._game = game;
            myMaze = new Maze(x, y);
-           game.mainCamera.transform.Position = new Vector3(x - 2, 52, y - 1);
+           game.mainCamera.transform.Position = new Vector3(x - 2, 27, y - 1);
            game.mainCamera.transform.Rotation = new Vector3(1.57f, 0, 0);
-           GenerateMaze();
+        
             name = "StartScene";
 
-
+           GenerateMaze();
 
             player1 = new GameObjects.PlayerControler(game, Keys.G);
             player2 = new GameObjects.PlayerControler(game, Keys.H);
 
-            player1.guardColor = Color.OliveDrab;
-            player2.guardColor = Color.Black;
+            player1.myColor = Config.Player1;
+            player2.myColor = Config.Player2;
 
             solutionWay = new List<GameObjects.CellSlot>();
 
@@ -62,18 +62,14 @@ namespace MTDMG.Scenes
 
         }
 
+        public void Start()
+        {
+            Console.WriteLine("asd");
 
-        //public GameHelper.Graph.Vertex<GameObjects.CellSlot> GetVertex(Vector2 pos)
-        //{
-        //    foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in myGraph.vertices)
-        //    {
-        //        if (_vertex.data.transform.Position == new Vector3(pos.X, _vertex.data.transform.Position.Y, pos.Y))
-        //        {
-        //            return _vertex;
-        //        }
-        //    }
-        //    return null;
-        //}
+          
+        }
+
+
 
 
         public GameObjects.PlayerControler GetPlayerController()
@@ -89,6 +85,11 @@ namespace MTDMG.Scenes
 
             return null;
         }
+        public void DestroyWall(GameObjects.Slot pos)
+        {
+            GameObject.Destroy(pos);
+        }
+
 
         public void GeneratePath(Vector2 endPos)
         {
@@ -102,7 +103,7 @@ namespace MTDMG.Scenes
                 }
                 else
                 {
-                    myBase = activePlayerControler.myBase;
+                    myBase = GetPlayerController().myBase;
 
 
 
@@ -142,15 +143,15 @@ namespace MTDMG.Scenes
         {
             foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in myGraph.vertices)
             {
-                _vertex.data.ChangeColor(Color.OrangeRed);
+                _vertex.data.ChangeColor(Config.CellColor);
             }
         }
 
         public void SpwanTower(Vector3 pos)
         {
-            if(GetPlayerController() != null)
-            GetPlayerController().SpwanTower(pos);
-            
+            if (GetPlayerController() != null)
+                GetPlayerController().SpwanTower(pos);
+            //InstatiateTower(new Vector2(pos.X, pos.Z), player1);
         }
 
 
@@ -202,9 +203,9 @@ namespace MTDMG.Scenes
                     SetSlotCell(2 * _cell.x + 1, 2 * _cell.y);
 
                 }
+                Instatiate(prefab);
 
-
-                gameobjects.Push(prefab);
+                //gameobjects.Add(prefab);
             }
 
 
@@ -243,7 +244,6 @@ namespace MTDMG.Scenes
                     myGraph.AddEdge(myVertex2, myVertex3);
                 }
             }
-            Console.WriteLine("Edges: " + myGraph.EdgeCount);
         }
 
        public GameHelper.Graph.Vertex<GameObjects.CellSlot> GetVertex(Vector2 pos)
@@ -271,9 +271,9 @@ namespace MTDMG.Scenes
             cellSlot.transform.Scale = new Vector3(0.9f, 0.9f, 0.9f);
             cellSlot.Name = X.ToString() + "/" + Y.ToString();
             myGraph.CreateVertex(cellSlot).SetPosition(cellSlot.transform.Position);
-
-            gameobjects.Push(cellSlot);
-
+            Instatiate(cellSlot);
+           // gameobjects.Add(cellSlot);
+            
         }
        
 
@@ -284,18 +284,39 @@ namespace MTDMG.Scenes
             
             slot.transform.Scale = new Vector3(0.9f, 0.9f, 0.9f);
             slot.Name = X.ToString() + "/" + Y.ToString();
-            gameobjects.Push(slot);
+
+            //InstatiateTower(new Vector2(X, Y), player2);
+            Instatiate(slot);
+           // gameobjects.Add(slot);
             
         }
 
 
-
+        public override void Instatiate(GameObject prefab)
+        {
+            if (prefab != null)
+                _game.myScene = this;
+            base.Instatiate(prefab);
+        }
 
         public override void SceneObjects()
         {
-
+            
             base.SceneObjects();
         }
+
+       public void InstatiateTower(Vector2 pos, GameObjects.PlayerControler _player)
+       {
+           Console.WriteLine("genau diese methode wird aufgerufen");
+           GameObjects.Tower _tower = new GameObjects.Tower(_game, _player);
+           
+           _tower.transform.Position = new Vector3(pos.X, 1.03f, pos.Y);
+           this.gameobjects.Add(_tower);
+
+          // Instatiate(_tower);
+           
+       }
+
 
     }
 }

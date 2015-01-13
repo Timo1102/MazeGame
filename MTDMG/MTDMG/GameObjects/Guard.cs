@@ -25,11 +25,11 @@ namespace MTDMG.GameObjects
 
         public float speed = 50;
 
-        MyGame game;
+        MazeGame game;
         public List<MazeGenerator.Cell> way;
         
         int i = 0;
-        public Guard(MyGame game, PlayerControler _player)
+        public Guard(MazeGame game, PlayerControler _player)
             : base(game, game.mainCamera)
         {
             this.game = game;
@@ -42,8 +42,7 @@ namespace MTDMG.GameObjects
         public void GetDamage(int damage)
         {
             live -= damage;
-            Console.WriteLine("restschaden: " + live);
-            if (live <= 0)
+           if (live <= 0)
             {
                 Dead();
             }
@@ -51,9 +50,8 @@ namespace MTDMG.GameObjects
 
         public void Dead()
         {
-            Console.WriteLine("Dead");
-            
-            Dispose();
+          
+            GameObject.Destroy(this);
         }
 
 
@@ -107,8 +105,7 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
-            game.startscene.ResetCellSlotColor();
-
+            ((Scenes.StartScene)game.myScene).ResetCellSlotColor();
             foreach (CellSlot _slot in myWay)
             {
                 _slot.ChangeColor(Color.YellowGreen);
@@ -127,8 +124,7 @@ namespace MTDMG.GameObjects
 
                 if (i >= myWay.Count -1)
                 {
-                    this.Dispose();
-                    return new Vector3(0, 0, 0);
+                    GameObject.Destroy(this);
                 }
                 myWay[i].EnterSlot(this);
                 if (i >= 1)

@@ -19,22 +19,16 @@ namespace MTDMG
     /// <summary>
     /// This is the main type for your application.
     /// </summary>
-    public class MyGame : Microsoft.Xna.Framework.Game
+    public class MazeGame : myGame
     {
-        private readonly GraphicsDeviceManager graphics;
-        private SpriteBatch spriteBatch;
-        public GameObjects.mainCamera mainCamera;
-        private TouchTarget touchTarget;
-        private Color backgroundColor = new Color(81, 81, 81);
-        private bool applicationLoadCompleteSignalled;
 
-        public static MyGame Instance;
+        public static MazeGame Instance;
         
         private UserOrientation currentOrientation = UserOrientation.Bottom;
         private Matrix screenTransform = Matrix.Identity;
         float i = 0;
-        public Scenes.StartScene startscene;
-     
+        
+        private TouchTarget touchTarget;
         /// <summary>
         /// The target receiving all surface input for the application.
         /// </summary>
@@ -42,17 +36,16 @@ namespace MTDMG
         {
             get { return touchTarget; }
         }
-
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public MyGame()
+        public MazeGame() : base()
         {
             if (Instance == null)
             {
                 Instance = this;
             }
-            graphics = new GraphicsDeviceManager(this);
+            
             Content.RootDirectory = "Content";
         }
 
@@ -115,7 +108,8 @@ namespace MTDMG
             //init Camera
             mainCamera = new GameObjects.mainCamera(this, mainCamera);
 
-            startscene = new Scenes.StartScene(this);
+           
+            myScene = new Scenes.StartScene(this);
             RasterizerState stat = new RasterizerState();
             stat.CullMode = CullMode.None;
             GraphicsDevice.RasterizerState = stat;
@@ -159,6 +153,60 @@ namespace MTDMG
             // TODO: use this.Content to load your application content here
         }
 
+        public override void CheckTouch(float x, float y)
+        {
+
+            // Vector3 nearsource = new Vector3((float)Mouse.GetState().X, (float)Mouse.GetState().Y, 0f);
+            // Vector3 farsource = new Vector3((float)Mouse.GetState().X, (float)Mouse.GetState().Y, 1f);
+
+
+            Vector3 nearsource = new Vector3(x, y, 0f);
+            Vector3 farsource = new Vector3(x, y, 1f);
+            Matrix world = Matrix.CreateTranslation(0, 0, 0);
+
+
+
+            Vector3 nearPoint = GraphicsDevice.Viewport.Unproject(nearsource,
+                    mainCamera.Projection, mainCamera.View, world);
+
+            Vector3 farPoint = GraphicsDevice.Viewport.Unproject(farsource,
+                    mainCamera.Projection, mainCamera.View, world);
+
+
+
+            Vector3 direction = farPoint - nearPoint;
+            direction.Normalize();
+
+
+            Ray ray = new Ray(nearPoint, direction * 50);
+
+            // Console.WriteLine("Click" + direction);
+            Console.WriteLine("aa: " + myScene.gameobjects.Count);
+            foreach (GameObject gobj in myScene.gamobjectsStack)
+            {
+
+
+                if (gobj.CanClick)
+                {
+                    
+
+                    foreach (ModelMesh _mesh in gobj.renderer.myMeshes)
+                    {
+
+
+
+                        if (ray.Intersects(gobj.collider) != null)
+                        {
+                            gobj.MouseClick();
+                            return;
+                        }
+                    }
+                }
+            }
+
+            base.CheckTouch(x, y);
+        }
+
         /// <summary>
         /// UnloadContent will be called once per app and is the place to unload
         /// all content.
@@ -182,23 +230,24 @@ namespace MTDMG
                     // TODO: Process touches, 
                     // use the following code to get the state of all current touch points.
                      ReadOnlyTouchPointCollection touches = touchTarget.GetState();
-                     //if (touches.Count > 0)
-                     //{
-                     //    foreach (TouchPoint _touchpoint in touches)
-                     //    {
-                     //        CheckTouch(_touchpoint.X, _touchpoint.Y);
-                     //    }
-                     //}
+                    
+                     if (touches.Count > 0)
+                     {
+                         foreach (TouchPoint _touchpoint in touches)
+                         {
+                             CheckTouch(_touchpoint.X, _touchpoint.Y);
+                         }
+                     }
 
 
                 }
 
-                if (Mouse.GetState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
+                if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.L))
                 {
-                    CheckTouch(Mouse.GetState().X, Mouse.GetState().Y);
+                    
+                    ((Scenes.StartScene)myScene).InstatiateTower(new Vector2(5, 5), ((Scenes.StartScene)myScene).player1);
                 }
-
-
+               
                 
        
                 // TODO: Add your update logic here
@@ -209,55 +258,6 @@ namespace MTDMG
 
 
 
-
-
-        public void CheckTouch(float x, float y)
-        {
-
-               // Vector3 nearsource = new Vector3((float)Mouse.GetState().X, (float)Mouse.GetState().Y, 0f);
-               // Vector3 farsource = new Vector3((float)Mouse.GetState().X, (float)Mouse.GetState().Y, 1f);
-
-
-                Vector3 nearsource = new Vector3(x, y, 0f);
-                Vector3 farsource = new Vector3(x,y, 1f);
-                Matrix world = Matrix.CreateTranslation(0, 0, 0);
-
-
-
-                Vector3 nearPoint = GraphicsDevice.Viewport.Unproject(nearsource,
-                        mainCamera.Projection, mainCamera.View, world);
-
-                Vector3 farPoint = GraphicsDevice.Viewport.Unproject(farsource,
-                        mainCamera.Projection, mainCamera.View, world);
-
-
-
-                Vector3 direction = farPoint - nearPoint;
-                direction.Normalize();
-
-                Console.WriteLine("asd" + nearPoint + " / " + farPoint + " direction " + direction);
-
-                Ray ray = new Ray(nearPoint, direction * 50);
-                // Console.WriteLine("Click" + direction);
-                foreach (GameObject gobj in startscene.gameobjects)
-                {
-                    if (gobj.CanClick)
-                    {
-
-                        foreach (ModelMesh _mesh in gobj.renderer.myMeshes)
-                        {
-
-                            if (ray.Intersects(gobj.collider) != null)
-                            {
-                                
-                                gobj.MouseClick();
-                                return;
-                            }
-                        }
-                    }
-                }
-            
-        }
 
         /// <summary>
         /// This is called when the app should draw itself.
@@ -336,6 +336,7 @@ namespace MTDMG
             //TODO: Enable audio, animations here
 
             //TODO: Optionally enable raw image here
+            touchTarget.EnableImage(ImageType.Normalized);
         }
 
         /// <summary>
@@ -391,5 +392,7 @@ namespace MTDMG
         }
 
         #endregion
+
+        
     }
 }

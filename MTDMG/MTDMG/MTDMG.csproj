@@ -114,7 +114,7 @@
     <Compile Include="GameObjects\Tower.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="MyGame.cs" />
+    <Compile Include="MazeGame.cs" />
     <Compile Include="Scenes\StartScene.cs" />
     <Compile Include="TestComponent.cs" />
   </ItemGroup>

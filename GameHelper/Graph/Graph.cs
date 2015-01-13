@@ -105,10 +105,8 @@ namespace GameHelper.Graph
 
                 myWay.Add(GetConnectedVertices(next)[j]);
                 next = GetConnectedVertices(next)[j];
-                Console.WriteLine("vertex: " +  next.ID + "out: " + next.outDegree);
             } 
 
-            Console.WriteLine("anzahl" + myWay.Count);
             return myWay;
         }
 

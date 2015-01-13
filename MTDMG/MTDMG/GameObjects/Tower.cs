@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using GameHelper;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace MTDMG.GameObjects
 {
-    class Tower : GameObject
+    public class Tower : GameObject
     {
         public int Radius = 2;
         List<GameObjects.CellSlot> allSlots = new List<GameObjects.CellSlot>();
@@ -15,15 +16,15 @@ namespace MTDMG.GameObjects
         Guard target;
         public int damage = 2;
 
-        public Tower(MyGame game, PlayerControler player)
+        public Tower(MazeGame game, PlayerControler player)
             : base(game, game.mainCamera)
         {
             renderer = new Render3D(this, "Model/Tower");
             transform.Scale = new Vector3(0.3f, 0.6f, 0.3f);
             CanClick = true;
             this.player = player;
-
-    
+          
+           
             
 
         }
@@ -33,7 +34,11 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
-            ((MyGame)game).startscene.ResetCellSlotColor();
+            Console.WriteLine("Klick on Tower");
+            ((Scenes.StartScene)game.myScene).ResetCellSlotColor();
+            allSlots.Clear();
+            FindSlots();
+
             foreach (var _cell in allSlots)
             {
                 _cell.renderer.color = Color.Beige.ToVector3();
@@ -44,6 +49,17 @@ namespace MTDMG.GameObjects
 
         public override void Update(GameTime gameTime)
         {
+            if(Keyboard.GetState().IsKeyDown(Keys.V))
+            {
+                FindSlots();
+                ((Scenes.StartScene)game.myScene).ResetCellSlotColor();
+                foreach (var _cell in allSlots)
+                {
+                    _cell.renderer.color = Color.Beige.ToVector3();
+                }
+            }
+
+
             if (target == null)
             {
                 FindTarget();
@@ -86,11 +102,11 @@ namespace MTDMG.GameObjects
         void FindCellSlots(Vector2 spos)
         {
             Vector2 npos = new Vector2(this.transform.Position.X, this.transform.Position.Z);
+           
 
-
-            if(((MyGame)game).startscene.GetVertex(new Vector2(npos.X + spos.X, npos.Y+spos.Y)) != null)
+            if(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(npos.X + spos.X, npos.Y+spos.Y)) != null)
             {
-                allSlots.Add(((MyGame)game).startscene.GetVertex(new Vector2(npos.X + spos.X, npos.Y + spos.Y)).data);
+                allSlots.Add(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(npos.X + spos.X, npos.Y + spos.Y)).data);
             }
         }
 
