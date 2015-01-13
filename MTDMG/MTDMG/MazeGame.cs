@@ -104,7 +104,7 @@ namespace MTDMG
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 10.0f);
+           // this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 10.0f);
             //init Camera
             mainCamera = new GameObjects.mainCamera(this, mainCamera);
 

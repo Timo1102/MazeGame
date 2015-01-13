@@ -12,7 +12,7 @@ namespace GameHelper
         public static int GoldPerTick = 1;
         public static int StartGold = 1000;
 
-        public static int TickIntervall = 250;
+        public static int TickIntervall = 500;
 //############Color Codes######################
 
         public static Color CellColor = Color.DarkBlue;

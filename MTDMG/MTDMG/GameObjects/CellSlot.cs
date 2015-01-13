@@ -38,7 +38,7 @@ namespace MTDMG.GameObjects
         public override void MouseClick()
         {
 
-            ((Scenes.StartScene)game.myScene).GeneratePath(new Vector2(this.transform.Position.X, this.transform.Position.Z));
+            ((Scenes.StartScene)game.myScene).SpawnBase(this);
         }
 
 

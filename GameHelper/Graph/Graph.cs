@@ -148,21 +148,23 @@ namespace GameHelper.Graph
            
             List<Vertex<T>> pathList = new List<Vertex<T>>();
             pathList.Add(end);
-            Vertex<T> pathVertex = end.parent;
-            pathList.Add(pathVertex);
-            while (pathVertex != start)
+            if (end.parent != null)
             {
-                if (pathVertex.parent != null)
+                Vertex<T> pathVertex = end.parent;
+                pathList.Add(pathVertex);
+                while (pathVertex != start)
                 {
-                    pathList.Add(pathVertex.parent);
-                    pathVertex = pathVertex.parent;
-                }
-                else
-                {
-                    break;
+                    if (pathVertex.parent != null)
+                    {
+                        pathList.Add(pathVertex.parent);
+                        pathVertex = pathVertex.parent;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
-
             pathList.Add(start);
             return pathList;
         }

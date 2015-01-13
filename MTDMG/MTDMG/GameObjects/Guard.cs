@@ -26,16 +26,17 @@ namespace MTDMG.GameObjects
 
         public float speed = 50;
 
-        MazeGame game;
+
         public List<MazeGenerator.Cell> way;
         Vector3 LerpPosition;
-        int i = 0;
+    
         public Guard(MazeGame game, PlayerControler _player)
             : base(game, game.mainCamera)
         {
             this.game = game;
             renderer = new Render3D(this, "Model/Guard");
             transform.Scale = new Vector3(0.4f, 0.4f, 0.4f);
+            transform.Position = GetPosition(lTicks);
             CanClick = true;
             this.player = _player;
         }
@@ -120,6 +121,7 @@ namespace MTDMG.GameObjects
                 if (i >= myWay.Count -1)
                 {
                     GameObject.Destroy(this);
+                    return new Vector3(0, 0, 0);
                 }
                 //myWay[i].EnterSlot(this);
                 //if (i >= 1)

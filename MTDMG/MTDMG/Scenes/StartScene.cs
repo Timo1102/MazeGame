@@ -102,53 +102,13 @@ namespace MTDMG.Scenes
         }
 
 
-        public void GeneratePath(Vector2 endPos)
+        public void SpawnBase(GameObjects.CellSlot cell)
         {
-            GameObjects.PlayerControler activePlayerControler = GetPlayerController();
-            if (activePlayerControler != null)
+            if (GetPlayerController() != null)
             {
-
-                if (activePlayerControler.myBase == null)
-                {
-                    activePlayerControler.SpwanBase(endPos);
-                }
-                else
-                {
-                    myBase = GetPlayerController().myBase;
-
-
-
-                    // List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad =
-                    solutionWay.Clear();
-                    GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexStart = GetVertex(new Vector2(myBase.transform.Position.X, myBase.transform.Position.Z));
-                    GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexEnd = GetVertex(endPos);
-
-
-
-
-
-
-                    List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad = myGraph.Astern(VertexStart, VertexEnd);
-
-
-
-
-                    foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in sad)
-                    {
-                        solutionWay.Add(_vertex.data);
-                    }
-                    List<GameObjects.CellSlot> myWay = new List<GameObjects.CellSlot>();
-                    myWay.Clear();
-                    for (int i = solutionWay.Count - 1; i >= 0; i--)
-                    {
-                        myWay.Add(solutionWay[i]);
-                    }
-
-
-                 
-
-                }
+                GetPlayerController().SpwanBase(cell);
             }
+
         }
         public void ResetCellSlotColor()
         {
@@ -302,7 +262,7 @@ namespace MTDMG.Scenes
             
         }
 
-
+        
         public override void Instatiate(GameObject prefab)
         {
             if (prefab != null)

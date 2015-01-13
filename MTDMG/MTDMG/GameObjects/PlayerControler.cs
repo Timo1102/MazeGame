@@ -58,13 +58,14 @@ namespace MTDMG.GameObjects
            base.Tick(sender, e);
        }
 
-        public void SpwanBase(Vector2 pos)
+        public void SpwanBase(CellSlot cell)
         {
-            
+            Vector3 pos = cell.transform.Position;
 
             myBase = new GameObjects.Base((MazeGame)game, this);
-            myBase.transform.Position = new Vector3(pos.X, 0, pos.Y);
+            myBase.transform.Position = new Vector3(pos.X, 0, pos.Z);
             myBase.guardColor = this.myColor;
+            myBase.myCell = cell;
             ((Scenes.StartScene)game.myScene).Instatiate(myBase);
         }
 

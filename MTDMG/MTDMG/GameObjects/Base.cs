@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using GameHelper;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace MTDMG.GameObjects
 {
@@ -14,13 +15,14 @@ namespace MTDMG.GameObjects
         bool dev_colo = false;
         public PlayerControler player;
         public int guardCount = 20;
+       public CellSlot myCell;
         GameObjects.Guard guard;
         public Color guardColor;
         MazeGame game;
         public Base(MazeGame game, PlayerControler player) : base(game, game.mainCamera)
         {
             this.game = game;
-            
+            CanClick = true;
             this.player = player;
             renderer = new Render3D(this, "Cube");
             transform.Scale = new Vector3(0.1f, 0.1f, 0.1f);
@@ -29,18 +31,28 @@ namespace MTDMG.GameObjects
 
         public override void Tick(object sender, EventArgs e)
         {
-            //if (((Scenes.StartScene)game.myScene).GetOpposit(player).myBase != null)
-           // {
-                //SpawnTarget(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.X, ((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.Z)).data);
-                SpawnTarget(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(0, 0)).data);
-                    
+            if (((Scenes.StartScene)game.myScene).GetOpposit(player).myBase != null && dev_colo)
+            {
+                SpawnTarget(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.X, ((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.Z)).data);
+               // SpawnTarget(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(0, 0)).data);
 
-           // }
+
+            }
 
 
             base.Tick(sender, e);
         }
 
+
+        public override void Update(GameTime gameTime)
+        {
+            if (((Scenes.StartScene)game.myScene).GetPlayerController() == player && Keyboard.GetState().IsKeyDown(Keys.S) )
+            {
+               // SpawnTarget(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.X, ((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.Z)).data);
+             
+            }
+            base.Update(gameTime);
+        }
 
         public void SpawnTarget(CellSlot Goal)
         {
@@ -58,6 +70,8 @@ namespace MTDMG.GameObjects
             }
 
         }
+
+       
 
         public List<CellSlot> GetWay(CellSlot Goal)
         {
@@ -86,6 +100,13 @@ namespace MTDMG.GameObjects
             return myWay;
         }
 
+
+        public override void MouseClick()
+        {
+            SpawnTarget(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.X, ((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.Z)).data);
+             
+            base.MouseClick();
+        }
             
 
 
