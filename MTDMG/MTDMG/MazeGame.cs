@@ -111,8 +111,16 @@ namespace MTDMG
            
             myScene = new Scenes.StartScene(this);
             RasterizerState stat = new RasterizerState();
-            stat.CullMode = CullMode.None;
-            GraphicsDevice.RasterizerState = stat;
+   
+
+            GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+
+
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
+            GraphicsDevice.SamplerStates[0] = SamplerState.LinearWrap;
+
             IsMouseVisible = true; // easier for debugging not to "lose" mouse
             SetWindowOnSurface();
             InitializeSurfaceInput();
@@ -151,60 +159,6 @@ namespace MTDMG
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your application content here
-        }
-
-        public override void CheckTouch(float x, float y)
-        {
-
-            // Vector3 nearsource = new Vector3((float)Mouse.GetState().X, (float)Mouse.GetState().Y, 0f);
-            // Vector3 farsource = new Vector3((float)Mouse.GetState().X, (float)Mouse.GetState().Y, 1f);
-
-
-            Vector3 nearsource = new Vector3(x, y, 0f);
-            Vector3 farsource = new Vector3(x, y, 1f);
-            Matrix world = Matrix.CreateTranslation(0, 0, 0);
-
-
-
-            Vector3 nearPoint = GraphicsDevice.Viewport.Unproject(nearsource,
-                    mainCamera.Projection, mainCamera.View, world);
-
-            Vector3 farPoint = GraphicsDevice.Viewport.Unproject(farsource,
-                    mainCamera.Projection, mainCamera.View, world);
-
-
-
-            Vector3 direction = farPoint - nearPoint;
-            direction.Normalize();
-
-
-            Ray ray = new Ray(nearPoint, direction * 50);
-
-            // Console.WriteLine("Click" + direction);
-            Console.WriteLine("aa: " + myScene.gameobjects.Count);
-            foreach (GameObject gobj in myScene.gamobjectsStack)
-            {
-
-
-                if (gobj.CanClick)
-                {
-                    
-
-                    foreach (ModelMesh _mesh in gobj.renderer.myMeshes)
-                    {
-
-
-
-                        if (ray.Intersects(gobj.collider) != null)
-                        {
-                            gobj.MouseClick();
-                            return;
-                        }
-                    }
-                }
-            }
-
-            base.CheckTouch(x, y);
         }
 
         /// <summary>

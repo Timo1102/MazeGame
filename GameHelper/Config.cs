@@ -17,9 +17,17 @@ namespace GameHelper
 
         public static Color CellColor = Color.DarkBlue;
 
-        public static Color Player1 = Color.Red;
-        public static Color Player2 = Color.Blue;
 
+        //Player1
+        public static Color Player1 = Color.Red;
+        public static Color Player1Base = Color.Red;
+        public static Color Player1Tower = Color.Red;
+        public static Color Player1Guard = Color.Red;
+
+        public static Color Player2 = Color.Blue;
+        public static Color Player2Base = Color.Blue;
+        public static Color Player2Tower = Color.Blue;
+        public static Color Player2Guard = Color.Blue;
 //#############Guard Config####################
 
         
@@ -27,7 +35,7 @@ namespace GameHelper
         public static int GuardCostDestroyer = 15;
         public static int GuardCostSpion = 5;
 
-        public static int GuardLiveRunner = 100;
+        public static int GuardLiveRunner = 500;
         public static int GuardLiveDestroyer = 500;
         public static int GuardLiveSpion = 50;
 
@@ -47,6 +55,9 @@ namespace GameHelper
         public static int TowerDamage1 = 50;
         public static int TowerDamage2 = 100;
         public static int TowerDamage3 = 150;
+
+        public static int TowerRadius1 = 1;
+        public static int TowerRadius2 = 2;
 
         public static int TowerMaxLevel = 3;
 

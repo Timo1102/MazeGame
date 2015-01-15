@@ -71,6 +71,13 @@ namespace GameHelper.Graph
 
         }
 
+        public void Reset()
+        {
+            _parent = null;
+            h = 0;
+            g = 1;
+        }
+
         public void SetPosition(Vector3 _pos)
         {
             position = new Vector2(_pos.X, _pos.Z);

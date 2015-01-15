@@ -7,48 +7,21 @@ using Microsoft.Xna.Framework;
 
 namespace GameHelper
 {
-    public class Render3D : ObjectComponent
+    public class Render3D : Render
     {
+        public Model model;
         public List<ModelMesh> myMeshes = new List<ModelMesh>();
 
-        public Model model;
         public ModelMesh mesh;
         public Effect meshEffect;
-        private Color _color;
-        Texture2D t2D;
         BasicEffect effect;
 
-
-        public Vector3 color
-        {
-            get
-            {
-                return _color.ToVector3();
-            }
-            set
-            {
-                _color = new Color(value);
-            }
-        }
-
-        public Color colorRGB
-        {
-            get
-            {
-                return _color;
-            }
-            set 
-            {
-                _color = value;
-
-            }
-        }
         Matrix[] transforms;
 
-
-        public Render3D(GameObject gameobj, string name) : base(gameobj)
+        public Render3D(GameObject gameobj, string name) : base(gameobj, name)
         {
             LoadModel(name);
+           
             //t2D = new Texture2D(gameObj.game.GraphicsDevice, 1, 1);
 
             //t2D.SetData<Color>(new Color[] {
@@ -56,7 +29,7 @@ namespace GameHelper
             //});
         
 
-            gameobj.game.Components.Add(this);
+            
             foreach (ModelMesh _mesh in model.Meshes)
             {
                
@@ -82,6 +55,10 @@ namespace GameHelper
 
            
 
+        }
+        public void AddMesh(int _number)
+        {
+            myMeshes.Add(model.Meshes[_number]);
         }
 
         public virtual void SetEffects(Camera camera, ModelMesh _mesh)
@@ -118,11 +95,16 @@ namespace GameHelper
 
         public override void Draw(GameTime gameTime)
         {
+            gameObj.game.spriteBatch.Begin();
+            GraphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             foreach(ModelMesh _mesh in myMeshes)
             {
             SetEffects(gameObj.mainCamera, _mesh);
                   _mesh.Draw();
             }
+            gameObj.game.spriteBatch.End();
             base.Draw(gameTime);
         }
 

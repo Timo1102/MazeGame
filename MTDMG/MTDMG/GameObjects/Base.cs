@@ -15,6 +15,7 @@ namespace MTDMG.GameObjects
         bool dev_colo = false;
         public PlayerControler player;
         public int guardCount = 20;
+        bool isSpwaned = false;
        public CellSlot myCell;
         GameObjects.Guard guard;
         public Color guardColor;
@@ -31,6 +32,7 @@ namespace MTDMG.GameObjects
 
         public override void Tick(object sender, EventArgs e)
         {
+            isSpwaned = false;
             if (((Scenes.StartScene)game.myScene).GetOpposit(player).myBase != null && dev_colo)
             {
                 SpawnTarget(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.X, ((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.Z)).data);
@@ -76,13 +78,13 @@ namespace MTDMG.GameObjects
         public List<CellSlot> GetWay(CellSlot Goal)
         {
            solutionWay = new List<CellSlot>();
-
+           
             GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexStart = ((Scenes.StartScene)game.myScene).GetVertex(new Vector2(this.transform.Position.X, this.transform.Position.Z));
             GameHelper.Graph.Vertex<GameObjects.CellSlot> VertexEnd = ((Scenes.StartScene)game.myScene).GetVertex(new Vector2(Goal.transform.Position.X, Goal.transform.Position.Z));
 
 
              List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad = ((Scenes.StartScene)game.myScene).myGraph.Astern(VertexStart, VertexEnd);
-
+             
 
 
 
@@ -96,6 +98,9 @@ namespace MTDMG.GameObjects
                     {
                         myWay.Add(solutionWay[i]);
                     }
+                    sad.Clear();
+                    solutionWay.Clear();
+                    Console.WriteLine("Start to End: " + VertexStart.data.transform.Position + " zu " + VertexEnd.data.transform.Position);
 
             return myWay;
         }
@@ -103,8 +108,15 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
-            SpawnTarget(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.X, ((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.Z)).data);
-             
+            //solutionWay.Clear();
+            if (((Scenes.StartScene)game.myScene).GetOpposit(player).myBase != null)
+            {
+                if (!isSpwaned)
+                {
+                    SpawnTarget(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.X, ((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.Z)).data);
+                    isSpwaned = true;
+                }
+            }
             base.MouseClick();
         }
             

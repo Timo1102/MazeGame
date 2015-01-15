@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Base.cs" />
+    <Compile Include="GameObjects\Button.cs" />
     <Compile Include="GameObjects\Cell.cs" />
     <Compile Include="GameObjects\CellSlot.cs" />
     <Compile Include="GameObjects\Guard.cs" />

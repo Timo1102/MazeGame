@@ -38,13 +38,17 @@ namespace MTDMG.GameObjects
         public Tower(MazeGame game, PlayerControler player)
             : base(game, game.mainCamera)
         {
+           //new renderer<Render3D> = new Render3D(this, "Model/Tower") as Render3D;
             renderer = new Render3D(this, "Model/Tower");
-            transform.Scale = new Vector3(0.3f, 0.6f, 0.3f);
+            transform.Scale = new Vector3(0.9f, 0.9f, 0.9f);
+            ((Render3D)renderer).myMeshes.Clear();
+            
+
             CanClick = true;
             this.player = player;
-            Level = 1;
-           
+            Level = 2;
             
+            ((Render3D)renderer).AddMesh(0);
 
         }
 
@@ -58,17 +62,22 @@ namespace MTDMG.GameObjects
                     Cost = Config.TowerCost1;
                     NextCost = Config.TowerCost2;
                     Life = Config.TowerLife1;
+                    Radius = Config.TowerRadius1;
                     break;
                 case 2:
                     damage = Config.TowerDamage2;
                     Cost = Config.TowerCost2;
                     NextCost = Config.TowerCost3;
                     Life = Config.TowerLife2;
+                    Radius = Config.TowerRadius1;
+                    ((Render3D)renderer).AddMesh(1);
                     break;
                 case 3:
                     damage = Config.TowerDamage3;
                     Cost = Config.TowerCost3;
                     Life = Config.TowerLife3;
+                    Radius = Config.TowerRadius2;
+                    ((Render3D)renderer).AddMesh(2);
                     break;
             }
 
@@ -82,6 +91,8 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
+
+
             Console.WriteLine("Klick on Tower");
             ((Scenes.StartScene)game.myScene).ResetCellSlotColor();
             allSlots.Clear();
@@ -97,17 +108,6 @@ namespace MTDMG.GameObjects
 
         public override void Update(GameTime gameTime)
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.V))
-            {
-                FindSlots();
-                ((Scenes.StartScene)game.myScene).ResetCellSlotColor();
-                foreach (var _cell in allSlots)
-                {
-                    _cell.renderer.color = Color.Beige.ToVector3();
-                }
-            }
-
-
             if (target == null)
             {
                 FindTarget();
@@ -117,20 +117,35 @@ namespace MTDMG.GameObjects
         }
         void FindTarget()
         {
+
+
             foreach (var _guard in allSlots)
             {
                 if (_guard.target != null && _guard.target.player != player)
                 {
-                    target = _guard.target;
-                    ShootTarget();
-                    target = null;
+                    if (_guard.target.isActive)
+                    {
+                        target = _guard.target;
+                        return;
+                    }
                 }
             }
         }
 
+        public override void Tick(object sender, EventArgs e)
+        {
+            if (target != null)
+            {
+                Console.WriteLine("Shoot");
+                ShootTarget();
+                target = null;
+            }
+            base.Tick(sender, e);
+        }
+
         void ShootTarget()
         {
-            target.renderer.color = Color.Red.ToVector3();
+            target.renderer.color = Color.DarkCyan.ToVector3();
             target.GetDamage(damage);
         }
 

@@ -21,7 +21,7 @@ namespace MTDMG.GameObjects
         public Cell(MazeGame game) : base(game, game.mainCamera)
         {
            renderer = new Render3D(this, "Model/Cell");
-           renderer.myMeshes.Clear();
+           ((Render3D)renderer).myMeshes.Clear();
            //renderer.ChangeColor(BaseColor, renderer.model.Meshes[0]); 
         }
 
@@ -52,9 +52,16 @@ namespace MTDMG.GameObjects
 
         void AddMesh(int _number)
         {
-            renderer.myMeshes.Add(renderer.model.Meshes[_number]);
+            ((Render3D)renderer).myMeshes.Add(((Render3D)renderer).model.Meshes[_number]);
         }
 
+        public void RemoveMesh(int number)
+        {
+            if (((Render3D)renderer).myMeshes.Contains(((Render3D)renderer).model.Meshes[number]))
+            {
+                ((Render3D)renderer).myMeshes.Remove(((Render3D)renderer).model.Meshes[number]);
+            }
+        }
 
         public override void Update(GameTime gameTime)
         {

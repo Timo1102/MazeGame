@@ -19,7 +19,7 @@ namespace GameHelper
         public List<GameObject> children = new List<GameObject>();
         public bool isActive;
         public Transform transform;
-        public Render3D renderer = null;
+        public Render renderer = null;
         public bool CanClick = false;
 
         Timer lTimer = new Timer();
@@ -30,7 +30,10 @@ namespace GameHelper
         {
             get
             {
-                return UpdateBoundingBox(renderer.model, transform.GetWorldMatrix());
+                if(renderer.GetType() == typeof(Render3D))
+                return UpdateBoundingBox(((Render3D)renderer).model, transform.GetWorldMatrix());
+
+                return new BoundingBox();
             }
         }
 
@@ -104,10 +107,8 @@ namespace GameHelper
             gameobject.renderer.Dispose();
             gameobject.game.myScene.gameobjects.Remove(gameobject);
             gameobject.Dispose();
-
-            GC.SuppressFinalize(gameobject);
-            GC.SuppressFinalize(gameobject.renderer);
-            
+            gameobject.isActive = false;
+         
             
             //gameobject = null;
 
@@ -120,7 +121,7 @@ namespace GameHelper
             Vector3 max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
 
             // For each mesh of the model
-            foreach (ModelMesh mesh in renderer.myMeshes)
+            foreach (ModelMesh mesh in ((Render3D)renderer).myMeshes)
             {
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
                 {

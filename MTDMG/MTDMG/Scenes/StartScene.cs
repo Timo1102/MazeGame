@@ -22,7 +22,7 @@ namespace MTDMG.Scenes
        GameObjects.Slot slot;
        GameObjects.CellSlot cellSlot;
       GameObjects.Base myBase = null;
-
+       GameObjects.Button button;
      public GameHelper.Graph.Graph<GameObjects.CellSlot> myGraph;
 
       bool dev_show_cells = true;
@@ -44,7 +44,7 @@ namespace MTDMG.Scenes
            myMaze = new Maze(x, y);
            game.mainCamera.transform.Position = new Vector3(x - 2, 27, y - 1);
            game.mainCamera.transform.Rotation = new Vector3(1.57f, 0, 0);
-        
+          // button = new GameObjects.Button(game);
             name = "StartScene";
 
            GenerateMaze();
@@ -232,7 +232,7 @@ namespace MTDMG.Scenes
 
         }
 
-        void SetSlotCell(float X, float Y)
+       public void SetSlotCell(float X, float Y)
         {
 
         

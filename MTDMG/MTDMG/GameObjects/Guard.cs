@@ -20,9 +20,11 @@ namespace MTDMG.GameObjects
 
         int lTicks = 0;
        
-        public int live = 10;
+        public int live;
         public PlayerControler player;
         List<CellSlot> myWay = new List<CellSlot>();
+
+        public Color myColor;
 
         public float speed = 50;
 
@@ -39,11 +41,13 @@ namespace MTDMG.GameObjects
             transform.Position = GetPosition(lTicks);
             CanClick = true;
             this.player = _player;
+            live = Config.GuardLiveRunner;
         }
 
         public void GetDamage(int damage)
         {
             live -= damage;
+            Console.WriteLine("leben: " + live);
            if (live <= 0)
             {
                 Dead();
@@ -63,6 +67,7 @@ namespace MTDMG.GameObjects
         {
             lTicks++;
             LerpPosition = GetPosition(lTicks);
+            renderer.color = player.myColor.ToVector3();
             //this.transform.Position = GetPosition(lTicks);
             //Console.WriteLine("lticks: " + lTicks);
             base.Tick(sender, e);
@@ -123,11 +128,11 @@ namespace MTDMG.GameObjects
                     GameObject.Destroy(this);
                     return new Vector3(0, 0, 0);
                 }
-                //myWay[i].EnterSlot(this);
-                //if (i >= 1)
-                //{
-                //    myWay[i - 1].LeaveSlot(this);
-                //}
+                myWay[i].EnterSlot(this);
+                if (i >= 1)
+                {
+                    myWay[i - 1].LeaveSlot(this);
+                }
                
 
                 return new Vector3(myWay[i].transform.Position.X, 0, myWay[i].transform.Position.Z);

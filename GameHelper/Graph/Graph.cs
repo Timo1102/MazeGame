@@ -166,6 +166,13 @@ namespace GameHelper.Graph
                 }
             }
             pathList.Add(start);
+            openList.Clear();
+            closedList.Clear();
+            foreach (Vertex<T> _vertex in vertices)
+            {
+
+                _vertex.Reset();
+            }
             return pathList;
         }
 

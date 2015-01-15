@@ -28,8 +28,8 @@ namespace MTDMG.GameObjects
         {
             _game = game;
            renderer = new Render3D(this, "Model/CellSlot");
-           renderer.myMeshes.Clear();
-           renderer.myMeshes.Add(renderer.model.Meshes[0]);
+           ((Render3D)renderer).myMeshes.Clear();
+           ((Render3D)renderer).myMeshes.Add(((Render3D)renderer).model.Meshes[0]);
            renderer.color = Color.DarkBlue.ToVector3();
 
            CanClick = true;
