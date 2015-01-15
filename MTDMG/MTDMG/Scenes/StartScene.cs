@@ -17,6 +17,7 @@ namespace MTDMG.Scenes
 {
    public class StartScene : scene
     {
+
        public GameObjects.Cell bg;
        GameObjects.Cell prefab;
        GameObjects.Slot slot;
@@ -44,7 +45,8 @@ namespace MTDMG.Scenes
            myMaze = new Maze(x, y);
            game.mainCamera.transform.Position = new Vector3(x - 2, 27, y - 1);
            game.mainCamera.transform.Rotation = new Vector3(1.57f, 0, 0);
-          // button = new GameObjects.Button(game);
+         // button = new GameObjects.Button(game);
+         // button.transform.Position = new Vector3(500, 500, 0);
             name = "StartScene";
 
            GenerateMaze();
@@ -100,10 +102,14 @@ namespace MTDMG.Scenes
         {
             GameObject.Destroy(pos);
         }
+       
 
 
         public void SpawnBase(GameObjects.CellSlot cell)
         {
+           
+
+
             if (GetPlayerController() != null)
             {
                 GetPlayerController().SpwanBase(cell);

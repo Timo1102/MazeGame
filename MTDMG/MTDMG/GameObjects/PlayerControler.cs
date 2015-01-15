@@ -5,6 +5,7 @@ using System.Text;
 using GameHelper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Surface.Core;
 
 
 namespace MTDMG.GameObjects
@@ -16,6 +17,8 @@ namespace MTDMG.GameObjects
         {
             myKey = key;
             RessourceCoins = Config.StartGold;
+            tagData = new TagData();
+            
         }
 
         private int _id;
@@ -33,6 +36,7 @@ namespace MTDMG.GameObjects
         }
 
         public Keys myKey;
+        public TagData tagData;
         public GameObjects.Base myBase;
        public Color myColor;
 
@@ -70,6 +74,12 @@ namespace MTDMG.GameObjects
                 myBase.myCell = cell;
                 ((Scenes.StartScene)game.myScene).Instatiate(myBase);
             }
+        }
+
+        public void RegisterPlayer(TagData data)
+        {
+            
+            this.tagData = data;
         }
 
         public void SpwanTower(Vector3 pos)

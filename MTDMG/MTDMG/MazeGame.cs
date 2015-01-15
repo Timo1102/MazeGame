@@ -22,6 +22,7 @@ namespace MTDMG
     public class MazeGame : myGame
     {
 
+
         public static MazeGame Instance;
         
         private UserOrientation currentOrientation = UserOrientation.Bottom;
@@ -189,7 +190,15 @@ namespace MTDMG
                      {
                          foreach (TouchPoint _touchpoint in touches)
                          {
-                             CheckTouch(_touchpoint.X, _touchpoint.Y);
+                             if (_touchpoint.IsTagRecognized)
+                             {
+                                 CheckTouch(_touchpoint.X, _touchpoint.Y, _touchpoint);
+                             }
+                             else
+                             {
+
+                                 CheckTouch(_touchpoint.X, _touchpoint.Y);
+                             }
                          }
                      }
 
@@ -202,12 +211,20 @@ namespace MTDMG
                     ((Scenes.StartScene)myScene).InstatiateTower(new Vector2(5, 5), ((Scenes.StartScene)myScene).player1);
                 }
                
-                
+               
        
                 // TODO: Add your update logic here
             }
 
             base.Update(gameTime);
+        }
+
+        public void CheckTouch(float x, float y, TouchPoint touch)
+        {
+            TagData data = touch.Tag;
+            Console.WriteLine("TagValue " + data.Value);
+
+            base.CheckTouch(x, y);
         }
 
 
