@@ -12,17 +12,16 @@ namespace MTDMG.GameObjects
 {
    public class PlayerControler : GameObject
     {
-        public PlayerControler(MazeGame game, Keys key)
+        public PlayerControler(MazeGame game, Keys key, int number)
             : base(game, game.mainCamera)
         {
             myKey = key;
             RessourceCoins = Config.StartGold;
-            tagData = new TagData();
-            
+            ID = number;
         }
 
-        private int _id;
-        public int ID
+        private long _id;
+        public long ID
         {
             get
             {

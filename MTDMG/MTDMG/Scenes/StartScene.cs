@@ -51,8 +51,8 @@ namespace MTDMG.Scenes
 
            GenerateMaze();
 
-            player1 = new GameObjects.PlayerControler(game, Keys.G);
-            player2 = new GameObjects.PlayerControler(game, Keys.H);
+            player1 = new GameObjects.PlayerControler(game, Keys.G, 1);
+            player2 = new GameObjects.PlayerControler(game, Keys.H, 2);
 
             player1.myColor = Config.Player1;
             player2.myColor = Config.Player2;
@@ -87,7 +87,7 @@ namespace MTDMG.Scenes
 
         public GameObjects.PlayerControler GetPlayerController()
         {
-            if (Keyboard.GetState().IsKeyDown(player1.myKey) )
+            if (Keyboard.GetState().IsKeyDown(player1.myKey))
             {
                 return player1;
             }
@@ -98,12 +98,34 @@ namespace MTDMG.Scenes
 
             return null;
         }
+
+        public GameObjects.PlayerControler GetPlayerController(long id)
+        {
+            if (player1.ID == id)
+            {
+                return player1;
+            }
+            if (player2.ID == id)
+            {
+                return player2;
+            }
+            return null;
+        }
+
+
         public void DestroyWall(GameObjects.Slot pos)
         {
             GameObject.Destroy(pos);
         }
-       
 
+        public void SpawnBase(GameObjects.CellSlot cell, long number)
+        {
+            if (GetPlayerController(number) != null)
+            {
+                GetPlayerController(number).SpwanBase(cell);
+            }
+
+        }
 
         public void SpawnBase(GameObjects.CellSlot cell)
         {

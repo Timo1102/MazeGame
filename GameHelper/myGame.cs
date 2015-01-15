@@ -40,7 +40,9 @@ namespace GameHelper
 
             if (Mouse.GetState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
             {
-                CheckTouch(Mouse.GetState().X, Mouse.GetState().Y);
+                GameObject toch = CheckTouch(Mouse.GetState().X, Mouse.GetState().Y);
+                if (toch != null)
+                    toch.MouseClick();
             }
 
 
@@ -51,7 +53,7 @@ namespace GameHelper
 
 
 
-        public virtual void CheckTouch(float x, float y)
+        public virtual GameObject CheckTouch(float x, float y)
         {
 
             // Vector3 nearsource = new Vector3((float)Mouse.GetState().X, (float)Mouse.GetState().Y, 0f);
@@ -95,12 +97,13 @@ namespace GameHelper
 
                         if (ray.Intersects(gobj.collider) != null)
                         {
-                            gobj.MouseClick();
-                            return;
+
+                            return gobj;
                         }
                     }
                 }
             }
+            return null;
 
         }
 

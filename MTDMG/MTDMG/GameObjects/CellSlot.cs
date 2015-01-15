@@ -42,6 +42,12 @@ namespace MTDMG.GameObjects
         }
 
 
+        public override void MouseClick(long number)
+        {
+
+            ((Scenes.StartScene)game.myScene).SpawnBase(this, number);
+        }
+
 
         public void ChangeColor(Color _color)
         {

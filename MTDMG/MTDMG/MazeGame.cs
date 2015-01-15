@@ -192,7 +192,7 @@ namespace MTDMG
                          {
                              if (_touchpoint.IsTagRecognized)
                              {
-                                 CheckTouch(_touchpoint.X, _touchpoint.Y, _touchpoint);
+                                 CheckTouch(_touchpoint.X, _touchpoint.Y, _touchpoint).MouseClick(_touchpoint.Tag.Value);
                              }
                              else
                              {
@@ -219,12 +219,12 @@ namespace MTDMG
             base.Update(gameTime);
         }
 
-        public void CheckTouch(float x, float y, TouchPoint touch)
+        public GameObject CheckTouch(float x, float y, TouchPoint touch)
         {
             TagData data = touch.Tag;
-            Console.WriteLine("TagValue " + data.Value);
 
-            base.CheckTouch(x, y);
+
+           return base.CheckTouch(x, y);
         }
 
 
