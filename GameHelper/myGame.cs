@@ -81,24 +81,37 @@ namespace GameHelper
             Ray ray = new Ray(nearPoint, direction * 50);
 
             // Console.WriteLine("Click" + direction);
-            Console.WriteLine("aa: " + myScene.gameobjects.Count);
+            
             foreach (GameObject gobj in myScene.gamobjectsStack)
             {
-
+                //Console.WriteLine("gibh: " + gobj.renderer.GetType());
 
                 if (gobj.CanClick)
                 {
-
-
-                    foreach (ModelMesh _mesh in ((Render3D)gobj.renderer).myMeshes)
+                    if (gobj.renderer.GetType() == typeof(Render2D))
+                    {
+                        Console.WriteLine("aa: " + ((Render2D)gobj.renderer).myRec.ToString() + "asdasd" + x.ToString() + "/"+ y.ToString() );
+                        if (((Render2D)gobj.renderer).myRec.Contains((int)x, (int)y))
+                        {
+                            gobj.MouseClick();
+                            return gobj;
+                        }
+                    }
+                    else
                     {
 
 
 
-                        if (ray.Intersects(gobj.collider) != null)
+                        foreach (ModelMesh _mesh in ((Render3D)gobj.renderer).myMeshes)
                         {
 
-                            return gobj;
+
+
+                            if (ray.Intersects(gobj.collider) != null)
+                            {
+
+                                return gobj;
+                            }
                         }
                     }
                 }

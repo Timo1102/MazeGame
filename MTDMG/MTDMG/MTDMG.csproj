@@ -105,11 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Base.cs" />
-    <Compile Include="GameObjects\Button.cs" />
+    <Compile Include="GameObjects\BuildTower.cs" />
     <Compile Include="GameObjects\Cell.cs" />
     <Compile Include="GameObjects\CellSlot.cs" />
     <Compile Include="GameObjects\Guard.cs" />
     <Compile Include="GameObjects\mainCamera.cs" />
+    <Compile Include="GameObjects\Menu.cs" />
     <Compile Include="GameObjects\PlayerControler.cs" />
     <Compile Include="GameObjects\Slot.cs" />
     <Compile Include="GameObjects\Tower.cs" />

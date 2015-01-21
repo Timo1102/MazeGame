@@ -81,6 +81,12 @@ namespace MTDMG.GameObjects
             this.tagData = data;
         }
 
+        public void OpenMenu(GameObject pos)
+        {
+
+        }
+
+
         public void SpwanTower(Vector3 pos)
         {
             GameObjects.Tower tower;

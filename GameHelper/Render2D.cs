@@ -12,22 +12,63 @@ namespace GameHelper
        Vector2 origin;
        Texture2D tx;
        private Rectangle TitleSafe;
+       Rectangle retval2;
+       Vector2 pos;
+       Texture2D px;
+       Texture2D btn;
+
+       public Texture2D Texture
+       {
+           get
+           {
+               return tx;
+           }
+           private set
+           { }
+       }
+
+       public Rectangle myRec
+       {
+           get
+           {
+               return GetTitleSafeArea(0.8f);
+           }
+           private set
+           { }
+       }
+
+       
+
         public Render2D(GameObject gameobj, string name) : base(gameobj, name)
         {
             this.DrawOrder = 5;
             tx = gameobj.game.Content.Load<Texture2D>(name);
-            TitleSafe = GetTitleSafeArea(.8f);
+
             colorRGB = Color.White;
-             origin = new Vector2(gameObj.transform.Position.X + (tx.Width / 2), gameObj.transform.Position.Y + (tx.Height / 2));
+             
          }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
+
             
             gameObj.game.spriteBatch.Begin();
-            Vector2 pos = new Vector2(gameObj.transform.Position.X, gameObj.transform.Position.Y);
+             pos = new Vector2(gameObj.transform.Position.X, gameObj.transform.Position.Y);
+            origin = new Vector2(gameObj.transform.Position.X + (tx.Width / 2), gameObj.transform.Position.Y + (tx.Height / 2));
+           
+
+            if (gameObj.isActive)
+            {
+
+                gameObj.game.spriteBatch.Draw(tx, pos, null, colorRGB, gameObj.transform.Rotation.Z, Vector2.Zero, new Vector2(gameObj.transform.Scale.X, gameObj.transform.Scale.Y), SpriteEffects.None, 0f);
+           
+            }
             
-            gameObj.game.spriteBatch.Draw(tx, pos, TitleSafe, colorRGB, gameObj.transform.Rotation.Z, origin, new Vector2(gameObj.transform.Scale.X, gameObj.transform.Scale.Y), SpriteEffects.None, 0f);
+            //gameObj.game.spriteBatch.Draw(px, new Rectangle(myRec.X - 1, myRec.Y - 1, px.Width, px.Height), Color.White);
+            //gameObj.game.spriteBatch.Draw(px, new Rectangle(myRec.X + myRec.Width + 1, myRec.Y + 1, px.Width, px.Height), Color.White);
+            //gameObj.game.spriteBatch.Draw(px, new Rectangle(myRec.X + 1, myRec.Y + myRec.Height + 1, px.Width, px.Height), Color.White);
+            //gameObj.game.spriteBatch.Draw(px, new Rectangle(myRec.X + myRec.Width + 1, myRec.Y + myRec.Height + 1, px.Width, px.Height), Color.White);
+            //gameObj.game.spriteBatch.Draw(btn, new Rectangle(myRec.X, myRec.Y, myRec.Width, myRec.Height), Color.White);
             gameObj.game.spriteBatch.End();
             GraphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
             base.Draw(gameTime);
@@ -36,18 +77,12 @@ namespace GameHelper
 
         protected Rectangle GetTitleSafeArea(float percent)
         {
-            Rectangle retval = new Rectangle(
-               gameObj.game.graphics.GraphicsDevice.Viewport.X,
-                 gameObj.game.GraphicsDevice.Viewport.Y,
-                 gameObj.game.GraphicsDevice.Viewport.Width,
-                 gameObj.game.GraphicsDevice.Viewport.Height);
-
-
-            Rectangle retval2 = new Rectangle(
+   
+             retval2 = new Rectangle(
                 (int)gameObj.transform.Position.X,
                 (int)gameObj.transform.Position.Y,
-                tx.Width,
-                tx.Height);
+                (int)(tx.Width * gameObj.transform.Scale.X),
+               (int)(tx.Height * gameObj.transform.Scale.Y));
 
             return retval2;
         }

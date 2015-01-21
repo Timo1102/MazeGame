@@ -92,6 +92,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AIAgent.cs" />
+    <Compile Include="Button.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="GameManager.cs" />

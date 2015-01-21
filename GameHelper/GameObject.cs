@@ -102,7 +102,7 @@ namespace GameHelper
 
         public virtual void MouseClick(long number)
         {
-
+            
         }
 
         public static void Destroy(GameObject gameobject)

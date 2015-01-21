@@ -37,15 +37,15 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
-
-            ((Scenes.StartScene)game.myScene).SpawnBase(this);
+            if (((Scenes.StartScene)game.myScene).GetPlayerController() != null)
+            ((Scenes.StartScene)game.myScene).GetPlayerController().SpwanBase(this);
         }
 
 
         public override void MouseClick(long number)
         {
-
-            ((Scenes.StartScene)game.myScene).SpawnBase(this, number);
+            if(((Scenes.StartScene)game.myScene).GetPlayerController(number) != null)
+            ((Scenes.StartScene)game.myScene).GetPlayerController(number).SpwanBase(this);
         }
 
 

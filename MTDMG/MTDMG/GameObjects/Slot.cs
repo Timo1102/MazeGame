@@ -33,8 +33,9 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
+            if (((Scenes.StartScene)game.myScene).GetPlayerController() != null)
+            ((Scenes.StartScene)game.myScene).GetPlayerController().SpwanTower(this.transform.Position);
 
-            ((Scenes.StartScene)game.myScene).SpwanTower(this.transform.Position);
             if (Keyboard.GetState().IsKeyDown(Keys.B))
             {
                 ((Scenes.StartScene)game.myScene).DestroyWall(this);
@@ -43,6 +44,12 @@ namespace MTDMG.GameObjects
             }
 
             base.MouseClick();
+        }
+
+        public override void MouseClick(long number)
+        {
+            ((Scenes.StartScene)game.myScene).GetPlayerController(number).SpwanTower(this.transform.Position);
+            base.MouseClick(number);
         }
 
 
