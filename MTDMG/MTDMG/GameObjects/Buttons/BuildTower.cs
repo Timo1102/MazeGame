@@ -9,11 +9,17 @@ namespace MTDMG.GameObjects
 {
     class BuildTower : Button 
     {
-        public BuildTower(MazeGame game)
+
+        public PlayerControler player;
+        public Slot slot;
+        public BuildTower(MazeGame game, PlayerControler player)
             : base(game, "Textures/Button1")
         {
+            this.player = player;
             CanClick = true;
             isActive = true;
+            ((Render2D)renderer).SetOrigin = Render2D.Origin.BottomRight;
+            ((Render2D)renderer).Offset = new Rectangle(-10, -10, -20, -20);
             //this.transform.Scale = new Vector3(0.5f, 0.5f, 0);
            // this.transform.Scale = new Vector3(0.5f, 0.5f, 0.5f);
         }
@@ -22,7 +28,8 @@ namespace MTDMG.GameObjects
         public override void MouseClick()
         {
             Console.WriteLine("Click on Button BuildTower");
-            this.transform.Position = new Vector3(Microsoft.Xna.Framework.Input.Mouse.GetState().X, Microsoft.Xna.Framework.Input.Mouse.GetState().Y, 0);
+            
+            player.SpwanTower(slot.transform.Position);
             base.MouseClick();
         }
 

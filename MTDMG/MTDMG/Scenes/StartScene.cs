@@ -45,10 +45,7 @@ namespace MTDMG.Scenes
            myMaze = new Maze(x, y);
            game.mainCamera.transform.Position = new Vector3(x - 2, 27, y - 1);
            game.mainCamera.transform.Rotation = new Vector3(1.57f, 0, 0);
-         button = new GameObjects.Menu(game);
-          button.transform.Position = new Vector3(100, 100, 0);
-          Instatiate(button);
-          button.Init();
+
             name = "StartScene";
 
            GenerateMaze();

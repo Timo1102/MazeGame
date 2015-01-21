@@ -18,6 +18,10 @@ namespace MTDMG.GameObjects
             myKey = key;
             RessourceCoins = Config.StartGold;
             ID = number;
+
+            CellSlotMenu = new Menus.CellSlotMenu(game, this);
+            game.myScene.Instatiate(CellSlotMenu);
+            CellSlotMenu.isActive = false;
         }
 
         private long _id;
@@ -39,7 +43,7 @@ namespace MTDMG.GameObjects
         public GameObjects.Base myBase;
        public Color myColor;
 
-      
+       public Menus.CellSlotMenu CellSlotMenu;
 
 
        private int ressourceCoins;
@@ -81,9 +85,9 @@ namespace MTDMG.GameObjects
             this.tagData = data;
         }
 
-        public void OpenMenu(GameObject pos)
+        public void OpenCellSlotMenu(GameObject gobj)
         {
-
+            CellSlotMenu.Open(gobj);
         }
 
 

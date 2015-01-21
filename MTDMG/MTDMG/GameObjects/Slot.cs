@@ -34,14 +34,9 @@ namespace MTDMG.GameObjects
         public override void MouseClick()
         {
             if (((Scenes.StartScene)game.myScene).GetPlayerController() != null)
-            ((Scenes.StartScene)game.myScene).GetPlayerController().SpwanTower(this.transform.Position);
+            ((Scenes.StartScene)game.myScene).GetPlayerController().OpenCellSlotMenu(this);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.B))
-            {
-                ((Scenes.StartScene)game.myScene).DestroyWall(this);
-                GetAllCells();
 
-            }
 
             base.MouseClick();
         }
@@ -53,7 +48,7 @@ namespace MTDMG.GameObjects
         }
 
 
-        public void GetAllCells()
+        public void DestroyWall()
         {
 
             ((Scenes.StartScene)game.myScene).SetSlotCell(this.transform.Position.X, this.transform.Position.Z);

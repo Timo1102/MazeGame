@@ -13,7 +13,7 @@ namespace GameHelper
         public Button(myGame game, string name)
             : base(game, game.mainCamera)
         {
-            renderer = new Render2D(this, name);
+            renderer = new Render2D(this, name, Render2D.Origin.TopLeft );
             renderer.DrawOrder = 7;
         }
         
