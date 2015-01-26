@@ -19,6 +19,7 @@ namespace GameHelper
         public List<GameObject> children = new List<GameObject>();
         public bool isActive;
         public Transform transform;
+        public float IntervallOffset = 1;
         public Render renderer = null;
         public bool CanClick = false;
 
@@ -48,6 +49,7 @@ namespace GameHelper
             this.game = game;
             game.Components.Add(this);
             isActive = true;
+         
             InitTimer();
         }
 
@@ -69,7 +71,7 @@ namespace GameHelper
         {
 
             lTimer = new Timer();
-            lTimer.Interval = Config.TickIntervall;
+            lTimer.Interval = Config.TickIntervall * IntervallOffset;
             lTimer.Elapsed += new ElapsedEventHandler(Tick);
             StartTimer();
             lTimer.Start();

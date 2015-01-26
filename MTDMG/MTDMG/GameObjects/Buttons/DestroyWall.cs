@@ -19,7 +19,7 @@ namespace MTDMG.GameObjects.Buttons
             ((Render2D)renderer).SetOrigin = Render2D.Origin.BottomLeft;
             renderer.color = Color.Aquamarine.ToVector3();
             CanClick = true;
-            ((Render2D)renderer).Offset = new Rectangle(+10, +10, -20, -20);
+            ((Render2D)renderer).Offset = new Rectangle(+10, -10, -20, -20);
         }
 
         public override void MouseClick()

@@ -61,7 +61,7 @@ namespace MTDMG.GameObjects
             if (player.RessourceCoins > Config.GuardCostRunner)
             {
                 player.RessourceCoins -= Config.GuardCostRunner;
-                guard = new GameObjects.Guard(game, player);
+                guard = new GameObjects.Guards.Runner(game, player);
                 guard.transform.Position = new Vector3(this.transform.Position.X, 0, this.transform.Position.Z);
 
                 game.myScene.Instatiate(guard);

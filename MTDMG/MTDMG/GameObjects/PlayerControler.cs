@@ -18,11 +18,13 @@ namespace MTDMG.GameObjects
             myKey = key;
             RessourceCoins = Config.StartGold;
             ID = number;
-
+            PlayerGraph = new GameHelper.Graph.Graph<CellSlot>();
             CellSlotMenu = new Menus.CellSlotMenu(game, this);
             game.myScene.Instatiate(CellSlotMenu);
             CellSlotMenu.isActive = false;
         }
+
+        GameHelper.Graph.Graph<CellSlot> PlayerGraph;
 
         private long _id;
         public long ID
@@ -88,6 +90,11 @@ namespace MTDMG.GameObjects
         public void OpenCellSlotMenu(GameObject gobj)
         {
             CellSlotMenu.Open(gobj);
+        }
+
+        public void OpenBaseMenu()
+        {
+
         }
 
 

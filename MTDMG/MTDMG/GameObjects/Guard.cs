@@ -18,7 +18,7 @@ namespace MTDMG.GameObjects
     {
         //Timer lTimer = new Timer();
 
-        int lTicks = 0;
+        int lTicks = 1;
        
         public int live;
         public PlayerControler player;

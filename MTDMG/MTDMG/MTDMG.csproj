@@ -110,6 +110,7 @@
     <Compile Include="GameObjects\Cell.cs" />
     <Compile Include="GameObjects\CellSlot.cs" />
     <Compile Include="GameObjects\Guard.cs" />
+    <Compile Include="GameObjects\Guards\Runner.cs" />
     <Compile Include="GameObjects\mainCamera.cs" />
     <Compile Include="GameObjects\Menu.cs" />
     <Compile Include="GameObjects\Menus\BaseMenu.cs" />
