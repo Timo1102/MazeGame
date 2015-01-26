@@ -24,7 +24,12 @@ namespace MTDMG
 
 
         public static MazeGame Instance;
-        
+
+
+        List<GameObject> oldTouches = new List<GameObject>();
+        List<GameObject> newTouches = new List<GameObject>();
+        List<GameObject> diffTouches = new List<GameObject>();
+
         private UserOrientation currentOrientation = UserOrientation.Bottom;
         private Matrix screenTransform = Matrix.Identity;
         float i = 0;
@@ -192,7 +197,19 @@ namespace MTDMG
                          {
                              if (_touchpoint.IsTagRecognized)
                              {
-                                 CheckTouch(_touchpoint.X, _touchpoint.Y, _touchpoint).MouseClick(_touchpoint.Tag.Value);
+                                 GameObject _obj = CheckTouch(_touchpoint.X, _touchpoint.Y, _touchpoint);
+                                 diffTouches.Add(_obj);
+
+
+                                 if (oldTouches.Contains(_obj))
+                                 {
+                                     _obj.MousePressed(_touchpoint.Tag.Value);
+                                 }
+                                 else
+                                 {
+                                     _obj.MouseClick(_touchpoint.Tag.Value);
+                                     oldTouches.Add(_obj);
+                                 }    
                              }
                              else
                              {
@@ -200,6 +217,25 @@ namespace MTDMG
                                  CheckTouch(_touchpoint.X, _touchpoint.Y);
                              }
                          }
+
+                         //Veratbeitung
+                         List<GameObject> objToRemove = new List<GameObject>();
+                         foreach (GameObject nObj in oldTouches)
+                         {
+                             if (!diffTouches.Contains(nObj))
+                             {
+                                 objToRemove.Add(nObj);
+                             }
+
+                         }
+                         foreach (GameObject dObj in objToRemove)
+                         {
+                             dObj.MouseReleased();
+                             oldTouches.Remove(dObj);
+                         }
+
+                         objToRemove.Clear();
+                         diffTouches.Clear();
                      }
 
 

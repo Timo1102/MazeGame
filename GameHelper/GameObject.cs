@@ -107,6 +107,16 @@ namespace GameHelper
             
         }
 
+        public virtual void MousePressed(long number)
+        {
+
+        }
+
+        public virtual void MouseReleased()
+        {
+
+        }
+
         public static void Destroy(GameObject gameobject)
         {
             gameobject.game.Components.Remove(gameobject);
