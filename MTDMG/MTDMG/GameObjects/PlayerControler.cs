@@ -98,11 +98,12 @@ namespace MTDMG.GameObjects
         }
 
 
-        public void SpwanTower(Vector3 pos)
+        public void SpwanTower(Slot pos)
         {
             GameObjects.Tower tower;
             tower = new GameObjects.Tower((MazeGame)game, this);
-            tower.transform.Position = pos;
+            pos.tower = tower;
+            tower.transform.Position = pos.transform.Position;
             tower.renderer.color = myColor.ToVector3();
             tower.FindSlots();
             //((Scenes.StartScene)game.myScene).InstatiateTower(new Vector2(pos.X, pos.Z), this);

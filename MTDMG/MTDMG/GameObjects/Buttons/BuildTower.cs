@@ -29,7 +29,7 @@ namespace MTDMG.GameObjects
         {
             Console.WriteLine("Click on Button BuildTower");
             
-            player.SpwanTower(slot.transform.Position);
+            player.SpwanTower(slot);
             base.MouseClick();
         }
 

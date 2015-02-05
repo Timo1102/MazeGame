@@ -106,6 +106,7 @@
   <ItemGroup>
     <Compile Include="GameObjects\Base.cs" />
     <Compile Include="GameObjects\Buttons\BuildTower.cs" />
+    <Compile Include="GameObjects\Buttons\b_UpgradeTower.cs" />
     <Compile Include="GameObjects\Buttons\DestroyWall.cs" />
     <Compile Include="GameObjects\Cell.cs" />
     <Compile Include="GameObjects\CellSlot.cs" />

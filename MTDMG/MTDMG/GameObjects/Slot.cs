@@ -17,7 +17,7 @@ namespace MTDMG.GameObjects
     {
 
         MazeGame _game;
-        GameObjects.Tower tower;
+        public GameObjects.Tower tower;
         bool isUsed = false;
 
         public Slot(MazeGame game)
@@ -43,7 +43,7 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick(long number)
         {
-            ((Scenes.StartScene)game.myScene).GetPlayerController(number).SpwanTower(this.transform.Position);
+            ((Scenes.StartScene)game.myScene).GetPlayerController(number).SpwanTower(this);
             base.MouseClick(number);
         }
 

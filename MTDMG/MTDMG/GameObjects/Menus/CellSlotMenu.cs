@@ -12,6 +12,7 @@ namespace MTDMG.GameObjects.Menus
         {
             btn1 = new BuildTower(game, player);
             btn2 = new Buttons.DestroyWall(game, player);
+            btn3 = new Buttons.b_UpgradeTower(game, player);
             isActive = false;
             InitButtons();
         }
@@ -20,6 +21,8 @@ namespace MTDMG.GameObjects.Menus
         {
             ((BuildTower)btn1).slot = (Slot)gobj;
             ((Buttons.DestroyWall)btn2).slot = (Slot)gobj;
+            ((Buttons.b_UpgradeTower)btn3).slot = (Slot)gobj;
+
             base.Open(gobj);
         }
 
@@ -27,6 +30,7 @@ namespace MTDMG.GameObjects.Menus
         {
             game.myScene.Instatiate(btn1);
             game.myScene.Instatiate(btn2);
+            game.myScene.Instatiate(btn3);
             base.InitButtons();
         }
 

@@ -149,8 +149,6 @@ namespace MTDMG.Scenes
 
         public void SpwanTower(Vector3 pos)
         {
-            if (GetPlayerController() != null)
-                GetPlayerController().SpwanTower(pos);
             //InstatiateTower(new Vector2(pos.X, pos.Z), player1);
         }
 
