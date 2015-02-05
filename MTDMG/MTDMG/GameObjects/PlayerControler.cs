@@ -92,6 +92,9 @@ namespace MTDMG.GameObjects
             CellSlotMenu.Open(gobj);
         }
 
+
+           
+
         public void OpenBaseMenu()
         {
 

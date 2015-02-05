@@ -27,6 +27,11 @@ namespace MTDMG.GameObjects
             SetButtons();
             
         }
+
+        public virtual void Close()
+        {
+            this.isActive = false;
+        }
         public void SetButtons()
         {
             if(btn1 != null)

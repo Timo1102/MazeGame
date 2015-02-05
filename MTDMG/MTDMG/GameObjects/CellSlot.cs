@@ -18,7 +18,7 @@ namespace MTDMG.GameObjects
 
         
         MazeGame _game;
-    
+        long playerNumberMenu;
         bool isUsed = false;
 
         public Guard target;
@@ -44,8 +44,17 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick(long number)
         {
-            if(((Scenes.StartScene)game.myScene).GetPlayerController(number) != null)
-            ((Scenes.StartScene)game.myScene).GetPlayerController(number).SpwanBase(this);
+            if (((Scenes.StartScene)game.myScene).GetPlayerController(number) != null)
+            {
+                ((Scenes.StartScene)game.myScene).GetPlayerController(number).SpwanBase(this);
+
+            }
+        }
+
+        public override void MouseReleased()
+        {
+
+            base.MouseReleased();
         }
 
 

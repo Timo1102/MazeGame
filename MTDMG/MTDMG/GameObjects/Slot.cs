@@ -19,7 +19,7 @@ namespace MTDMG.GameObjects
         MazeGame _game;
         public GameObjects.Tower tower;
         bool isUsed = false;
-
+        long playerControlerNumber = 0;
         public Slot(MazeGame game)
             : base(game, game.mainCamera)
         {
@@ -43,10 +43,29 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick(long number)
         {
-            ((Scenes.StartScene)game.myScene).GetPlayerController(number).SpwanTower(this);
+            if (((Scenes.StartScene)game.myScene).GetPlayerController(number) != null)
+            {
+                playerControlerNumber = number;
+                ((Scenes.StartScene)game.myScene).GetPlayerController(number).OpenCellSlotMenu(this);
+            }
+
+      
             base.MouseClick(number);
         }
 
+        public override void MouseReleased()
+        {
+            Console.WriteLine("asdasd released");
+            if (playerControlerNumber != 0)
+            {
+                ((Scenes.StartScene)game.myScene).GetPlayerController(playerControlerNumber).CellSlotMenu.Close();
+            }
+            else
+            {
+                ((Scenes.StartScene)game.myScene).GetPlayerController().CellSlotMenu.Close();
+            }
+            base.MouseReleased();
+        }
 
         public void DestroyWall()
         {
