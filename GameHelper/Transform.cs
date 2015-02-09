@@ -112,6 +112,11 @@ namespace GameHelper
             scale = new Vector3(1.0f, 1.0f, 1.0f);
         }
 
+       public Vector2 ToVector2()
+       {
+           return new Vector2(Position.X, Position.Z);
+       }
+
 
         void UpdateWorldMat()
         {

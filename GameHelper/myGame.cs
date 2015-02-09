@@ -90,7 +90,6 @@ namespace GameHelper
                 {
                     if (gobj.renderer.GetType() == typeof(Render2D))
                     {
-                        Console.WriteLine("aa: " + ((Render2D)gobj.renderer).myRec.ToString() + "asdasd" + x.ToString() + "/"+ y.ToString() );
                         if (((Render2D)gobj.renderer).myRec.Contains((int)x, (int)y))
                         {
                             gobj.MouseClick();

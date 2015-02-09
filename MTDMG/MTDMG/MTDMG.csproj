@@ -105,13 +105,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Base.cs" />
-    <Compile Include="GameObjects\Buttons\BuildTower.cs" />
-    <Compile Include="GameObjects\Buttons\b_UpgradeTower.cs" />
-    <Compile Include="GameObjects\Buttons\DestroyWall.cs" />
+    <Compile Include="GameObjects\BuildTower.cs" />
+    <Compile Include="GameObjects\b_b_Destroyer.cs" />
+    <Compile Include="GameObjects\b_b_Runner.cs" />
+    <Compile Include="GameObjects\b_b_Searcher.cs" />
+    <Compile Include="GameObjects\b_UpgradeTower.cs" />
     <Compile Include="GameObjects\Cell.cs" />
     <Compile Include="GameObjects\CellSlot.cs" />
+    <Compile Include="GameObjects\DestroyWall.cs" />
     <Compile Include="GameObjects\Guard.cs" />
+    <Compile Include="GameObjects\Guards\Destroyer.cs" />
     <Compile Include="GameObjects\Guards\Runner.cs" />
+    <Compile Include="GameObjects\Guards\Searcher.cs" />
     <Compile Include="GameObjects\mainCamera.cs" />
     <Compile Include="GameObjects\Menu.cs" />
     <Compile Include="GameObjects\Menus\BaseMenu.cs" />

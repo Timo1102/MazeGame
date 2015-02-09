@@ -118,7 +118,7 @@ namespace GameHelper.Graph
             while (!closedList.Contains(end) || openList.Count > 0)
             {
                 Vertex<T> activeVertex = LowestFinOpenList();
-                openList.Remove(activeVertex);
+                //openList.Remove(activeVertex);
                 closedList.Add(activeVertex);
 
                 foreach (Vertex<T> _vertex in activeVertex.connectedVertices)

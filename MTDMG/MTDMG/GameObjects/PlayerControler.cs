@@ -20,6 +20,9 @@ namespace MTDMG.GameObjects
             ID = number;
             PlayerGraph = new GameHelper.Graph.Graph<CellSlot>();
             CellSlotMenu = new Menus.CellSlotMenu(game, this);
+            BaseMenu = new Menus.BaseMenu(game, this);
+
+            game.myScene.Instatiate(BaseMenu);
             game.myScene.Instatiate(CellSlotMenu);
             CellSlotMenu.isActive = false;
         }
@@ -39,14 +42,14 @@ namespace MTDMG.GameObjects
             }
 
         }
-
+        public GameHelper.Graph.Graph<CellSlot> playerGraph = new GameHelper.Graph.Graph<CellSlot>();
         public Keys myKey;
         public TagData tagData;
         public GameObjects.Base myBase;
        public Color myColor;
 
        public Menus.CellSlotMenu CellSlotMenu;
-
+       public Menus.BaseMenu BaseMenu;
 
        private int ressourceCoins;
        public int RessourceCoins
@@ -97,7 +100,7 @@ namespace MTDMG.GameObjects
 
         public void OpenBaseMenu()
         {
-
+            BaseMenu.Open(myBase);
         }
 
 

@@ -20,6 +20,10 @@ namespace MTDMG.GameObjects
         GameObjects.Guard guard;
         public Color guardColor;
         MazeGame game;
+
+        GameObjects.Guards.Runner Runner;
+        GameObjects.Guards.Searcher Searcher;
+        GameObjects.Guards.Destroyer Destroyer;
         public Base(MazeGame game, PlayerControler player) : base(game, game.mainCamera)
         {
             this.game = game;
@@ -58,22 +62,33 @@ namespace MTDMG.GameObjects
 
         public void SpawnTarget(CellSlot Goal)
         {
-            if (player.RessourceCoins > Config.GuardCostRunner)
-            {
-                player.RessourceCoins -= Config.GuardCostRunner;
-                guard = new GameObjects.Guards.Runner(game, player);
-                guard.transform.Position = new Vector3(this.transform.Position.X, 0, this.transform.Position.Z);
-
-                game.myScene.Instatiate(guard);
-
-
-                guard.renderer.color = guardColor.ToVector3();
-                guard.SetWay(GetWay(Goal));
-            }
-
+            SpawnSearcher();
+           
         }
 
-       
+        public void SpawnSearcher()
+        {
+            Searcher = new Guards.Searcher(game, player);
+            Searcher.transform.Position = this.transform.Position;
+            game.myScene.Instatiate(Searcher);
+            Searcher.renderer.color = guardColor.ToVector3();
+        }
+
+
+        public void SpawnRunner()
+        {
+            Runner = new Guards.Runner(game, player);
+            Runner.transform.Position = this.transform.Position;
+            game.myScene.Instatiate(Runner);
+            Runner.renderer.color = guardColor.ToVector3();
+        }
+        public void SpawnDestroyer()
+        {
+            Destroyer = new Guards.Destroyer(game, player);
+            Destroyer.transform.Position = this.transform.Position;
+            game.myScene.Instatiate(Destroyer);
+            Destroyer.renderer.color = guardColor.ToVector3();
+        }
 
         public List<CellSlot> GetWay(CellSlot Goal)
         {
@@ -100,24 +115,15 @@ namespace MTDMG.GameObjects
                     }
                     sad.Clear();
                     solutionWay.Clear();
-                    Console.WriteLine("Start to End: " + VertexStart.data.transform.Position + " zu " + VertexEnd.data.transform.Position);
-
+                   
             return myWay;
         }
 
 
         public override void MouseClick()
         {
-            //solutionWay.Clear();
-            if (((Scenes.StartScene)game.myScene).GetOpposit(player).myBase != null)
-            {
-                if (!isSpwaned)
-                {
-                    SpawnTarget(((Scenes.StartScene)game.myScene).GetVertex(new Vector2(((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.X, ((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.transform.Position.Z)).data);
-                    isSpwaned = true;
-                }
-            }
-            base.MouseClick();
+            if (((Scenes.StartScene)game.myScene).GetPlayerController() != null)
+                ((Scenes.StartScene)game.myScene).GetPlayerController().OpenBaseMenu();
         }
             
 
