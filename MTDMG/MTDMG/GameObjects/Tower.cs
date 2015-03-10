@@ -145,8 +145,10 @@ namespace MTDMG.GameObjects
 
         void ShootTarget()
         {
-            target.renderer.color = Color.DarkCyan.ToVector3();
+           // target.renderer.color = Color.DarkCyan.ToVector3();
+            
             target.GetDamage(damage);
+
         }
 
         public void FindSlots()

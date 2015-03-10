@@ -64,6 +64,8 @@ namespace MTDMG.GameObjects
             this.transform.Position = _player.myBase.transform.Position;
             myVertex = GetVertex(new Vector2(this.transform.Position.X, this.transform.Position.Z));
             myState = States.Start;
+            myVertex.data.target = this;
+            startSlot = myVertex.data;
         }
 
         public void GetWay(GameHelper.Graph.Graph<CellSlot> myGraph)
@@ -140,6 +142,9 @@ namespace MTDMG.GameObjects
         {
             live -= damage;
             Console.WriteLine("leben: " + live);
+            Vector3 tmp_color = this.renderer.color;
+            tmp_color = new Vector3(tmp_color.X, tmp_color.Y - damage, tmp_color.Z);
+            this.renderer.color = tmp_color;
            if (live <= 0)
             {
                 Dead();
@@ -183,6 +188,16 @@ namespace MTDMG.GameObjects
 
         public override void Update(GameTime gameTime)
         {
+            myVertex.data.target = this;
+            startSlot.target = null;
+
+
+            if (((Scenes.StartScene)game.myScene).GetVertex(new Vector2(nextPosition.X, nextPosition.Z)).data.target != null)
+            {
+                ((Scenes.StartScene)game.myScene).GetVertex(new Vector2(nextPosition.X, nextPosition.Z)).data.target = null;
+            }
+
+            ((Scenes.StartScene)game.myScene).GetVertex(new Vector2(nextPosition.X, nextPosition.Z)).data.target = this;
             if (canMove)
             {
                 this.transform.Position = Vector3.Lerp(transform.Position, nextPosition, 0.8f);   
@@ -191,6 +206,8 @@ namespace MTDMG.GameObjects
             {
                 canMove = false;  
             }
+           ((Scenes.StartScene)game.myScene).GetVertex(new Vector2(nextPosition.X, nextPosition.Z)).data.target = this;
+           startSlot = myVertex.data;
             base.Update(gameTime);
         }
 

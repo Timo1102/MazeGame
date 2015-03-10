@@ -38,6 +38,7 @@ namespace MTDMG.GameObjects.Guards
         public override void Attack()
         {
             ((Scenes.StartScene)game.myScene).GetOpposit(player).myBase.GetDamage();
+            Destroy(this);
             base.Attack();
         }
 
