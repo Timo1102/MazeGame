@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace GameHelper
 {
+    /// <summary>
+    /// Gameobject component class
+    /// </summary>
     public class ObjectComponent : DrawableGameComponent
     {
       public  GameObject gameObj;

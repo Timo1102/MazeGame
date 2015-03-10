@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace MTDMG.GameObjects.Buttons
 {
+    /// <summary>
+    /// Button to build a Destroyer
+    /// </summary>
     class b_b_Destroyer : Button
     {
         PlayerControler player;
@@ -26,8 +29,11 @@ namespace MTDMG.GameObjects.Buttons
 
         public override void MouseClick()
         {
-            player.myBase.SpawnDestroyer();
+         
+             player.myBase.SpawnDestroyer();
             base.MouseClick();
         }
+
+        
     }
 }

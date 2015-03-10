@@ -11,7 +11,7 @@ namespace MTDMG.GameObjects
     public class Tower : GameObject
     {
         public int Radius = 2;
-        List<GameObjects.CellSlot> allSlots = new List<GameObjects.CellSlot>();
+       public List<GameObjects.CellSlot> allSlots = new List<GameObjects.CellSlot>();
         PlayerControler player;
         Guard target;
         public int damage;
@@ -46,7 +46,7 @@ namespace MTDMG.GameObjects
 
             CanClick = true;
             this.player = player;
-            Level = 2;
+            Level = 1;
             
             ((Render3D)renderer).AddMesh(0);
 

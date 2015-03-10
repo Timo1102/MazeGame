@@ -13,15 +13,30 @@ using Microsoft.Xna.Framework.Media;
 
 namespace GameHelper
 {
+    /// <summary>
+    /// Camera class
+    /// </summary>
    public class Camera : GameObject
     {
-
+       /// <summary>
+       /// far plane
+       /// </summary>
        public float near;
+       /// <summary>
+       /// near plane
+       /// </summary>
        public float far;
 
 
         //Attributes
-        private Vector3 cameraLookAt;     //look at vector
+       /// <summary>
+       /// Look at vektor
+       /// </summary>
+        private Vector3 cameraLookAt; 
+       
+       /// <summary>
+       /// the rotationmatrix
+       /// </summary>
         private Matrix rotationMatrix;
 
 
@@ -29,13 +44,17 @@ namespace GameHelper
        
 
 
-
+       /// <summary>
+       /// Gets and sets the Projection matrix
+       /// </summary>
         public Matrix Projection
         {
             get;
             protected set;
         }
-
+       /// <summary>
+       /// Get the viewMatrix
+       /// </summary>
         public Matrix View
         {
             get
@@ -47,7 +66,12 @@ namespace GameHelper
 
 
 
-        //Constructor
+      
+       /// <summary>
+       /// Sets the near and farplane
+       /// </summary>
+       /// <param name="game"></param>
+       /// <param name="mainCamera"></param>
         public Camera(myGame game, Camera mainCamera)
             : base(game, mainCamera)
         {
@@ -57,13 +81,17 @@ namespace GameHelper
             UpdateProjectionMatrix();
           
         }
-
+       /// <summary>
+       /// Update the projection matrix
+       /// </summary>
        private  void UpdateProjectionMatrix()
        {
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, Game.GraphicsDevice.Viewport.AspectRatio, near, far);
        }
 
-
+       /// <summary>
+       /// Update the look at vector
+       /// </summary>
         private void UpdateLookAt()
         {
 
@@ -78,6 +106,7 @@ namespace GameHelper
             cameraLookAt = transform.Position + lookAtOffset;
         }
 
+       
         public override void Update(GameTime gameTime)
         {
 

@@ -10,7 +10,9 @@ namespace GameHelper
 {
 
 
-
+    /// <summary>
+    /// GameManager class to controll the game
+    /// </summary>
    public class GameManager 
 
    {

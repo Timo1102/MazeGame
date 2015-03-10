@@ -12,21 +12,50 @@ using System.Timers;
 
 namespace GameHelper
 {
+    /// <summary>
+    /// Gameobject class
+    /// </summary>
     public class GameObject : Microsoft.Xna.Framework.GameComponent
     
     {
+        /// <summary>
+        /// Name of the gameobject
+        /// </summary>
         public string Name;
+        /// <summary>
+        /// Childs from the gameobject
+        /// </summary>
         public List<GameObject> children = new List<GameObject>();
+        /// <summary>
+        /// returns true is a gamobject is active
+        /// </summary>
         public bool isActive;
+        /// <summary>
+        /// transfomration of a Gameobject
+        /// </summary>
         public Transform transform;
+        /// <summary>
+        /// How often is tick called
+        /// </summary>
         public float IntervallOffset = 1;
+        /// <summary>
+        /// A render class
+        /// </summary>
         public Render renderer = null;
+        /// <summary>
+        /// if true a gameobject is clickable
+        /// </summary>
         public bool CanClick = false;
 
+        /// <summary>
+        /// A timer
+        /// </summary>
         Timer lTimer = new Timer();
 
 
-
+        /// <summary>
+        /// returns a collider
+        /// </summary>
         public BoundingBox collider
         {
             get
@@ -38,9 +67,21 @@ namespace GameHelper
             }
         }
 
-
+        /// <summary>
+        /// The active game
+        /// </summary>
         public myGame game;
+
+        /// <summary>
+        /// Camera to render this gameobject
+        /// </summary>
         public Camera mainCamera;
+
+        /// <summary>
+        /// Instantiate the gamobject
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="mainCamera"></param>
         public GameObject(myGame game, Camera mainCamera)
             : base(game)
         {
@@ -53,6 +94,10 @@ namespace GameHelper
             InitTimer();
         }
 
+        /// <summary>
+        /// change the gameobject isActive
+        /// </summary>
+        /// <param name="active">true if the gameobject should be seen in the game</param>
         public void SetActive(bool active)
         {
             isActive = active;
@@ -67,6 +112,9 @@ namespace GameHelper
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Initiate a timer
+        /// </summary>
         public void InitTimer()
         {
 
@@ -83,6 +131,11 @@ namespace GameHelper
             
         }
 
+        /// <summary>
+        /// Is called every intervall
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public virtual void Tick(object sender, EventArgs e)
         {
            
@@ -91,21 +144,32 @@ namespace GameHelper
         }
 
 
-
+        /// <summary>
+        /// Adds a child
+        /// </summary>
+        /// <param name="child"></param>
         public void AddAsChild(GameObject child)
         {
             children.Add(child);
         }
 
+        /// <summary>
+        /// called if a mouseclick on the gameobject
+        /// </summary>
         public virtual void MouseClick()
         {
 
         }
 
+        /// <summary>
+        /// called if a touch on the gameobject
+        /// </summary>
+        /// <param name="number"></param>
         public virtual void MouseClick(long number)
         {
             
         }
+
 
         public virtual void MousePressed(long number)
         {
@@ -117,6 +181,10 @@ namespace GameHelper
 
         }
 
+        /// <summary>
+        /// Destroyed a gameobject
+        /// </summary>
+        /// <param name="gameobject"></param>
         public static void Destroy(GameObject gameobject)
         {
             gameobject.game.Components.Remove(gameobject);
@@ -130,7 +198,12 @@ namespace GameHelper
             //gameobject = null;
 
         }
-
+        /// <summary>
+        /// Update the Collider
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="worldTransform"></param>
+        /// <returns></returns>
         protected BoundingBox UpdateBoundingBox(Model model, Matrix worldTransform)
         {
             // Initialize minimum and maximum corners of the bounding box to max and min values

@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace MTDMG.GameObjects.Buttons
 {
+    /// <summary>
+    /// Button to build a Searcher
+    /// </summary>
     class b_b_Searcher : Button
     {
         PlayerControler player;
@@ -26,7 +29,9 @@ namespace MTDMG.GameObjects.Buttons
 
         public override void MouseClick()
         {
-            player.myBase.SpawnSearcher();
+            
+                player.myBase.SpawnSearcher();
+
             base.MouseClick();
         }
 

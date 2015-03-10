@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework;
 
 namespace MTDMG.GameObjects.Buttons
 {
+    /// <summary>
+    /// Button to upgrade a Tower
+    /// </summary>
     class b_UpgradeTower : Button
     {
         PlayerControler player;

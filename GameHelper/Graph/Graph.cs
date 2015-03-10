@@ -5,16 +5,37 @@ using System.Text;
 
 namespace GameHelper.Graph
 {
-   public class Graph<T>
+    /// <summary>
+    /// Graph class
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+   public class Graph<T> : ICloneable
     {
+       /// <summary>
+       /// List of all vertices
+       /// </summary>
        public List<Vertex<T>> vertices = new List<Vertex<T>>();
+       /// <summary>
+       /// List of all Edges
+       /// </summary>
         List<Edge<T>> edges = new List<Edge<T>>();
-        int id = 0;
 
-
+       /// <summary>
+       /// Poen List for A*Algorithm
+       /// </summary>
         public List<Vertex<T>> openList = new List<Vertex<T>>();
+       /// <summary>
+       /// Close List for A*Algorithm
+       /// </summary>
         public List<Vertex<T>> closedList = new List<Vertex<T>>();
 
+       /// <summary>
+       /// vertices ID
+       /// </summary>
+        int id = 0;
+       /// <summary>
+       /// Get the total number of vertices
+       /// </summary>
         public int Count
         {
             get
@@ -22,7 +43,17 @@ namespace GameHelper.Graph
                 return vertices.Count;
             }
         }
-
+       /// <summary>
+       /// Clones the Grpah
+       /// </summary>
+       /// <returns>The graph</returns>
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+       /// <summary>
+       /// total number of edges in the graph
+       /// </summary>
         public int EdgeCount
         {
             get
@@ -30,6 +61,11 @@ namespace GameHelper.Graph
                 return edges.Count;
             }
         }
+       /// <summary>
+       /// Creates a vertex in the graph
+       /// </summary>
+       /// <param name="data"></param>
+       /// <returns>the vertex</returns>
         public Vertex<T> CreateVertex(T data)
         {
             Vertex<T> myVertex = new Vertex<T>(id);
@@ -42,7 +78,11 @@ namespace GameHelper.Graph
 
 
 
-
+       /// <summary>
+       /// Add a edge between two vertices
+       /// </summary>
+       /// <param name="v1">Start vertex</param>
+       /// <param name="v2">End vertex</param>
         public void AddEdge(Vertex<T> v1, Vertex<T> v2)
         {
             edges.Add(new Edge<T>(v1,v2));
@@ -51,6 +91,11 @@ namespace GameHelper.Graph
             
         }
 
+       /// <summary>
+       /// Get a vertex
+       /// </summary>
+       /// <param name="start">The data</param>
+       /// <returns>the vertex</returns>
         public Vertex<T> GetVertex(T start)
         {
 
@@ -58,6 +103,11 @@ namespace GameHelper.Graph
             return vertices.Find(x => x.data.Equals(start));
         }
 
+       /// <summary>
+       /// Get all connected vertcies
+       /// </summary>
+       /// <param name="_vertex">vertex to get all connected vertieces</param>
+       /// <returns>all vertieces they are connected to the vertex</returns>
         List<Vertex<T>> GetConnectedVertices(Vertex<T> _vertex)
         {
             List<Vertex<T>> myVertices = new List<Vertex<T>>();
@@ -71,7 +121,11 @@ namespace GameHelper.Graph
 
             return myVertices;
         }
-
+       /// <summary>
+       /// Checked if a vertex has a connection
+       /// </summary>
+       /// <param name="_vertex">a vertex</param>
+       /// <returns>true if a connection exist</returns>
        bool HasConnection(Vertex<T> _vertex)
        {
            foreach(Edge<T> _edge in edges)
@@ -85,7 +139,11 @@ namespace GameHelper.Graph
            return false;
        }
 
-
+       /// <summary>
+       /// Get a random way
+       /// </summary>
+       /// <param name="start">startpoint</param>
+       /// <returns></returns>
         public List<Vertex<T>> GetWay(Vertex<T> start)
         {
             List<Vertex<T>> myWay = new List<Vertex<T>>();
@@ -110,38 +168,49 @@ namespace GameHelper.Graph
             return myWay;
         }
 
-
+       /// <summary>
+       /// A*-algorithm
+       /// </summary>
+       /// <param name="start">startpoint</param>
+       /// <param name="end">endpoint</param>
+       /// <returns>a shotrt path</returns>
         public List<Vertex<T>> Astern(Vertex<T> start, Vertex<T> end)
         {
+            Config.AStarIsFinish = false;
             openList.Add(start);
             start.GetDistanceTo(end);
             while (!closedList.Contains(end) || openList.Count > 0)
             {
-                Vertex<T> activeVertex = LowestFinOpenList();
-                //openList.Remove(activeVertex);
-                closedList.Add(activeVertex);
-
-                foreach (Vertex<T> _vertex in activeVertex.connectedVertices)
+                if (openList.Count > 0)
                 {
-                    if (!closedList.Contains(_vertex))
+                    Vertex<T> activeVertex = LowestFinOpenList();
+                    openList.Remove(activeVertex);
+                    closedList.Add(activeVertex);
+
+                    foreach (Vertex<T> _vertex in activeVertex.connectedVertices)
                     {
-                        if (!openList.Contains(_vertex))
+                        if (!closedList.Contains(_vertex))
                         {
-                            openList.Add(_vertex);
-                            _vertex.GetDistanceTo(end);
-                            _vertex.parent = activeVertex;
-                        }
-                        else
-                        {
-                            if (_vertex.parent.g < activeVertex.g)
+                            if (!openList.Contains(_vertex))
                             {
+                                openList.Add(_vertex);
+                                _vertex.GetDistanceTo(end);
                                 _vertex.parent = activeVertex;
                             }
-                        }
+                            else
+                            {
+                                if (_vertex.parent != null)
+                                {
+                                    if (_vertex.parent.g < activeVertex.g)
+                                    {
+                                        _vertex.parent = activeVertex;
+                                    }
+                                }
+                            }
 
+                        }
                     }
                 }
-
 
             }
 
@@ -173,12 +242,28 @@ namespace GameHelper.Graph
 
                 _vertex.Reset();
             }
+            Config.AStarIsFinish = true;
             return pathList;
         }
-
+       /// <summary>
+       /// A* helper method
+       /// </summary>
+       /// <returns>the lowest wieght of a connection</returns>
         Vertex<T> LowestFinOpenList()
         {
             Vertex<T> lowestF = null;
+
+
+            if (lowestF == null)
+            {
+                return openList[0];
+            }
+            else
+            {
+                
+            }
+
+
             foreach (Vertex<T> _vertex in openList)
             {
                 
@@ -192,7 +277,8 @@ namespace GameHelper.Graph
                 }
 
             }
-            openList.Remove(lowestF);
+      
+           
             return lowestF;
         }
 

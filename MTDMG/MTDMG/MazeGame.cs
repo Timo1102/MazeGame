@@ -255,6 +255,14 @@ namespace MTDMG
             base.Update(gameTime);
         }
 
+
+        /// <summary>
+        /// Checktouch with tags
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="touch"></param>
+        /// <returns></returns>
         public GameObject CheckTouch(float x, float y, TouchPoint touch)
         {
             TagData data = touch.Tag;

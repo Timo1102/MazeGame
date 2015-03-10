@@ -6,10 +6,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameHelper
 {
+    /// <summary>
+    /// 2D button class
+    /// </summary>
    public class Button : GameObject
     {
        
-
+       /// <summary>
+       /// Set a render and change the draworder
+       /// </summary>
+       /// <param name="game"></param>
+       /// <param name="name"></param>
         public Button(myGame game, string name)
             : base(game, game.mainCamera)
         {

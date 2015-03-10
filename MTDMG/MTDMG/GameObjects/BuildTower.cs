@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace MTDMG.GameObjects
 {
+    /// <summary>
+    /// Button to buid a tower
+    /// </summary>
     class BuildTower : Button 
     {
 

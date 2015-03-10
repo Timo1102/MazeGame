@@ -12,6 +12,9 @@ using Microsoft.Xna.Framework.Media;
 
 namespace GameHelper
 {
+    /// <summary>
+    /// scene class
+    /// </summary>
     public class scene : Microsoft.Xna.Framework.GameComponent
     {
 
@@ -29,7 +32,10 @@ namespace GameHelper
         {
 
         }
-        
+        /// <summary>
+        /// Add gameobject to the scene
+        /// </summary>
+        /// <param name="prefab"></param>
         public virtual void Instatiate(GameObject prefab)
         {
             gamobjectsStack.Push(prefab);

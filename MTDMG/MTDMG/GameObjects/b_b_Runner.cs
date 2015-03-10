@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace MTDMG.GameObjects
 {
+    /// <summary>
+    /// Button to build a Runner
+    /// </summary>
     class b_b_Runner : Button
     {
         PlayerControler player;
@@ -25,7 +28,9 @@ namespace MTDMG.GameObjects
 
          public override void MouseClick()
          {
-             player.myBase.SpawnRunner();
+         
+                 player.myBase.SpawnRunner();
+
              base.MouseClick();
          }
 

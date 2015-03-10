@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework;
 
 namespace MTDMG.GameObjects.Guards
 {
+    /// <summary>
+    /// Searcher
+    /// </summary>
     class Searcher :Guard
     {
         public Searcher(MazeGame game, PlayerControler player)
@@ -27,17 +30,19 @@ namespace MTDMG.GameObjects.Guards
             //Gucken ist das Feld schon da?
             //Wenn ja nichts machen
             ////Wenn nein, dann hinzufügen
+               GameHelper.Graph.Vertex<CellSlot> v2 = player.playerGraph.CreateVertex(myVertex.data);
             if (!player.playerGraph.vertices.Contains(myVertex))
             {
                
-                GameHelper.Graph.Vertex<CellSlot> v2 = player.playerGraph.CreateVertex(myVertex.data);
+             
               
                 
 
 
                 player.playerGraph.AddEdge(lastVertex, v2);
-            }
 
+            }
+            lastVertex = v2;
             base.newField();
         }
 

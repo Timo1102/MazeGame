@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace GameHelper
 {
+    /// <summary>
+    /// Render class
+    /// </summary>
     public class Render : ObjectComponent
     {
 
@@ -23,7 +26,9 @@ namespace GameHelper
         
         private Color _color;
         
-
+        /// <summary>
+        /// Sets the color of the material
+        /// </summary>
         public Vector3 color
         {
             get

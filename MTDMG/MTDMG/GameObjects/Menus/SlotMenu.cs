@@ -5,6 +5,7 @@ using System.Text;
 
 namespace MTDMG.GameObjects.Menus
 {
+
     class SlotMenu
     {
     }

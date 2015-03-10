@@ -6,14 +6,32 @@ using Microsoft.Xna.Framework;
 
 namespace GameHelper
 {
+    /// <summary>
+    /// transformation calss
+    /// </summary>
    public class Transform
     {
+       /// <summary>
+       /// Position of the gameobject
+       /// </summary>
         private Vector3 position;
+       /// <summary>
+       /// Rotation of the gameobject
+       /// </summary>
         private Vector3 rotation;
+       /// <summary>
+       /// scale of the gameobject
+       /// </summary>
         private Vector3 scale;
 
+       /// <summary>
+       /// Worldmatrix
+       /// </summary>
         Matrix WorldMatrix;
 
+       /// <summary>
+       /// gets or sets the Position
+       /// </summary>
         public virtual Vector3 Position
         {
             get
@@ -27,6 +45,9 @@ namespace GameHelper
             }
         }
 
+       /// <summary>
+       /// Gets or sets the Roation
+       /// </summary>
         public virtual Vector3 Rotation
         {
             get
@@ -39,6 +60,9 @@ namespace GameHelper
                 UpdateWorldMat();
             }
         }
+       /// <summary>
+       /// Gets or Sets the scale
+       /// </summary>
         public virtual Vector3 Scale
         {
             get
@@ -52,7 +76,9 @@ namespace GameHelper
             }
 
         }
-
+       /// <summary>
+       /// Forward vector
+       /// </summary>
         public Vector3 Forward
         {
             get
@@ -61,7 +87,9 @@ namespace GameHelper
             }
             private set { }
         }
-
+       /// <summary>
+       /// Backward vector
+       /// </summary>
         public Vector3 Backward
         {
             get
@@ -72,7 +100,9 @@ namespace GameHelper
             {
             }
         }
-
+       /// <summary>
+       /// Left Vector
+       /// </summary>
         public Vector3 Left
         {
             get
@@ -80,7 +110,9 @@ namespace GameHelper
                 return WorldMatrix.Left;
             }
         }
-
+       /// <summary>
+       /// Right Vector
+       /// </summary>
         public Vector3 Right
         {
             get
@@ -88,7 +120,9 @@ namespace GameHelper
                 return WorldMatrix.Right;
             }
         }
-
+       /// <summary>
+       /// Down Vector
+       /// </summary>
         public Vector3 Down
         {
             get
@@ -96,7 +130,9 @@ namespace GameHelper
                 return WorldMatrix.Down;
             }
         }
-
+       /// <summary>
+       /// Up Vector
+       /// </summary>
         public Vector3 Up
         {
             get
@@ -112,6 +148,10 @@ namespace GameHelper
             scale = new Vector3(1.0f, 1.0f, 1.0f);
         }
 
+       /// <summary>
+       /// Get a 2D vector
+       /// </summary>
+       /// <returns></returns>
        public Vector2 ToVector2()
        {
            return new Vector2(Position.X, Position.Z);

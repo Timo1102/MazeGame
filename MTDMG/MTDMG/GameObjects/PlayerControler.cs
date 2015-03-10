@@ -27,6 +27,8 @@ namespace MTDMG.GameObjects
             CellSlotMenu.isActive = false;
         }
 
+        public List<Tower> towers = new List<Tower>();
+
         GameHelper.Graph.Graph<CellSlot> PlayerGraph;
 
         private long _id;
@@ -112,6 +114,7 @@ namespace MTDMG.GameObjects
             tower.transform.Position = pos.transform.Position;
             tower.renderer.color = myColor.ToVector3();
             tower.FindSlots();
+            towers.Add(tower);
             //((Scenes.StartScene)game.myScene).InstatiateTower(new Vector2(pos.X, pos.Z), this);
             ((Scenes.StartScene)game.myScene).Instatiate(tower);
             //game.myScene.Instatiate(tower);

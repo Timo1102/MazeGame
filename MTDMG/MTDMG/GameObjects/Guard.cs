@@ -36,7 +36,7 @@ namespace MTDMG.GameObjects
         List<CellSlot> myWay = new List<CellSlot>();
 
         List<CellSlot> wasThere = new List<CellSlot>();
-
+        GameHelper.Graph.Graph<CellSlot> newGraph;
         public Color myColor;
 
         public float speed = 50;
@@ -114,12 +114,27 @@ namespace MTDMG.GameObjects
             newField();
             return newPosition;
         }
+        public GameHelper.Graph.Vertex<GameObjects.CellSlot> GetVertex(GameHelper.Graph.Graph<CellSlot> graph, Vector2 pos)
+        {
+            foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in graph.vertices)
+            {
+                //Console.WriteLine("Vergleiche: " + _vertex.data.transform.Position.ToString() + " mit " + pos.ToString());
+                if (_vertex.data.transform.Position == new Vector3(pos.X, _vertex.data.transform.Position.Y, pos.Y))
+                {
+                    return _vertex;
+                }
+            }
+            return null;
+
+
+        }
 
 
         public GameHelper.Graph.Vertex<CellSlot> GetVertex(Vector2 pos)
         {
             return ((Scenes.StartScene)game.myScene).GetVertex(pos);
         }
+
 
         public void GetDamage(int damage)
         {
@@ -209,7 +224,7 @@ namespace MTDMG.GameObjects
             Console.WriteLine("Search Path");
             if (player.playerGraph.vertices.Count > 0)
             {
-                FindPath(player.playerGraph.vertices[new Random().Next(0, player.playerGraph.vertices.Count)].data);
+                FindPath(newGraph.vertices[new Random().Next(0, newGraph.vertices.Count)].data);
             }
             else
             {
@@ -227,6 +242,9 @@ namespace MTDMG.GameObjects
                 lTicks++;
                 nextPosition = GetPosition(lTicks);
                 Console.WriteLine("neue Position: " + nextPosition + "  l: " + lTicks);
+                
+
+
             }
             else
             {
@@ -237,18 +255,32 @@ namespace MTDMG.GameObjects
         }
 
 
-        void FindPath(CellSlot goal)
+       public void FindPath(CellSlot goal)
         {
-            if (player.playerGraph.vertices.Count > 2)
+            newGraph = new GameHelper.Graph.Graph<CellSlot>();
+            newGraph = (GameHelper.Graph.Graph<CellSlot>)player.playerGraph.Clone();
+
+            Console.WriteLine("Werde ein Path finden: " + player.playerGraph.vertices.Count + " edges: " + player.playerGraph.EdgeCount);
+            if (newGraph.vertices.Count > 2)
             {
-                Console.WriteLine("Werde ein Path finden: " + player.playerGraph.vertices.Count + " edges: " + player.playerGraph.EdgeCount);
+                
                 
                // GameHelper.Graph.Vertex<CellSlot> v1 = player.playerGraph.vertices[new Random().Next(0, player.playerGraph.vertices.Count)];
 
-                GameHelper.Graph.Vertex<CellSlot> v1 = ((Scenes.StartScene)game.myScene).GetVertex(myVertex.data.transform.ToVector2());
-                GameHelper.Graph.Vertex<CellSlot> v2 = ((Scenes.StartScene)game.myScene).GetVertex(goal.transform.ToVector2());
+                //GameHelper.Graph.Vertex<CellSlot> v1 = ((Scenes.StartScene)game.myScene).GetVertex(myVertex.data.transform.ToVector2());
+                //GameHelper.Graph.Vertex<CellSlot> v2 = ((Scenes.StartScene)game.myScene).GetVertex(goal.transform.ToVector2());
 
-                List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad = ((Scenes.StartScene)game.myScene).myGraph.Astern(v1, v2);
+                //GameHelper.Graph.Vertex<CellSlot> v1 = GetVertex(this.transform.ToVector2());
+                //GameHelper.Graph.Vertex<CellSlot> v2 = GetVertex(goal.transform.ToVector2());
+
+                GameHelper.Graph.Vertex<CellSlot> v1 = GetVertex(newGraph, this.transform.ToVector2());
+                GameHelper.Graph.Vertex<CellSlot> v2 = GetVertex(newGraph, goal.transform.ToVector2());
+
+
+
+                //List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad = ((Scenes.StartScene)game.myScene).myGraph.Astern(v1, v2);
+                List<GameHelper.Graph.Vertex<GameObjects.CellSlot>> sad = newGraph.Astern(v1,v2);
+
                 List<CellSlot> solutionWay = new List<CellSlot>();
                 foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in sad)
                 {
@@ -263,6 +295,7 @@ namespace MTDMG.GameObjects
                 sad.Clear();
                 solutionWay.Clear();
                 hasPath = true;
+                newGraph = null;
                 myState = States.Move;
             }
             else

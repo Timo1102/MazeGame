@@ -7,18 +7,35 @@ using Microsoft.Xna.Framework;
 
 namespace GameHelper
 {
+    /// <summary>
+    /// 2D render class
+    /// </summary>
    public class Render2D : Render
     {
+       /// <summary>
+       /// Set Origin of the texture
+       /// </summary>
        Vector2 myOrigin;
+       /// <summary>
+       /// The texture
+       /// </summary>
        Texture2D tx;
+       /// <summary>
+       /// a rectanble 
+       /// </summary>
        private Rectangle TitleSafe;
+
        Rectangle retval2;
+
        Vector2 pos;
        Texture2D px;
        Texture2D btn;
 
        public Rectangle Offset;
 
+       /// <summary>
+       /// posiiblie origins
+       /// </summary>
        public enum Origin
        {
            TopLeft,
@@ -31,6 +48,9 @@ namespace GameHelper
        }
        Origin origin;
 
+       /// <summary>
+       /// Set origin
+       /// </summary>
        public Origin SetOrigin
        {
            get
@@ -44,6 +64,9 @@ namespace GameHelper
            }
        }
 
+       /// <summary>
+       /// Sets or gets the texture
+       /// </summary>
        public Texture2D Texture
        {
            get
@@ -79,6 +102,12 @@ namespace GameHelper
             
              
          }
+
+       /// <summary>
+       /// Calculate the origin
+       /// </summary>
+       /// <param name="or"></param>
+       /// <returns></returns>
         public Vector2 GetOrigin(Origin or)
         {
             pos = new Vector2(gameObj.transform.Position.X, gameObj.transform.Position.Y);
@@ -108,7 +137,10 @@ namespace GameHelper
             return myOrigin;
         }
 
-
+       /// <summary>
+       /// Draw the gameobject
+       /// </summary>
+       /// <param name="gameTime"></param>
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
 
@@ -141,7 +173,7 @@ namespace GameHelper
             base.Draw(gameTime);
         }
 
-
+      
         protected Rectangle GetTitleSafeArea(float percent)
         {
 

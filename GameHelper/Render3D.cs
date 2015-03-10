@@ -7,19 +7,36 @@ using Microsoft.Xna.Framework;
 
 namespace GameHelper
 {
+    /// <summary>
+    /// 3D render class
+    /// </summary>
     public class Render3D : Render
     {
+        /// <summary>
+        /// 3d model
+        /// </summary>
         public Model model;
+        /// <summary>
+        /// all meshes in the 3d model
+        /// </summary>
         public List<ModelMesh> myMeshes = new List<ModelMesh>();
 
+
         public ModelMesh mesh;
+        /// <summary>
+        /// Material effect of the model
+        /// </summary>
         public Effect meshEffect;
         BasicEffect effect;
 
+        /// <summary>
+        /// All transformations 
+        /// </summary>
         Matrix[] transforms;
 
         public Render3D(GameObject gameobj, string name) : base(gameobj, name)
         {
+            
             LoadModel(name);
            
             //t2D = new Texture2D(gameObj.game.GraphicsDevice, 1, 1);
@@ -61,6 +78,11 @@ namespace GameHelper
             myMeshes.Add(model.Meshes[_number]);
         }
 
+        /// <summary>
+        /// Sets the effect of the model e.g. Color, light
+        /// </summary>
+        /// <param name="camera"></param>
+        /// <param name="_mesh"></param>
         public virtual void SetEffects(Camera camera, ModelMesh _mesh)
         {
             
@@ -82,7 +104,11 @@ namespace GameHelper
             
         }
 
-
+        /// <summary>
+        /// Change the color
+        /// </summary>
+        /// <param name="_color"></param>
+        /// <param name="_mesh"></param>
         public void ChangeColor(Color _color, ModelMesh _mesh)
         {
             foreach (BasicEffect _effect in _mesh.Effects)
@@ -92,7 +118,10 @@ namespace GameHelper
             }
 
         }
-
+        /// <summary>
+        /// Draw the object in the scene
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
             gameObj.game.spriteBatch.Begin();

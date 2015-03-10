@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace GameHelper
 {
+    /// <summary>
+    /// Config file
+    /// </summary>
     public static class Config
     {
 
@@ -61,5 +64,10 @@ namespace GameHelper
 
         public static int TowerMaxLevel = 3;
 
+
+
+        public static bool AStarIsFinish = true;
+
+        public static int BaseHealth = 20;
     }
 }

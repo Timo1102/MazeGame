@@ -15,6 +15,7 @@ namespace MTDMG.GameObjects
         {
             renderer = new Render2D(this, "Textures/test", Render2D.Origin.Center);
             //CanClick = true;
+            this.player = player;
 
         }
 
@@ -28,9 +29,30 @@ namespace MTDMG.GameObjects
             
         }
 
+
+
+
         public virtual void Close()
         {
             this.isActive = false;
+            if (btn1 != null)
+            {
+                btn1.isActive = false;
+            }
+            if (btn2 != null)
+            {
+                btn2.isActive = false;
+            }
+            if (btn3 != null)
+            {
+                btn3.isActive = false;
+            }
+            if (btn4 != null)
+            {
+                btn4.isActive = false;
+            }
+
+
         }
         public void SetButtons()
         {
@@ -68,6 +90,13 @@ namespace MTDMG.GameObjects
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.Update(gameTime);
+            if (isActive && this != null && player != null)
+            {
+                if (Microsoft.Xna.Framework.Input.Keyboard.GetState().IsKeyUp(player.myKey))
+                {
+                    Close();
+                }
+            }
         }
 
         public Button btn1;

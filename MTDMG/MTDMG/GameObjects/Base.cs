@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MTDMG.GameObjects
 {
+    /// <summary>
+    /// Players Base
+    /// </summary>
    public class Base : GameObject
     {
 
@@ -18,9 +21,13 @@ namespace MTDMG.GameObjects
         bool isSpwaned = false;
        public CellSlot myCell;
         GameObjects.Guard guard;
+        public int Health;
+       //GuardColor
         public Color guardColor;
         MazeGame game;
 
+
+        //Guard types
         GameObjects.Guards.Runner Runner;
         GameObjects.Guards.Searcher Searcher;
         GameObjects.Guards.Destroyer Destroyer;
@@ -32,6 +39,7 @@ namespace MTDMG.GameObjects
             renderer = new Render3D(this, "Cube");
             transform.Scale = new Vector3(0.1f, 0.1f, 0.1f);
             renderer.color = player.myColor.ToVector3();
+            Health = Config.BaseHealth;
         }
 
         public override void Tick(object sender, EventArgs e)
@@ -48,7 +56,20 @@ namespace MTDMG.GameObjects
 
             base.Tick(sender, e);
         }
+        public void GetDamage()
+        {
+            Health--;
+            if (Health <= 0)
+            {
+                Dead(); 
+            }
+        }
 
+        public void Dead()
+        {
+            Console.WriteLine("Spieler ist tot");
+            Destroy(this);
+        }
 
         public override void Update(GameTime gameTime)
         {
@@ -62,32 +83,56 @@ namespace MTDMG.GameObjects
 
         public void SpawnTarget(CellSlot Goal)
         {
-            SpawnSearcher();
+            
            
         }
 
         public void SpawnSearcher()
         {
-            Searcher = new Guards.Searcher(game, player);
-            Searcher.transform.Position = this.transform.Position;
-            game.myScene.Instatiate(Searcher);
-            Searcher.renderer.color = guardColor.ToVector3();
+            if (player.RessourceCoins > Config.GuardCostSpion)
+            {
+
+                if (Config.AStarIsFinish)
+                {
+                    Searcher = new Guards.Searcher(game, player);
+                    Searcher.transform.Position = this.transform.Position;
+                    game.myScene.Instatiate(Searcher);
+                    Searcher.renderer.color = guardColor.ToVector3();
+                    player.RessourceCoins -= Config.GuardCostSpion;
+                }
+            }
         }
 
 
         public void SpawnRunner()
         {
-            Runner = new Guards.Runner(game, player);
-            Runner.transform.Position = this.transform.Position;
-            game.myScene.Instatiate(Runner);
-            Runner.renderer.color = guardColor.ToVector3();
+            if (player.RessourceCoins > Config.GuardCostRunner)
+            {
+
+                if (Config.AStarIsFinish)
+                {
+                    Runner = new Guards.Runner(game, player);
+                    Runner.transform.Position = this.transform.Position;
+                    game.myScene.Instatiate(Runner);
+                    Runner.renderer.color = guardColor.ToVector3();
+                    player.RessourceCoins -= Config.GuardCostRunner;
+                }
+            }
         }
         public void SpawnDestroyer()
         {
-            Destroyer = new Guards.Destroyer(game, player);
-            Destroyer.transform.Position = this.transform.Position;
-            game.myScene.Instatiate(Destroyer);
-            Destroyer.renderer.color = guardColor.ToVector3();
+            if (player.RessourceCoins > Config.GuardCostDestroyer)
+            {
+                if (Config.AStarIsFinish)
+                {
+                    Console.WriteLine("asdasdasd");
+                    Destroyer = new Guards.Destroyer(game, player);
+                    Destroyer.transform.Position = this.transform.Position;
+                    game.myScene.Instatiate(Destroyer);
+                    Destroyer.renderer.color = guardColor.ToVector3();
+                    player.RessourceCoins -= Config.GuardCostDestroyer;
+                }
+            }
         }
 
         public List<CellSlot> GetWay(CellSlot Goal)
@@ -122,7 +167,7 @@ namespace MTDMG.GameObjects
 
         public override void MouseClick()
         {
-            if (((Scenes.StartScene)game.myScene).GetPlayerController() != null)
+            if (((Scenes.StartScene)game.myScene).GetPlayerController() != null && ((Scenes.StartScene)game.myScene).GetPlayerController() == player)
                 ((Scenes.StartScene)game.myScene).GetPlayerController().OpenBaseMenu();
         }
             

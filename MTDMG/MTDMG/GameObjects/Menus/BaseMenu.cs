@@ -5,6 +5,9 @@ using System.Text;
 
 namespace MTDMG.GameObjects.Menus
 {
+    /// <summary>
+    /// Menu of the Player Base
+    /// </summary>
   public  class BaseMenu : Menu
     {
         public BaseMenu(MazeGame game, PlayerControler player)

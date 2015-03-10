@@ -15,6 +15,9 @@ using MazeGenerator;
 
 namespace MTDMG.Scenes
 {
+    /// <summary>
+    /// StartSzene
+    /// </summary>
    public class StartScene : scene
     {
 
@@ -71,7 +74,11 @@ namespace MTDMG.Scenes
 
           
         }
-
+       /// <summary>
+       /// Get Opposit Player
+       /// </summary>
+       /// <param name="myPlayer"></param>
+       /// <returns>The opposit</returns>
         public GameObjects.PlayerControler GetOpposit(GameObjects.PlayerControler myPlayer)
         {
             if (myPlayer == player1)
@@ -85,7 +92,10 @@ namespace MTDMG.Scenes
 
         }
 
-
+       /// <summary>
+       /// Returns the PlayerController
+       /// </summary>
+       /// <returns></returns>
         public GameObjects.PlayerControler GetPlayerController()
         {
             if (Keyboard.GetState().IsKeyDown(player1.myKey))
@@ -99,7 +109,11 @@ namespace MTDMG.Scenes
 
             return null;
         }
-
+       /// <summary>
+       /// Gets the player by tag ID
+       /// </summary>
+       /// <param name="id"></param>
+       /// <returns>The Player</returns>
         public GameObjects.PlayerControler GetPlayerController(long id)
         {
             if (player1.ID == id)
@@ -139,6 +153,9 @@ namespace MTDMG.Scenes
             }
 
         }
+       /// <summary>
+       /// Reset the CellSlot Color
+       /// </summary>
         public void ResetCellSlotColor()
         {
             foreach (GameHelper.Graph.Vertex<GameObjects.CellSlot> _vertex in myGraph.vertices)
@@ -153,7 +170,9 @@ namespace MTDMG.Scenes
         }
 
 
-
+       /// <summary>
+       /// Gets the Maze Data and Create the Maze Walls
+       /// </summary>
         public void GenerateMaze()
 {
             for (int i = 1; i <= (this.x -2) * 2; i += 2)
@@ -210,7 +229,9 @@ namespace MTDMG.Scenes
             CreateEdges();
            
         }
-
+       /// <summary>
+       /// Create Edges for the Graph
+       /// </summary>
         void CreateEdges()
         {
            
@@ -258,7 +279,11 @@ namespace MTDMG.Scenes
 
 
         }
-
+       /// <summary>
+       /// Create a slot for the Walls slots
+       /// </summary>
+       /// <param name="X"></param>
+       /// <param name="Y"></param>
        public void SetSlotCell(float X, float Y)
         {
 
@@ -274,7 +299,11 @@ namespace MTDMG.Scenes
             
         }
        
-
+       /// <summary>
+       /// Creates the Slot for the way cells
+       /// </summary>
+       /// <param name="X"></param>
+       /// <param name="Y"></param>
         void SetSlot(float X, float Y)
         {
             slot = new GameObjects.Slot(_game);
@@ -289,7 +318,11 @@ namespace MTDMG.Scenes
             
         }
 
-        
+       /// <summary>
+       /// Instatiate a GameObject
+       /// </summary>
+       /// <param name="prefab"></param>
+ 
         public override void Instatiate(GameObject prefab)
         {
             if (prefab != null)
